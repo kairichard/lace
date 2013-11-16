@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 KOON_INSTALL_DIR = '/usr/local/koon'
+KOON_BIN_DIR = '/usr/local/bin'
 
 module Tty extend self
   def blue; bold 34; end
@@ -115,7 +116,9 @@ Dir.chdir KOON_INSTALL_DIR do
     curl_flags = "fsSL"
     system "/bin/bash -o pipefail -c '/usr/bin/curl -#{curl_flags} https://github.com/kairichard/koon/tarball/master | /usr/bin/tar xz -m --strip 1'"
   end
+  system 'ln' , '-s' , File.join(KOON_INSTALL_DIR,'bin','koon'), File.join(KOON_BIN_DIR, 'koon')
 end
+warn "#{KOON_BIN_DIR} is not in your PATH." unless ENV['PATH'].split(':').include? "#{KOON_BIN_DIR}"
 
 if macos_version < "10.9" and macos_version > "10.6"
   `/usr/bin/cc --version 2> /dev/null` =~ %r[clang-(\d{2,})]
