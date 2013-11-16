@@ -86,6 +86,12 @@ end
 Dir.chdir "/usr"
 
 ####################################################################### script
+abort <<-EOABORT unless Dir["#{KOON_INSTALL_DIR}/.git/*"].empty?
+It appears Koon is already installed. If your intent is to reinstall you
+should do the following before running this installer again:
+    rm -rf #{KOON_INSTALL_DIR}
+EOABORT
+
 abort "Don't run this as root!" if Process.uid == 0
 if macos_version > "10.8"
   unless File.exist? "/Library/Developer/CommandLineTools/usr/bin/clang"
