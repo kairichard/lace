@@ -19,7 +19,7 @@ KOON_SYSTEM=$(uname -s | tr "[:upper:]" "[:lower:]")
 /usr/bin/env
 if [ "$KOON_SYSTEM" = "darwin" ]
 then
-	echo "$KOON_LIBRARY_DIRECTORY/koon.rb" "$@"
+	exec "$KOON_LIBRARY_DIRECTORY/koon.rb" "$@"
 else
 	exec ruby -W0 "$KOON_LIBRARY_DIRECTORY/brew.rb" "$@"
 fi
