@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 KOON_INSTALL_DIR = '/usr/local/koon'
 KOON_BIN_DIR = '/usr/local/bin'
+CURRENT_DIR = File.dirname File.expand_path __FILE__
 
 module Tty extend self
   def blue; bold 34; end
@@ -107,14 +108,18 @@ Dir.mkdir KOON_INSTALL_DIR if not File.directory? KOON_INSTALL_DIR
 Dir.chdir KOON_INSTALL_DIR do
   if git
     # we do it in four steps to avoid merge errors when reinstalling
-    system git, "init", "-q"
-    system git, "remote", "add", "origin", "https://github.com/kairichard/koon"
+    if ARGV.include? "--localinstall"
+      system git, "clone", CURRENT_DIR, "."
+    else
+      system git, "init", "-q"
+      system git, "remote", "add", "origin", "https://github.com/kairichard/koon"
 
-    args = git, "fetch", "origin", "master:refs/remotes/origin/master", "-n"
-    args << "--depth=1" if ARGV.include? "--fast"
-    system *args
+      args = git, "fetch", "origin", "master:refs/remotes/origin/master", "-n"
+      args << "--depth=1" if ARGV.include? "--fast"
+      system *args
 
-    system git, "reset", "--hard", "origin/master"
+      system git, "reset", "--hard", "origin/master"
+    end
   else
     # -m to stop tar erroring out if it can't modify the mtime for root owned directories
     # pipefail to cause the exit status from curl to propogate if it fails
