@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-KOON_INSTALL_DIR = '/usr/local/koon'
+KOON_INSTALL_DIR = '/usr/local/dotkoon'
 KOON_BIN_DIR = '/usr/local/bin'
 CURRENT_DIR = File.dirname File.expand_path __FILE__
 
@@ -62,10 +62,6 @@ def wait_for_user
   abort unless c == 13 or c == 10
 end
 
-def macos_version
-  @macos_version ||= `/usr/bin/sw_vers -productVersion`.chomp[/10\.\d+/]
-end
-
 def git
   @git ||= if ENV['GIT'] and File.executable? ENV['GIT']
     ENV['GIT']
@@ -90,53 +86,28 @@ Dir.chdir "/usr"
 abort <<-EOABORT unless Dir["#{KOON_INSTALL_DIR}/.git/*"].empty?
 It appears Koon is already installed. If your intent is to reinstall you
 should do the following before running this installer again:
-    rm -rf #{KOON_INSTALL_DIR}
+    rm -rf #{KOON_INSTALL_DIR}; rm -f #{File.join(KOON_BIN_DIR, 'dotkoon')}
 EOABORT
 
 abort "Don't run this as root!" if Process.uid == 0
-if macos_version > "10.8"
-  unless File.exist? "/Library/Developer/CommandLineTools/usr/bin/clang"
-    ohai "Installing the Command Line Tools (expect a GUI popup):"
-    sudo "/usr/bin/xcode-select", "--install"
-    puts "Press any key when the installation has completed."
-    getc
-  end
-end
 
 ohai "Downloading and installing koon..."
-Dir.mkdir KOON_INSTALL_DIR if not File.directory? KOON_INSTALL_DIR
+sudo("mkdir", "-p", KOON_INSTALL_DIR) if not File.directory? KOON_INSTALL_DIR
 Dir.chdir KOON_INSTALL_DIR do
-  if git
     # we do it in four steps to avoid merge errors when reinstalling
     if ARGV.include? "--localinstall"
-      system git, "clone", CURRENT_DIR, "."
+      sudo git, "clone", CURRENT_DIR, "."
     else
-      system git, "init", "-q"
-      system git, "remote", "add", "origin", "https://github.com/kairichard/koon"
+      sudo git, "init", "-q"
+      sudo git, "remote", "add", "origin", "https://github.com/kairichard/koon"
 
       args = git, "fetch", "origin", "master:refs/remotes/origin/master", "-n"
       args << "--depth=1" if ARGV.include? "--fast"
-      system *args
+      sudo *args
 
-      system git, "reset", "--hard", "origin/master"
+      sudo git, "reset", "--hard", "origin/master"
     end
-  else
-    # -m to stop tar erroring out if it can't modify the mtime for root owned directories
-    # pipefail to cause the exit status from curl to propogate if it fails
-    # we use -k for curl because Leopard has a bunch of bad SSL certificates
-    curl_flags = "fsSL"
-    system "/bin/bash -o pipefail -c '/usr/bin/curl -#{curl_flags} https://github.com/kairichard/koon/tarball/master | /usr/bin/tar xz -m --strip 1'"
-  end
-  system 'ln' , '-s' , File.join(KOON_INSTALL_DIR,'bin','koon'), File.join(KOON_BIN_DIR, 'koon')
+  sudo 'ln' , '-s' , File.join(KOON_INSTALL_DIR,'bin','dotkoon'), File.join(KOON_BIN_DIR, 'dotkoon')
 end
 warn "#{KOON_BIN_DIR} is not in your PATH." unless ENV['PATH'].split(':').include? "#{KOON_BIN_DIR}"
-
-if macos_version < "10.9" and macos_version > "10.6"
-  `/usr/bin/cc --version 2> /dev/null` =~ %r[clang-(\d{2,})]
-  version = $1.to_i
-  warn %{Install the "Command Line Tools for Xcode": https://developer.apple.com/downloads/} if version < 425
-else
-  warn "Now install Xcode: https://developer.apple.com/xcode/" unless File.exist? "/usr/bin/cc"
-end
-
 ohai "Installation successful!"
