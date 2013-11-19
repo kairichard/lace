@@ -3,19 +3,28 @@ class AbstractDownloadStrategy
 
   def initialize url
     @url  = url
+    @clone = KOON_DOTTIES/name
   end
 
   # All download strategies are expected to implement these methods
   def fetch; end
   def stage; end
+  def name; end
 end
 
 class GitDownloadStrategy < AbstractDownloadStrategy
   def fetch
-    ohai "Cloning #@url"
+    ohai "Cloning #@url as #{name}"
     clone_repo
   end
 
+  def name
+    if @url.include? "github.com"
+	@url.split("/")[-2]
+    else 
+      raise "Cannot determine a proper name with #@url"
+    end
+  end
   def stage
   end
 
