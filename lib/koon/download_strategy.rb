@@ -14,8 +14,22 @@ end
 
 class GitDownloadStrategy < AbstractDownloadStrategy
   def fetch
-    ohai "Cloning #@url as #{name}"
-    clone_repo
+    ohai "Cloning #@url"
+
+    if @clone.exist? && repo_valid?
+      puts "Updating #@clone"
+      @clone.cd do
+        update_repo
+        reset
+        update_submodules if submodules?
+      end
+    elsif @clone.exist?
+      puts "Removing invalid .git repo from cache"
+      FileUtils.rm_rf @clone
+      clone_repo
+    else
+      clone_repo
+    end
   end
 
   def name
@@ -25,10 +39,15 @@ class GitDownloadStrategy < AbstractDownloadStrategy
       raise "Cannot determine a proper name with #@url"
     end
   end
-  def stage
-  end
 
   private
+  def update_repo
+    quiet_system 'git', 'fetch', 'origin'
+  end
+
+  def reset
+    quiet_system 'git', "reset" , "--hard", "origin/HEAD"
+  end
 
   def git_dir
     @clone.join(".git")
