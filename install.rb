@@ -2,6 +2,7 @@
 KOON_INSTALL_DIR = '/usr/local/dotkoon'
 KOON_BIN_DIR = '/usr/local/bin'
 CURRENT_DIR = File.dirname File.expand_path __FILE__
+DOTTIES_DIR = File.join(ENV["HOME"], "dotkoon")
 
 module Tty extend self
   def blue; bold 34; end
@@ -86,7 +87,7 @@ Dir.chdir "/usr"
 abort <<-EOABORT unless Dir["#{KOON_INSTALL_DIR}/.git/*"].empty?
 It appears Koon is already installed. If your intent is to reinstall you
 should do the following before running this installer again:
-    rm -rf #{KOON_INSTALL_DIR}; rm -f #{File.join(KOON_BIN_DIR, 'dotkoon')}
+    sudo rm -rf #{KOON_INSTALL_DIR}; sudo rm -f #{File.join(KOON_BIN_DIR, 'dotkoon')}
 EOABORT
 
 abort "Don't run this as root!" if Process.uid == 0
@@ -109,5 +110,7 @@ Dir.chdir KOON_INSTALL_DIR do
     end
   sudo 'ln' , '-s' , File.join(KOON_INSTALL_DIR,'bin','dotkoon'), File.join(KOON_BIN_DIR, 'dotkoon')
 end
+ohai "Creating dotkoon directory in your HOME, because thats where we will store all available dotfiles for you"
+Dir.mkdir DOTTIES_DIR
 warn "#{KOON_BIN_DIR} is not in your PATH." unless ENV['PATH'].split(':').include? "#{KOON_BIN_DIR}"
 ohai "Installation successful!"
