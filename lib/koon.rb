@@ -10,6 +10,9 @@ $:.unshift(KOON_LIB_PATH + "/vendor")
 require "koon/utils"
 require "koon/exceptions"
 require "extend/ARGV"
+require "extend/pathname"
+
+KOON_DOTTIES = Pathname.new(ENV["HOME"]).join("dotkoon")
 
 module Koon extend self
   attr_accessor :failed
@@ -36,10 +39,17 @@ end
 begin
 
   trap("INT", std_trap) # restore default CTRL-C handler
-  cmd = ARGV.shift
   if Process.uid.zero?
     raise "Refusing to run as sudo"
   end
+  aliases = {'ls' => 'list',
+             'rm' => 'uninstall',
+             'remove' => 'uninstall',
+             'configure' => 'diy',
+             }
+
+  cmd = ARGV.shift
+  cmd = aliases[cmd] if aliases[cmd]
 
   if require "cmd/" + cmd
     Koon.send cmd.to_s.gsub('-', '_').downcase
