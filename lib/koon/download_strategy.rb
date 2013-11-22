@@ -1,3 +1,5 @@
+require "fileutils"
+
 class AbstractDownloadStrategy
   attr_reader :name, :resource
 
@@ -12,6 +14,22 @@ class AbstractDownloadStrategy
   def name; end
 end
 
+class LocalFileStrategy < AbstractDownloadStrategy
+  def fetch
+    ohai "Installing form local file #@url"
+    if @clone.exist?
+			ohai "Removing already installed dottie #@clone"
+			FileUtils.rm_rf @clone
+		else
+			ohai "Installing #@url into #@clone"
+			FileUtils.cp_r @url, @clone
+	  end
+  end
+  def name
+		File.basename @url
+  end
+end
+
 class GitDownloadStrategy < AbstractDownloadStrategy
   def fetch
     ohai "Cloning #@url"
@@ -24,7 +42,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
         update_submodules if submodules?
       end
     elsif @clone.exist?
-      puts "Removing invalid .git repo from cache"
+      puts "Removing invalid .git repo"
       FileUtils.rm_rf @clone
       clone_repo
     else
@@ -90,6 +108,7 @@ class DownloadStrategyDetector
   end
 
   def self.detect_from_url(url)
+    if File.directory? url  then return LocalFileStrategy end
     case url
     when %r[^git://] then GitDownloadStrategy
     when %r[^https?://.+\.git$] then GitDownloadStrategy
@@ -102,6 +121,7 @@ class DownloadStrategyDetector
   def self.detect_from_symbol(symbol)
     case symbol
     when :git then GitDownloadStrategy
+    when :local_file then LocalFileStrategy
     #when :curl then CurlDownloadStrategy
     else
       raise "Unknown download strategy #{strategy} was requested."
