@@ -5,7 +5,7 @@ class AbstractDownloadStrategy
 
   def initialize url
     @url  = url
-    @clone = KOON_DOTTIES/name
+    @target_folder = KOON_DOTTIES/name
   end
 
   # All download strategies are expected to implement these methods
@@ -16,13 +16,13 @@ end
 
 class LocalFileStrategy < AbstractDownloadStrategy
   def fetch
-    if @clone.exist?
-			ohai "Removing already installed dottie #@clone"
-			FileUtils.rm_rf @clone
+    if @target_folder.exist?
+			ohai "Removing already installed dottie #@target_folder"
+			FileUtils.rm_rf @target_folder
 	  end
-		ohai "Installing #@url into #@clone"
-		FileUtils.cp_r @url, @clone
-		@clone
+		ohai "Installing #@url into #@target_folder"
+		FileUtils.cp_r @url, @target_folder
+		@target_folder
   end
 
   def name
@@ -34,21 +34,21 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   def fetch
     ohai "Cloning #@url"
 
-    if @clone.exist? && repo_valid?
-      puts "Updating #@clone"
-      @clone.cd do
+    if @target_folder.exist? && repo_valid?
+      puts "Updating #@target_folder"
+      @target_folder.cd do
         update_repo
         reset
         update_submodules if submodules?
       end
-    elsif @clone.exist?
+    elsif @target_folder.exist?
       puts "Removing invalid .git repo"
-      FileUtils.rm_rf @clone
+      FileUtils.rm_rf @target_folder
       clone_repo
     else
       clone_repo
     end
-		@clone
+		@target_folder
   end
 
   def name
@@ -69,7 +69,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def git_dir
-    @clone.join(".git")
+    @target_folder.join(".git")
   end
 
   def repo_valid?
@@ -77,17 +77,17 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def submodules?
-    @clone.join(".gitmodules").exist?
+    @target_folder.join(".gitmodules").exist?
   end
 
   def clone_args
     args = %w{clone}
-    args << @url << @clone
+    args << @url << @target_folder
   end
 
   def clone_repo
     safe_system 'git', *clone_args
-    @clone.cd { update_submodules } if submodules?
+    @target_folder.cd { update_submodules } if submodules?
   end
 
   def update_submodules
