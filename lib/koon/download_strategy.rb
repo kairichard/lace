@@ -16,15 +16,15 @@ end
 
 class LocalFileStrategy < AbstractDownloadStrategy
   def fetch
-    ohai "Installing form local file #@url"
     if @clone.exist?
 			ohai "Removing already installed dottie #@clone"
 			FileUtils.rm_rf @clone
-		else
-			ohai "Installing #@url into #@clone"
-			FileUtils.cp_r @url, @clone
 	  end
+		ohai "Installing #@url into #@clone"
+		FileUtils.cp_r @url, @clone
+		@clone
   end
+
   def name
 		File.basename @url
   end
@@ -48,6 +48,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
     else
       clone_repo
     end
+		@clone
   end
 
   def name
@@ -122,7 +123,6 @@ class DownloadStrategyDetector
     case symbol
     when :git then GitDownloadStrategy
     when :local_file then LocalFileStrategy
-    #when :curl then CurlDownloadStrategy
     else
       raise "Unknown download strategy #{strategy} was requested."
     end
