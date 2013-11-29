@@ -1,10 +1,10 @@
 require "fileutils"
 
 class AbstractDownloadStrategy
-  attr_reader :name, :resource
+  attr_reader :name, :resource, :target_folder
 
   def initialize url
-    @url  = url
+    @url = url
     @target_folder = KOON_DOTTIES/name
   end
 
