@@ -24,8 +24,12 @@ class Dotty
 			@facts["post_install"]
 		end
 		
+		def dependencies
+			@facts["dependencies"] || []
+		end
+		
 		def has_unsatisfied_depnedencies?
-			dependecies.map do |dep|
+			dependencies.map do |dep|
 				SimplePacketManagerWrapper.present? dep
 			end.one?{|d| d == false }
 		end
@@ -33,7 +37,6 @@ class Dotty
 
   def initialize url=nil, &block
     @url = url
-    #instance_eval(&block) if block_given?
   end
 
   def downloader
@@ -45,6 +48,9 @@ class Dotty
   end
 
   def install(target=nil)
+		if is_already_installed? and is_currently_in_use?
+			uninstall
+		end
 		location = downloader.fetch
     facts = gather_facts_from location
 		if facts.has_unsatisfied_depnedencies?
@@ -55,6 +61,20 @@ class Dotty
 			safe_system cmd
 		end
   end
+	
+	def is_already_installed?
+		downloader.target_folder.exist?
+	end
+
+	def is_currently_in_use?
+		home_dir = ENV["HOME"]
+		installed_dotties = Dir.foreach(home_dir).map do |filename|
+			File.readlink File.join(home_dir, filename) if File.symlink? File.join(home_dir, filename) 
+		end.compact.uniq.map do |path|
+			File.dirname(path)
+		end.uniq
+		installed_dotties.length == 1
+	end
 
 	def gather_facts_from location
 			Dotty::Facts.new location
