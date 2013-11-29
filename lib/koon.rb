@@ -43,8 +43,7 @@ begin
     raise "Refusing to run as sudo"
   end
   aliases = {'ls' => 'list',
-             'rm' => 'uninstall',
-             'remove' => 'uninstall',
+             'rm' => 'remove',
              'configure' => 'diy',
              }
 
