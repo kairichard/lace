@@ -21,7 +21,7 @@ class Dotty
 		end		
 	
 		def post_install_commands	
-			@facts["post_install"]
+			@facts["post_install"] || []
 		end
 		
 		def dependencies
@@ -48,39 +48,45 @@ class Dotty
   end
 
   def install(target=nil)
-		if is_already_installed? and is_currently_in_use?
-			uninstall
+		if is_installed? and is_active?
+			deactivate!
 		end
-		location = downloader.fetch
-    facts = gather_facts_from location
-		if facts.has_unsatisfied_depnedencies?
+		downloader.fetch
+		read_facts!	
+		if @facts.has_unsatisfied_depnedencies?
 			SimplePacketManagerWrapper.install facts.dependencies
 		end
-		link_into_home facts.config_files
-		facts.post_install_commands.each do |cmd|
+		@facts.post_install_commands.each do |cmd|
 			safe_system cmd
 		end
+		activate!
   end
 	
-	def is_already_installed?
+	def is_installed?
 		downloader.target_folder.exist?
 	end
 
-	def is_currently_in_use?
+	def is_active?
+		# move parts of this into the koon lib itself
 		home_dir = ENV["HOME"]
 		installed_dotties = Dir.foreach(home_dir).map do |filename|
 			File.readlink File.join(home_dir, filename) if File.symlink? File.join(home_dir, filename) 
 		end.compact.uniq.map do |path|
 			File.dirname(path)
 		end.uniq
-		installed_dotties.length == 1
+		if installed_dotties.length == 1
+			installed_dotties[0] == downloader.target_folder
+		else
+			raise Exception "there a more than one active dotty - which is not supported ATM"
+		end	
 	end
 
-	def gather_facts_from location
-			Dotty::Facts.new location
+	def read_facts!
+			@facts = Dotty::Facts.new downloader.target_folder 
 	end	
 
-	def link_into_home files
+	def activate!
+		files = @facts.config_files
 		home_dir = ENV["HOME"]
 		files.each do |file|
 			# if ends in erb -> generate it
