@@ -1,4 +1,5 @@
 require 'koon/download_strategy'
+require 'koon/os/simple_packet_manager'
 require 'yaml'
 
 class Dotty
@@ -21,7 +22,7 @@ class Dotty
 		end		
 	
 		def post_install_commands	
-			@facts["post_install"] || []
+			@facts["postinstall"] || []
 		end
 		
 		def dependencies
@@ -48,18 +49,19 @@ class Dotty
   end
 
   def install(target=nil)
+		# when we do have broken facts this fails
 		read_facts!	
 		if is_installed? and is_active?
 			deactivate!
 		end
-		downloader.fetch
 		if @facts.has_unsatisfied_depnedencies?
-			SimplePacketManagerWrapper.install facts.dependencies
+			SimplePacketManagerWrapper.install @facts.dependencies
 		end
+		downloader.fetch
+		activate!
 		@facts.post_install_commands.each do |cmd|
 			safe_system cmd
 		end
-		activate!
   end
 	
 	def is_installed?
@@ -76,8 +78,10 @@ class Dotty
 		end.uniq
 		if installed_dotties.length == 1
 			installed_dotties[0] == downloader.target_folder
+		elsif installed_dotties.length == 0
+			false
 		else
-			raise Exception "there a more than one active dotty - which is not supported ATM"
+			raise "there a more than one active dotty - which is not supported ATM"
 		end	
 	end
 
