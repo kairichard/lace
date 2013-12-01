@@ -48,11 +48,11 @@ class Dotty
   end
 
   def install(target=nil)
+		read_facts!	
 		if is_installed? and is_active?
 			deactivate!
 		end
 		downloader.fetch
-		read_facts!	
 		if @facts.has_unsatisfied_depnedencies?
 			SimplePacketManagerWrapper.install facts.dependencies
 		end
@@ -72,7 +72,7 @@ class Dotty
 		installed_dotties = Dir.foreach(home_dir).map do |filename|
 			File.readlink File.join(home_dir, filename) if File.symlink? File.join(home_dir, filename) 
 		end.compact.uniq.map do |path|
-			File.dirname(path)
+			Pathname.new File.dirname(path)
 		end.uniq
 		if installed_dotties.length == 1
 			installed_dotties[0] == downloader.target_folder
@@ -84,8 +84,18 @@ class Dotty
 	def read_facts!
 			@facts = Dotty::Facts.new downloader.target_folder 
 	end	
+	def deactivate!
+		ohai "Deactivting"
+		files = @facts.config_files
+		home_dir = ENV["HOME"]
+		files.each do |file|
+			pn = Pathname.new file
+			FileUtils.rm_f File.join(home_dir, "." + pn.basename)
+		end
+	end
 
 	def activate!
+		ohai "Activting"
 		files = @facts.config_files
 		home_dir = ENV["HOME"]
 		files.each do |file|
