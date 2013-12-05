@@ -65,6 +65,14 @@ def odie error
   exit 1
 end
 
+def determine_os
+  case RUBY_PLATFORM
+    when /darwin/ then :mac
+    when /linux/ then :linux
+    else raise InvalidOSError
+  end
+end
+
 module Koon extend self
   def system cmd, *args
     puts "#{cmd} #{args*' '}" if ARGV.verbose?
