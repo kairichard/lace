@@ -85,15 +85,15 @@ class Dotty
     elsif installed_dotties.length == 0
       false
     else
-      raise "there a more than one active dotty - which is not supported ATM"
+      raise "there are more than one active dotty - which is not supported ATM"
     end
   end
 
   def read_facts!
     @facts = Facts.new downloader.target_folder
     if @facts.has_flavors?
-      raise RuntimeError.new "Dotty comes with flavors pls specify as last arg" if @positional_args_from_cli.nil?
-      @facts.flavor! @positional_args_from_cli.shift
+      raise RuntimeError.new "Dotty comes with flavors pls specify as last arg" if @positional_args_from_cli.nil? || @positional_args_from_cli.empty?
+      @facts.flavor! @positional_args_from_cli[-1]
     end
   end
 

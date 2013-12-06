@@ -1,5 +1,5 @@
 HELP = <<-EOS
-Merly a test
+Here should be a big help message
 EOS
 module Koon extend self
   def help
