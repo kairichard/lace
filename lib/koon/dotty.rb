@@ -18,11 +18,16 @@ class Facts
   end
 
   def has_flavors?
-    !@facts["flavors"].nil?
+    !@_facts["flavors"].nil?
+  end
+
+  def flavors
+    @_facts["flavors"].keys
   end
 
   def flavor! which_flavor
-    @facts = @_facts[which_flavor]
+    raise RuntimeError.new "#{which_flavor} is not among #{flavors}" if !flavors.include? which_flavor
+    @facts = @_facts["flavors"][which_flavor]
   end
 
   def post hook_point
@@ -85,14 +90,14 @@ class Dotty
     elsif installed_dotties.length == 0
       false
     else
-      raise "there are more than one active dotty - which is not supported ATM"
+      raise "there is more than one active dotty - which is not supported ATM"
     end
   end
 
   def read_facts!
     @facts = Facts.new downloader.target_folder
     if @facts.has_flavors?
-      raise RuntimeError.new "Dotty comes with flavors pls specify as last arg" if @positional_args_from_cli.nil? || @positional_args_from_cli.empty?
+      raise RuntimeError.new "Dotty comes with flavors pls specify one of #{@facts.flavors}" if @positional_args_from_cli.nil? || @positional_args_from_cli.empty?
       @facts.flavor! @positional_args_from_cli[-1]
     end
   end
