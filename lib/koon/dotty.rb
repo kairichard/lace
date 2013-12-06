@@ -8,17 +8,25 @@ class Facts
     @facts_file = @location + "dotty.yml"
     raise RuntimeError.new "No dotty file found in #@location" unless @facts_file.exist?
     @facts = YAML.load @facts_file.read
+    @_facts = YAML.load @facts_file.read
   end
 
   def config_files
-    @facts["config_files"].map do |file|
+    @facts["config_files"].flatten.map do |file|
       @location + file
     end
   end
 
+  def has_flavors?
+    !@facts["flavors"].nil?
+  end
+
+  def flavor! which_flavor
+    @facts = @_facts[which_flavor]
+  end
+
   def post hook_point
-      commands = @facts["hooks"][hook_point.to_s]["post"]
-      OpenStruct.new(all: commands['all'] || [], platform: commands[determine_os.to_s])
+      @facts["post"][hook_point.to_s].flatten
   end
 end
 
@@ -30,17 +38,15 @@ class Dotty
   def after_install
      downloader.target_folder.cd do
        ENV["CURRENT_DOTTY"] = downloader.target_folder
-       facts.post(:install).all.each do |cmd|
-         system cmd
-       end
-       facts.post(:install).platform.each do |cmd|
+       facts.post(:install).each do |cmd|
          system cmd
        end
      end
   end
 
-  def initialize url=nil, &block
+  def initialize url=nil, argv=nil
     @url = url
+    @positional_args_from_cli = argv
   end
 
   def downloader
@@ -52,12 +58,12 @@ class Dotty
   end
 
   def install(target=nil)
-    # when we do have broken facts this fails
-    read_facts!
     if is_installed? and is_active?
+      read_facts!
       deactivate!
     end
     downloader.fetch
+    read_facts!
     activate!
     after_install
   end
@@ -84,7 +90,11 @@ class Dotty
   end
 
   def read_facts!
-    @facts = Dotty::Facts.new downloader.target_folder
+    @facts = Facts.new downloader.target_folder
+    if @facts.has_flavors?
+      raise RuntimeError.new "Dotty comes with flavors pls specify as last arg" if @positional_args_from_cli.nil?
+      @facts.flavor! @positional_args_from_cli.shift
+    end
   end
 
   def deactivate!

@@ -11,7 +11,7 @@ require "koon/utils"
 require "koon/exceptions"
 require "extend/ARGV"
 require "extend/pathname"
-
+require "debugger"
 KOON_DOTTIES = Pathname.new(ENV["HOME"]).join("dotkoon")
 
 module Koon extend self
@@ -71,7 +71,7 @@ rescue Interrupt => e
 rescue RuntimeError, SystemCallError => e
   raise if e.message.empty?
   onoe e
-  puts e.backtrace if false 
+  puts e.backtrace if false
   exit 1
 rescue Exception => e
   onoe e
