@@ -11,7 +11,7 @@ require "koon/utils"
 require "koon/exceptions"
 require "extend/ARGV"
 require "extend/pathname"
-require "debugger"
+
 KOON_DOTTIES = Pathname.new(ENV["HOME"]).join("dotkoon")
 
 module Koon extend self
@@ -28,6 +28,9 @@ case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
 when '--version'
   puts KOON_VERSION
   exit 0
+when '-d'
+  require "debugger"
+  ARGV.shift!
 when '-v'
   puts "dotkoon #{KOON_VERSION}"
   # Shift the -v to the end of the parameter list
