@@ -2,6 +2,66 @@ require 'koon/download_strategy'
 require 'yaml'
 require 'ostruct'
 
+class DottyUtils
+  def self.deactivate dotty_name, argv
+    dotty = Dotty.new dotty_name, ARGV.shift
+    dotty.deactivate!
+  end
+
+  def self.fetch uri, argv
+    downloader = DownloadStrategyDetector.detect(uri).new(uri)
+    if downloader.target_folder.exist?
+      raise "Dotty already installed"
+    end
+    downloader.fetch
+  end
+
+  def self.remove dotty_name, argv
+    ohai "Removing"
+    dotty = Dotty.new dotty_name, false
+    if !dotty.is_active?
+      FileUtils.rm_rf dotty.path
+      ohai "Successfully removed"
+    else
+      ofail "Cannot remove active kit, deactivate first"
+    end
+  end
+
+  def self.uninstall dotty_name, argv
+    dotty = Dotty.new dotty_name, ARGV.shift
+    dotty.deactivate!
+    ohai "Uninstalling"
+    self.remove dotty_name, argv
+    dotty.after_uninstall
+  end
+
+  def self.install uri, argv
+    downloader = DownloadStrategyDetector.detect(uri).new(uri)
+    if downloader.target_folder.exist?
+      raise "Dotty already installed"
+    end
+    downloader.fetch
+    dotty = Dotty.new downloader.name, ARGV.shift
+    dotty.activate!
+    dotty.after_install
+  end
+
+  def self.activate dotty_name, argv
+    dotty = Dotty.new dotty_name, ARGV.shift
+    dotty.activate!
+  end
+
+  def self.update dotty_name, argv
+    dotty = Dotty.new dotty_name, false
+    opoo "Only dotties installed via git can be updated - but trying anyway"
+    updater = GitUpdateStrategy.new dotty_name
+    updater.update
+    dotty.read_facts!
+    dotty.after_update
+  end
+
+end
+
 class Facts
   def initialize location
     @location = Pathname.new(location)
@@ -26,55 +86,61 @@ class Facts
   end
 
   def flavor! which_flavor
-    raise RuntimeError.new "#{which_flavor} is not among #{flavors}" if !flavors.include? which_flavor
+    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: kikat <command> <kit-uri> <flavor>" unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
 
   def post hook_point
-      @facts["post"][hook_point.to_s].flatten
+    if !@facts.key? "post"
+      []
+    else
+      post_hook = @facts["post"]
+      (post_hook[hook_point.to_s] || []).flatten
+    end
   end
 end
 
 class Dotty
 
-  attr_reader :name, :facts
-  attr_writer :url
+  attr_reader :name, :facts, :path
 
   def after_install
-     downloader.target_folder.cd do
-       ENV["CURRENT_DOTTY"] = downloader.target_folder
+     @path.cd do
+       ENV["CURRENT_DOTTY"] = @path
        facts.post(:install).each do |cmd|
          system cmd
        end
      end
   end
 
-  def initialize url=nil, argv=nil
-    @url = url
-    @positional_args_from_cli = argv
+  def after_update
+     @path.cd do
+       ENV["CURRENT_DOTTY"] = @path
+       facts.post(:update).each do |cmd|
+         system cmd
+       end
+     end
   end
 
-  def downloader
-    @downloader ||= download_strategy.new(url)
+  def after_uninstall
+     @path.cd do
+       ENV["CURRENT_DOTTY"] = @path
+       facts.post(:uninstall).each do |cmd|
+         system cmd
+       end
+     end
   end
 
-  def download_strategy
-    @download_strategy ||= DownloadStrategyDetector.detect(url)
-  end
-
-  def install(target=nil)
-    if is_installed? and is_active?
-      read_facts!
-      deactivate!
-    end
-    downloader.fetch
+  def initialize name, flavor=nil
+    require 'cmd/list'
+    raise "Dotty #{name} is not installed (#{Koon.installed_dotties})" unless Koon.installed_dotties.include? name
+    @path = KOON_DOTTIES/name
+    @flavor = flavor
     read_facts!
-    activate!
-    after_install
   end
 
   def is_installed?
-    downloader.target_folder.exist?
+    @path.exist?
   end
 
   def is_active?
@@ -86,7 +152,7 @@ class Dotty
       Pathname.new File.dirname(path)
     end.uniq
     if installed_dotties.length == 1
-      installed_dotties[0] == downloader.target_folder
+      installed_dotties[0] == @path
     elsif installed_dotties.length == 0
       false
     else
@@ -95,15 +161,16 @@ class Dotty
   end
 
   def read_facts!
-    @facts = Facts.new downloader.target_folder
-    if @facts.has_flavors?
-      raise RuntimeError.new "Dotty comes with flavors pls specify one of #{@facts.flavors}" if @positional_args_from_cli.nil? || @positional_args_from_cli.empty?
-      @facts.flavor! @positional_args_from_cli[-1]
+    @facts = Facts.new @path
+    if @facts.has_flavors? && @flavor.nil?
+      raise RuntimeError.new "Dotty comes with flavors pls specify one of #{@facts.flavors}"
+    elsif @facts.has_flavors? && @flavor
+      @facts.flavor! @flavor
     end
   end
 
   def deactivate!
-    ohai "Deactivting"
+    ohai "Deactivating"
     files = @facts.config_files
     home_dir = ENV["HOME"]
     files.each do |file|
@@ -113,7 +180,7 @@ class Dotty
   end
 
   def activate!
-    ohai "Activting"
+    ohai "Activating"
     files = @facts.config_files
     home_dir = ENV["HOME"]
     files.each do |file|
@@ -121,10 +188,5 @@ class Dotty
       pn = Pathname.new file
       FileUtils.ln_s file, File.join(home_dir, "." + pn.basename)
     end
-  end
-
-  def url val=nil
-    return @url if val.nil?
-    @url = val
   end
 end

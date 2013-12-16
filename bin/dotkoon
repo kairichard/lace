@@ -9,17 +9,27 @@ $:.unshift(KOON_LIB_PATH + "/vendor")
 
 require "koon/utils"
 require "koon/exceptions"
+
+
 require "extend/ARGV"
 require "extend/pathname"
 
-KOON_DOTTIES = Pathname.new(ENV["HOME"]).join("dotkoon")
+kit_folder = Pathname.new(ENV["HOME"]).join("dotkoon")
 
+if ENV["KAKITS_FOLDER"]
+  kit_folder = Pathname.new(ENV["KAKITS_FOLDER"])
+end
+KOON_DOTTIES = kit_folder
 module Koon extend self
   attr_accessor :failed
   alias_method :failed?, :failed
 end
 
 ARGV.extend(KoonArgvExtension)
+
+if ARGV.debug?
+  require "debugger"
+end
 
 case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
   require 'cmd/help'
@@ -28,9 +38,6 @@ case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
 when '--version'
   puts KOON_VERSION
   exit 0
-when '-d'
-  require "debugger"
-  ARGV.shift!
 when '-v'
   puts "dotkoon #{KOON_VERSION}"
   # Shift the -v to the end of the parameter list
@@ -39,16 +46,15 @@ when '-v'
   exit 0 if ARGV.length == 1
 end
 
-begin
 
+begin
   trap("INT", std_trap) # restore default CTRL-C handler
   if Process.uid.zero?
     raise "Refusing to run as sudo"
   end
+
   aliases = {'ls' => 'list',
-             'rm' => 'remove',
-             'configure' => 'diy',
-             }
+             'rm' => 'remove'}
 
   cmd = ARGV.shift
   cmd = aliases[cmd] if aliases[cmd]

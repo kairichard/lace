@@ -2,9 +2,9 @@ require 'koon/dotty'
 require 'koon/exceptions'
 
 module Koon extend self
-	def install
+	def fetch
 		resource = ARGV.shift
 		raise ResourceNotSpecified if not resource
-		DottyUtils.install resource, ARGV
+		DottyUtils.fetch resource, ARGV
 	end
 end

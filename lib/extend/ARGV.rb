@@ -11,6 +11,7 @@ module KoonArgvExtension
   def include? arg
     @n=index arg
   end
+
   def next
     at @n+1 or raise UsageError
   end
@@ -20,32 +21,16 @@ module KoonArgvExtension
     $1 if arg
   end
 
-  def force?
-    flag? '--force'
-  end
-
   def verbose?
     flag? '--verbose' or !ENV['VERBOSE'].nil?
   end
 
   def debug?
-    flag? '--debug' 
-  end
-
-  def quieter?
-    flag? '--quieter'
+    flag? '--debug'
   end
 
   def interactive?
     flag? '--interactive'
-  end
-
-  def dry_run?
-    include?('--dry-run') || switch?('n')
-  end
-
-  def ignore_deps?
-    include? '--ignore-dependencies'
   end
 
   def flag? flag

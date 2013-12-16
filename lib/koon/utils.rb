@@ -57,7 +57,7 @@ end
 
 def ofail error
   onoe error
-  Homebrew.failed = true
+  Koon.failed = true
 end
 
 def odie error

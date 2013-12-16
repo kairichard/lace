@@ -11,55 +11,30 @@ class AbstractDownloadStrategy
   # All download strategies are expected to implement these methods
   def fetch; end
   def stage; end
-  def name; end
+  def name
+    ARGV.value "name"
+  end
 end
+
 
 class LocalFileStrategy < AbstractDownloadStrategy
   def fetch
     if @target_folder.exist?
-			ohai "Removing already installed dottie #@target_folder"
-			FileUtils.rm_rf @target_folder
-	  end
-		ohai "Installing #@url into #@target_folder"
-		FileUtils.cp_r @url, @target_folder
-		@target_folder
+      ohai "Removing already installed dottie #@target_folder"
+      FileUtils.rm_rf @target_folder
+    end
+    ohai "Installing #@url into #@target_folder"
+    FileUtils.cp_r @url, @target_folder
+    @target_folder
   end
 
   def name
-		File.basename @url
+    File.basename @url
   end
 end
 
-class GitDownloadStrategy < AbstractDownloadStrategy
-  def fetch
-    ohai "Cloning #@url"
 
-    if @target_folder.exist? && repo_valid?
-      puts "Updating #@target_folder"
-      @target_folder.cd do
-        update_repo
-        reset
-        update_submodules if submodules?
-      end
-    elsif @target_folder.exist?
-      puts "Removing invalid .git repo"
-      FileUtils.rm_rf @target_folder
-      clone_repo
-    else
-      clone_repo
-    end
-		@target_folder
-  end
-
-  def name
-    if @url.include? "github.com"
-	@url.split("/")[-2]
-    else 
-      raise "Cannot determine a proper name with #@url"
-    end
-  end
-
-  private
+module GitCommands
   def update_repo
     quiet_system 'git', 'fetch', 'origin'
   end
@@ -96,6 +71,66 @@ class GitDownloadStrategy < AbstractDownloadStrategy
 end
 
 
+class GitUpdateStrategy
+  include GitCommands
+
+  def initialize name
+    @target_folder = KOON_DOTTIES/name
+  end
+
+  def update
+    if repo_valid?
+      puts "Updating #@target_folder"
+      @target_folder.cd do
+        update_repo
+        reset
+        update_submodules if submodules?
+      end
+    else
+      puts "Removing invalid .git repo"
+      FileUtils.rm_rf @target_folder
+      clone_repo
+    end
+  end
+end
+
+
+class GitDownloadStrategy < AbstractDownloadStrategy
+  include GitCommands
+
+  def fetch
+    ohai "Cloning #@url"
+
+    if @target_folder.exist? && repo_valid?
+      puts "Updating #@target_folder"
+      @target_folder.cd do
+        update_repo
+        reset
+        update_submodules if submodules?
+      end
+    elsif @target_folder.exist?
+      puts "Removing invalid .git repo"
+      FileUtils.rm_rf @target_folder
+      clone_repo
+    else
+      clone_repo
+    end
+    @target_folder
+  end
+
+  def name
+    if super
+      super
+    elsif @url.include? "github.com"
+       @url.split("/")[-2]
+    else
+      raise "Cannot determine a proper name with #@url"
+    end
+  end
+
+end
+
+
 class DownloadStrategyDetector
   def self.detect(url, strategy=nil)
     if strategy.nil?
@@ -109,7 +144,7 @@ class DownloadStrategyDetector
   end
 
   def self.detect_from_url(url)
-    if File.directory? url  then return LocalFileStrategy end
+    if File.directory? url then return LocalFileStrategy end
     case url
     when %r[^git://] then GitDownloadStrategy
     when %r[^https?://.+\.git$] then GitDownloadStrategy
