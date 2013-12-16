@@ -1,0 +1,6 @@
+---
+flavors:
+  osx:
+    config_files:
+      - bashrc
+
