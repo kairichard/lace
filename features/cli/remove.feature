@@ -24,5 +24,3 @@ Feature: Removing a Kit
     Then the output should contain "Successfully removed"
     And I run `dotkoon ls`
     Then the output should contain "There are no kits installed"
-
-
