@@ -29,7 +29,7 @@ class LocalFileStrategy < AbstractDownloadStrategy
   end
 
   def name
-    File.basename @url
+    super || File.basename(@url)
   end
 end
 
