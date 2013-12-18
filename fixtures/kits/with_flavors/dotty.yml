@@ -1,6 +1,0 @@
----
-flavors:
-  red:
-    config_files:
-      - bashrc
-

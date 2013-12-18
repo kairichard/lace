@@ -1,7 +1,0 @@
----
-config_files:
-  - bashrc
-  - hooks
-post:
-  install:
-    - ~/.hooks/post_install.sh

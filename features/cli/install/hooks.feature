@@ -8,7 +8,7 @@ Feature: Installable comes with a hook
     Given a directory named "cassia/hooks"
     And an empty file named "cassia/hooks/bashrc"
     And an empty file named "cassia/hooks/vimrc"
-    And a file named "cassia/hooks/hooks/post_install.sh" with:
+    And a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
     """
     echo "HELLO FROM POST INSTALL HOOK"
     """
