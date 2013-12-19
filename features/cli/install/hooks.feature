@@ -34,8 +34,14 @@ Feature: Installable comes with a hook
     And the following files should exist:
       | HOME/.bashrc |
       | HOME/.hooks/post_install.sh |
-  @announce
-  Scenario: Fetching from a local dirctory with a post install hook
+
+  Scenario: Fetching from a local dirctory with a post install hook that is not executable
     Given the file named "cassia/hooks/hooks/post_install.sh" has mode "655"
     When I run `dotkoon install cassia/hooks`
     Then the exit status should be 1
+
+  Scenario: Fetching from a local dirctory with a post install hook that is not at the given location
+    Given I rename "cassia/hooks/hooks/post_install.sh" to "cassia/hooks/hooks/post_install_typo.sh"
+    When I run `dotkoon install cassia/hooks`
+    Then the exit status should be 1
+
