@@ -108,7 +108,7 @@ class Dotty
      @path.cd do
        ENV["CURRENT_DOTTY"] = @path
        facts.post(:install).each do |cmd|
-         system cmd
+         safe_system cmd
        end
      end
   end

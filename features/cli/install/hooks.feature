@@ -34,4 +34,8 @@ Feature: Installable comes with a hook
     And the following files should exist:
       | HOME/.bashrc |
       | HOME/.hooks/post_install.sh |
-
+  @announce
+  Scenario: Fetching from a local dirctory with a post install hook
+    Given the file named "cassia/hooks/hooks/post_install.sh" has mode "655"
+    When I run `dotkoon install cassia/hooks`
+    Then the exit status should be 1

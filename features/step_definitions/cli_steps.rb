@@ -26,7 +26,9 @@ Given(/^a file named "([^"]*)" with mode "([^"]*)" and with:$/) do |file_name, f
     write_file(file_name, file_content)
     chmod(file_mode, file_name)
 end
-
+Given(/^the file named "([^"]*)" has mode "([^"]*)"$/) do |file_name, file_mode|
+  chmod(file_mode, file_name)
+end
 SIMPLE_DOTTY = """
 ---
 config_files:
