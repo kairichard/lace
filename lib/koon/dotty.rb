@@ -1,4 +1,5 @@
 require 'koon/download_strategy'
+require 'koon/exceptions'
 require 'yaml'
 require 'ostruct'
 
@@ -86,7 +87,7 @@ class Facts
   end
 
   def flavor! which_flavor
-    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: kikat <command> <kit-uri> <flavor>" unless flavors.include? which_flavor
+    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: zimt <command> <kit-uri> <flavor>" unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
 
@@ -163,8 +164,8 @@ class Dotty
   def read_facts!
     @facts = Facts.new @path
     if @facts.has_flavors? && @flavor.nil?
-      raise RuntimeError.new "Dotty comes with flavors pls specify one of #{@facts.flavors}"
-    elsif @facts.has_flavors? && @flavor
+      raise RuntimeError.new FlavorArgumentMsg % @facts.flavors.join("\n- ")
+    elsif @facts.has_flavors? && @flavor != false
       @facts.flavor! @flavor
     end
   end
