@@ -1,7 +1,7 @@
 Feature: Removing a Kit
   As a user i want to be able to remove the physical
   kit from the filesystem so it does not clutter the list
-  of available kits anymore and furthermore.
+  of available kits anymore.
 
   Scenario: Removing a single kit:
     Given an installed kit named "mykit"
