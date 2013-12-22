@@ -23,7 +23,7 @@ class LocalFileStrategy < AbstractDownloadStrategy
       ohai "Removing already installed dottie #@target_folder"
       FileUtils.rm_rf @target_folder
     end
-    ohai "Installing #@url into #@target_folder"
+    ohai "Fetching #@url into #@target_folder"
     FileUtils.cp_r @url, @target_folder
     @target_folder
   end

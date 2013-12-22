@@ -21,6 +21,12 @@ Feature: Activating with flavors
 
     """
     And I run `dotkoon fetch cassia/flavors`
+    Then the output should contain "==> Fetching"
+    And I run `dotkoon ls`
+    Then the output should contain:
+    """
+    - [ ] flavors
+    """
 
   Scenario: Activating without a flavor fails
     When I run `dotkoon activate flavors`
