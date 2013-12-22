@@ -55,11 +55,10 @@ Feature: Activating with flavors
       | HOME/.bashrc |
       | HOME/.vimrc |
 
-  @wip
-  @announce
   Scenario: Installing more than one flavor from the same kit
     When I run `dotkoon activate flavors desktop`
     Then I run `dotkoon activate flavors console`
+    Then the exit status should be 1
     Then the output should contain:
     """
     Cannot activate an already active package, please deactivate first
