@@ -181,6 +181,7 @@ class Dotty
   end
 
   def activate!
+    raise AlreadyActiveError.new if is_active?
     ohai "Activating"
     files = @facts.config_files
     home_dir = ENV["HOME"]
