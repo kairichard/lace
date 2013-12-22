@@ -54,6 +54,3 @@ Feature: Deactivating
     """
     And the following files should not exist:
       | HOME/.bashrc |
-
-
-
