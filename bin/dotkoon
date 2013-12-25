@@ -16,8 +16,8 @@ require "extend/pathname"
 
 kit_folder = Pathname.new(ENV["HOME"]).join("dotkoon")
 
-if ENV["KAKITS_FOLDER"]
-  kit_folder = Pathname.new(ENV["KAKITS_FOLDER"])
+if ENV["ZIMT_FOLDER"]
+  kit_folder = Pathname.new(ENV["ZIMT_FOLDER"])
 end
 KOON_DOTTIES = kit_folder
 module Koon extend self
