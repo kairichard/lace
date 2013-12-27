@@ -19,10 +19,6 @@ end
 
 class LocalFileStrategy < AbstractDownloadStrategy
   def fetch
-    if @target_folder.exist?
-      ohai "Removing already installed dottie #@target_folder"
-      FileUtils.rm_rf @target_folder
-    end
     ohai "Fetching #@url into #@target_folder"
     FileUtils.cp_r @url, @target_folder
     @target_folder
