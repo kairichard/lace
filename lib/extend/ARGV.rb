@@ -29,6 +29,10 @@ module KoonArgvExtension
     flag? '--debug'
   end
 
+  def nohooks?
+    flag? '--no-hooks'
+  end
+
   def interactive?
     flag? '--interactive'
   end
