@@ -2,6 +2,12 @@ class UsageError < RuntimeError; end
 class ResourceNotSpecified < ArgumentError; end
 class ErrorDuringExecution < RuntimeError; end
 
+class OnlyGitReposCanBeUpdatedError < RuntimeError
+  def initialize
+    super "Only kits installed via git can be updated"
+  end
+end
+
 class AlreadyActiveError < RuntimeError
   def initialize
     super "Cannot activate an already active package, please deactivate first"

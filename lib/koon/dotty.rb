@@ -1,8 +1,9 @@
-require 'koon/download_strategy'
-require 'koon/exceptions'
 require 'yaml'
 require 'ostruct'
 require 'set'
+
+require 'koon/download_strategy'
+require 'koon/exceptions'
 
 class DottyUtils
   def self.is_dotty_any_flavor_active name
@@ -55,7 +56,7 @@ class DottyUtils
 
   def self.update dotty_name, argv
     dotty = Dotty.new dotty_name, false
-    opoo "Only dotties installed via git can be updated - but trying anyway"
+    raise OnlyGitReposCanBeUpdatedError.new unless dotty.is_git_repo?
     updater = GitUpdateStrategy.new dotty_name
     updater.update
     dotty.read_facts!
@@ -66,7 +67,7 @@ end
 class Facts
   def initialize location
     @location = Pathname.new(location)
-    @facts_file = @location + "dotty.yml"
+    @facts_file = @location/"dotty.yml"
     raise RuntimeError.new "No dotty file found in #@location" unless @facts_file.exist?
     @facts = YAML.load @facts_file.read
     @_facts = YAML.load @facts_file.read
@@ -102,7 +103,7 @@ class Facts
 end
 
 class Dotty
-
+  include GitCommands
   attr_reader :name, :facts, :path
 
   def after_install
@@ -131,6 +132,11 @@ class Dotty
     @path = KOON_DOTTIES/name
     @flavor = flavor
     read_facts!
+  end
+
+  def is_git_repo?
+    @target_folder = @path
+    repo_valid?
   end
 
   def is_installed?
