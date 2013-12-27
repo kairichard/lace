@@ -30,14 +30,6 @@ class DottyUtils
     end
   end
 
-  def self.uninstall dotty_name, argv
-    dotty = Dotty.new dotty_name, ARGV.shift
-    dotty.deactivate!
-    ohai "Uninstalling"
-    self.remove dotty_name, argv
-    dotty.after_uninstall
-  end
-
   def self.install uri, argv
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
@@ -127,15 +119,6 @@ class Dotty
      @path.cd do
        ENV["CURRENT_DOTTY"] = @path
        facts.post(:update).each do |cmd|
-         system cmd
-       end
-     end
-  end
-
-  def after_uninstall
-     @path.cd do
-       ENV["CURRENT_DOTTY"] = @path
-       facts.post(:uninstall).each do |cmd|
          system cmd
        end
      end
