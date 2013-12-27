@@ -14,7 +14,7 @@ Feature: Installing
     """
 
 
-  Scenario: Fetching from a local dirctory
+  Scenario: Installing from a local dirctory
     When I run `dotkoon install cassia/simple`
     And I run `dotkoon ls`
     Then the output should contain:
@@ -24,7 +24,18 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  Scenario: Fetching from a local dirctory with a name
+  @wip
+  Scenario: Installing from a local dirctory twice
+    When I run `dotkoon install cassia/simple`
+    And I run `dotkoon install cassia/simple`
+    Then the output should contain:
+    """
+    Dotty already installed
+    """
+    And the following files should exist:
+      | HOME/.bashrc |
+
+  Scenario: Installing from a local dirctory with a name
     When I run `dotkoon install cassia/simple --name=mykit`
     And I run `dotkoon ls`
     Then the output should contain:
@@ -33,5 +44,16 @@ Feature: Installing
     """
     And the following files should exist:
       | HOME/.bashrc |
+
+  Scenario: Installing from a local dirctory with a name
+    When I run `dotkoon install cassia/simple --name=mykit`
+    And I run `dotkoon ls`
+    Then the output should contain:
+    """
+    - [*] mykit
+    """
+    And the following files should exist:
+      | HOME/.bashrc |
+
 
 

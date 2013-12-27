@@ -2,11 +2,13 @@ require 'koon/download_strategy'
 require 'koon/exceptions'
 require 'yaml'
 require 'ostruct'
+require 'set'
 
 class DottyUtils
-  def self.deactivate dotty_name, argv
-    dotty = Dotty.new dotty_name, ARGV.shift
-    dotty.deactivate!
+  def self.is_dotty_any_flavor_active name
+    @path = KOON_DOTTIES/name
+    facts = Facts.new @path
+    facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
   end
 
   def self.fetch uri, argv
@@ -20,7 +22,7 @@ class DottyUtils
   def self.remove dotty_name, argv
     ohai "Removing"
     dotty = Dotty.new dotty_name, false
-    if !dotty.is_active?
+    unless dotty.is_active?
       FileUtils.rm_rf dotty.path
       ohai "Successfully removed"
     else
@@ -47,8 +49,15 @@ class DottyUtils
     dotty.after_install
   end
 
+  def self.deactivate dotty_name, argv
+    dotty = Dotty.new dotty_name, ARGV.shift
+    raise NonActiveFlavorError.new unless dotty.is_active?
+    dotty.deactivate!
+  end
+
   def self.activate dotty_name, argv
     dotty = Dotty.new dotty_name, ARGV.shift
+    raise AlreadyActiveError.new if Dotty.new(dotty_name, false).is_active?
     dotty.activate!
   end
 
@@ -134,7 +143,8 @@ class Dotty
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise "Dotty #{name} is not installed (#{Koon.installed_dotties})" unless Koon.installed_dotties.include? name
+    raise "Dotty #{name} is not installed" unless Koon.installed_dotties.include? name
+    @name = name
     @path = KOON_DOTTIES/name
     @flavor = flavor
     read_facts!
@@ -145,19 +155,12 @@ class Dotty
   end
 
   def is_active?
-    # move parts of this into the koon lib itself
-    home_dir = ENV["HOME"]
-    installed_dotties = Dir.foreach(home_dir).map do |filename|
-      File.readlink File.join(home_dir, filename) if File.symlink? File.join(home_dir, filename)
-    end.compact.uniq.map do |path|
-      Pathname.new File.dirname(path)
-    end.uniq
-    if installed_dotties.length == 1
-      installed_dotties[0] == @path
-    elsif installed_dotties.length == 0
-      false
+    if @facts.has_flavors? && @flavor == false
+      @facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
     else
-      raise "there is more than one active dotty - which is not supported ATM"
+      linked_files = Set.new Koon.linked_files.map(&:to_s)
+      config_files = Set.new @facts.config_files.map(&:to_s)
+      config_files.subset? linked_files
     end
   end
 
@@ -181,7 +184,6 @@ class Dotty
   end
 
   def activate!
-    raise AlreadyActiveError.new if is_active?
     ohai "Activating"
     files = @facts.config_files
     home_dir = ENV["HOME"]

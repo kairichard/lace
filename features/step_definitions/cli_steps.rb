@@ -31,6 +31,12 @@ Given(/^the file named "([^"]*)" has mode "([^"]*)"$/) do |file_name, file_mode|
   chmod(file_mode, file_name)
 end
 
+Then(/^the folder "([^"]*)" should be empty$/) do |folder_name|
+  in_current_dir do
+    expect(Dir.glob(File.join(folder_name, "**/*"))).to be_empty
+  end
+end
+
 Given(/^I rename "(.*?)" to "(.*?)"$/) do |from, to|
   _mv from, to
 end
