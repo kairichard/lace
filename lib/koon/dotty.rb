@@ -36,7 +36,7 @@ class DottyUtils
       raise "Dotty already installed"
     end
     downloader.fetch
-    dotty = Dotty.new downloader.name, ARGV.shift
+    dotty = Dotty.new downloader.name, ARGV.first
     dotty.activate!
     dotty.after_install
   end
@@ -61,7 +61,6 @@ class DottyUtils
     dotty.read_facts!
     dotty.after_update
   end
-
 end
 
 class Facts
@@ -107,6 +106,7 @@ class Dotty
   attr_reader :name, :facts, :path
 
   def after_install
+    return if ARGV.nohooks?
      @path.cd do
        ENV["CURRENT_DOTTY"] = @path
        facts.post(:install).each do |cmd|
