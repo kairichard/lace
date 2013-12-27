@@ -24,7 +24,6 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  @wip
   Scenario: Installing from a local dirctory twice
     When I run `dotkoon install cassia/simple`
     And I run `dotkoon install cassia/simple`
@@ -54,6 +53,3 @@ Feature: Installing
     """
     And the following files should exist:
       | HOME/.bashrc |
-
-
-
