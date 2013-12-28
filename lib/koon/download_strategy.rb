@@ -140,11 +140,14 @@ class DownloadStrategyDetector
   end
 
   def self.detect_from_uri(uri)
-    if File.directory? uri then return LocalFileStrategy end
+    if File.directory?(uri) && !File.directory?(uri+"/.git")
+      return LocalFileStrategy
+    end
+
     case uri
-    when %r[^git://] then GitDownloadStrategy
-    when %r[^https?://.+\.git$] then GitDownloadStrategy
-    # else CurlDownloadStrategy
+      when %r[^git://] then GitDownloadStrategy
+      when %r[^https?://.+\.git$] then GitDownloadStrategy
+      # else CurlDownloadStrategy
     else
       raise "Cannot determine download startegy from #{uri}"
     end
