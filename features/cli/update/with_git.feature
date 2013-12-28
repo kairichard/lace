@@ -12,16 +12,13 @@ Feature: Updating a installed kit which was installed using git
     config_files:
       - bashrc
     """
-    And I cd to "cassia/simple_git"
-    Then I run `git add .`
-    Then I run `git commit -am 'Test'`
-    Then I cd to "../../"
-
-  Scenario: Updating a kit which was installed from a directory
-    Given I run `dotkoon install cassia/simple_git`
+    Then I git-commit "cassia/simple_git" saying "Initial"
+    And I run `dotkoon install cassia/simple_git`
     Then the following files should exist:
       | HOME/.bashrc |
-    And an empty file named "cassia/simple_git/vimrc"
+
+  Scenario: Updating a kit which was installed using git
+    Given an empty file named "cassia/simple_git/vimrc"
     And a file named "cassia/simple_git/dotty.yml" with:
     """
     ---
@@ -29,10 +26,7 @@ Feature: Updating a installed kit which was installed using git
       - bashrc
       - vimrc
     """
-    And I cd to "cassia/simple_git"
-    Then I run `git add .`
-    Then I run `git commit -am 'Adding vimrc'`
-    Then I cd to "../../"
+    Then I git-commit "cassia/simple_git" saying "Adding vimrc"
     Then I run `dotkoon update simple_git`
     Then the following files should exist:
       | HOME/.bashrc |

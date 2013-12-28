@@ -46,6 +46,14 @@ Given(/^a git repo in a directory named "(.*?)"$/) do |dir_name|
    create_temp_repo(dir_name)
 end
 
+Then(/^I git\-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|
+    step "I cd to \"#{dir}\""
+    step "I run `git add .`"
+    step "I run `git commit -am \'#{commit_msg}\'`"
+    up_dir = dir.gsub(/\b\w+\b/, "..")
+    step "I cd to \"#{up_dir}\""
+end
+
 SIMPLE_DOTTY = """
 ---
 config_files:
