@@ -58,8 +58,10 @@ class DottyUtils
     dotty = Dotty.new dotty_name, false
     raise OnlyGitReposCanBeUpdatedError.new unless dotty.is_git_repo?
     updater = GitUpdateStrategy.new dotty_name
+    dotty.deactivate!
     updater.update
     dotty.read_facts!
+    dotty.activate!
     dotty.after_update
   end
 end

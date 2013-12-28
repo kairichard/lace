@@ -32,11 +32,11 @@ end
 
 module GitCommands
   def update_repo
-    quiet_system 'git', 'fetch', 'origin'
+    safe_system 'git', 'fetch', 'origin'
   end
 
   def reset
-    quiet_system 'git', "reset" , "--hard", "origin/HEAD"
+    safe_system 'git', "reset" , "--hard", "origin/HEAD"
   end
 
   def git_dir
@@ -119,6 +119,8 @@ class GitDownloadStrategy < AbstractDownloadStrategy
       super
     elsif @uri.include? "github.com"
        @uri.split("/")[-2]
+    elsif File.directory? @uri
+        File.basename(@uri)
     else
       raise "Cannot determine a proper name with #@uri"
     end
@@ -142,6 +144,8 @@ class DownloadStrategyDetector
   def self.detect_from_uri(uri)
     if File.directory?(uri) && !File.directory?(uri+"/.git")
       return LocalFileStrategy
+    elsif File.directory?(uri+"/.git")
+      return GitDownloadStrategy
     end
 
     case uri

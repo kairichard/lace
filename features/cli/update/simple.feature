@@ -13,7 +13,6 @@ Feature: Updating a installed kit
       - bashrc
     """
 
-  @wip
   Scenario: Updating a kit which was installed from a directory
     Given I run `dotkoon install cassia/simple`
     Then I run `dotkoon update simple`
