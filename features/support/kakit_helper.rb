@@ -12,10 +12,13 @@ module ZimtHelper
     end
   end
 
-  def kit_from_fixture name, options={}
-    flavor = options[:flavor] || 'simple'
-    target = File.join(ENV["KAKITS_FOLDER"], name)
-    FileUtils.cp_r File.expand_path("fixtures/kits/#{flavor}/") + "/.", target
+  def create_temp_repo(target_path)
+    FileUtils.cp_r(File.expand_path("fixtures/git/working/") + '/.', File.join(current_dir, target_path))
+    in_current_dir do
+      Dir.chdir(target_path) do
+        FileUtils.mv('dot_git', '.git')
+      end
+    end
   end
 
   def _mv from, to

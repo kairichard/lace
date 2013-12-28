@@ -41,6 +41,11 @@ Given(/^I rename "(.*?)" to "(.*?)"$/) do |from, to|
   _mv from, to
 end
 
+Given(/^a git repo in a directory named "(.*?)"$/) do |dir_name|
+   create_dir(dir_name)
+   create_temp_repo(dir_name)
+end
+
 SIMPLE_DOTTY = """
 ---
 config_files:
