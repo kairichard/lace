@@ -119,12 +119,13 @@ class Dotty
   end
 
   def after_update
-     @path.cd do
-       ENV["CURRENT_DOTTY"] = @path
-       facts.post(:update).each do |cmd|
-         system cmd
-       end
-     end
+    return if ARGV.nohooks?
+    @path.cd do
+      ENV["CURRENT_DOTTY"] = @path
+      facts.post(:update).each do |cmd|
+        system cmd
+      end
+    end
   end
 
   def initialize name, flavor=nil
