@@ -3,8 +3,8 @@ require "fileutils"
 class AbstractDownloadStrategy
   attr_reader :name, :resource, :target_folder
 
-  def initialize url
-    @url = url
+  def initialize uri
+    @uri = uri
     @target_folder = KOON_DOTTIES/name
   end
 
@@ -19,13 +19,13 @@ end
 
 class LocalFileStrategy < AbstractDownloadStrategy
   def fetch
-    ohai "Fetching #@url into #@target_folder"
-    FileUtils.cp_r @url, @target_folder
+    ohai "Fetching #@uri into #@target_folder"
+    FileUtils.cp_r @uri, @target_folder
     @target_folder
   end
 
   def name
-    super || File.basename(@url)
+    super || File.basename(@uri)
   end
 end
 
@@ -53,7 +53,7 @@ module GitCommands
 
   def clone_args
     args = %w{clone}
-    args << @url << @target_folder
+    args << @uri << @target_folder
   end
 
   def clone_repo
@@ -95,7 +95,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   include GitCommands
 
   def fetch
-    ohai "Cloning #@url"
+    ohai "Cloning #@uri"
 
     if @target_folder.exist? && repo_valid?
       puts "Updating #@target_folder"
@@ -117,10 +117,10 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   def name
     if super
       super
-    elsif @url.include? "github.com"
-       @url.split("/")[-2]
+    elsif @uri.include? "github.com"
+       @uri.split("/")[-2]
     else
-      raise "Cannot determine a proper name with #@url"
+      raise "Cannot determine a proper name with #@uri"
     end
   end
 
@@ -128,9 +128,9 @@ end
 
 
 class DownloadStrategyDetector
-  def self.detect(url, strategy=nil)
+  def self.detect(uri, strategy=nil)
     if strategy.nil?
-      detect_from_url(url)
+      detect_from_uri(uri)
     elsif Symbol === strategy
       detect_from_symbol(strategy)
     else
@@ -139,14 +139,14 @@ class DownloadStrategyDetector
     end
   end
 
-  def self.detect_from_url(url)
-    if File.directory? url then return LocalFileStrategy end
-    case url
+  def self.detect_from_uri(uri)
+    if File.directory? uri then return LocalFileStrategy end
+    case uri
     when %r[^git://] then GitDownloadStrategy
     when %r[^https?://.+\.git$] then GitDownloadStrategy
     # else CurlDownloadStrategy
     else
-      raise "Cannot determine download startegy from #{url}"
+      raise "Cannot determine download startegy from #{uri}"
     end
   end
 
