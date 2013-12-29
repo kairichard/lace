@@ -1,6 +1,8 @@
+$:.unshift File.expand_path("../lib", __FILE__)
+require "koon/version"
 Gem::Specification.new do |s|
   s.name        = 'dotkoon'
-  s.version     = '0.1.9'
+  s.version     = Koon::VERSION
   s.summary     = "Manage your .dotfiles"
   s.description = "This is a simple/unfinished tool which i use to manage my dotfiles on all the different machines"
   s.authors     = ["Kai Richard Koenig"]

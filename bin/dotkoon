@@ -1,15 +1,13 @@
 #!/usr/bin/env ruby
 std_trap = trap("INT") { exit! 130 } # no backtrace thanks
-
 require 'pathname'
-KOON_LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
 
+KOON_LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
 $:.unshift(KOON_LIB_PATH)
-$:.unshift(KOON_LIB_PATH + "/vendor")
 
 require "koon/utils"
 require "koon/exceptions"
-
+require "koon/version"
 
 require "extend/ARGV"
 require "extend/pathname"
@@ -20,6 +18,7 @@ if ENV["ZIMT_FOLDER"]
   kit_folder = Pathname.new(ENV["ZIMT_FOLDER"])
 end
 KOON_DOTTIES = kit_folder
+
 module Koon extend self
   attr_accessor :failed
   alias_method :failed?, :failed
@@ -36,10 +35,10 @@ case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
   puts Koon.help_s
   exit ARGV.first ? 0 : 1
 when '--version'
-  puts KOON_VERSION
+  puts Koon::VERSION
   exit 0
 when '-v'
-  puts "dotkoon #{KOON_VERSION}"
+  puts "dotkoon #{Koon::VERSION}"
   # Shift the -v to the end of the parameter list
   ARGV << ARGV.shift
   # If no other arguments, just quit here.
