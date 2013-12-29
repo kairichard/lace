@@ -9,7 +9,7 @@ Inspection of simple:
   flavors:     <%= dotty.flavors %>
   version:     <%= dotty.version %>
   upgradeable: <%= dotty.upgradeable? %>
-  manifest:    HOME/installed_cassias/simple/dotty.yml
+  manifest:    <%= dotty.manifest %>
 EOS
 
 module Koon extend self
@@ -30,15 +30,20 @@ class PackagePresenter
     pkg.is_active?
   end
   def flavors
-    "nil"
+    flavors_as_string or "nil"
+  end
+  def flavors_as_string
+    if @pkg.facts.flavors
+      return @pkg.facts.flavors.join ", "
+    end
   end
   def version
-    'n/a'
+    @pkg.facts.version or 'n/a'
   end
   def upgradeable?
-    false
+    @pkg.is_git_repo?
   end
   def manifest
-    "HOME/installed_cassias/simple/dotty.yml"
+    return @pkg.facts.facts_file
   end
 end

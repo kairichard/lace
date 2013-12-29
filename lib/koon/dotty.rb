@@ -67,6 +67,7 @@ class DottyUtils
 end
 
 class Facts
+  attr_reader :facts_file
   def initialize location
     @location = Pathname.new(location)
     @facts_file = @location/"dotty.yml"
@@ -85,8 +86,12 @@ class Facts
     !@_facts["flavors"].nil?
   end
 
+  def version
+    @_facts["version"] if @_facts.key? "version"
+  end
+
   def flavors
-    @_facts["flavors"].keys
+    @_facts["flavors"].keys if @_facts.key? "flavors"
   end
 
   def flavor! which_flavor
