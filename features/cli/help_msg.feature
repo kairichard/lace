@@ -1,5 +1,5 @@
 Feature: Display a help message
-  A help message shoul be provided when executable
+  A help message should be provided when executable
   is invoked with the usual help flags.
 
   Scenario: Invoking with helpflag
