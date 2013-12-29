@@ -142,10 +142,6 @@ class Dotty
     repo_valid?
   end
 
-  def is_installed?
-    @path.exist?
-  end
-
   def is_active?
     if @facts.has_flavors? && @flavor == false
       @facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
