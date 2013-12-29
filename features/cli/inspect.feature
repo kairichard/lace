@@ -1,4 +1,3 @@
-@wip
 Feature: Getting information about a installed pkg
   As a user i want to be able to inspect a pkg and see
   which flavors it brings and where the hooks are stored
