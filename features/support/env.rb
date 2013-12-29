@@ -1,7 +1,7 @@
 require 'aruba/cucumber'
 
 Before do
-  @__old_kaktis_folder = ENV["ZIMT_FOLDER"]
+  @__old_zimt_folder = ENV["ZIMT_FOLDER"]
   @__old_home = ENV["HOME"]
   @installed_cassias = "installed_cassias"
 
