@@ -23,26 +23,33 @@ end
 
 class PackagePresenter
   attr_accessor :pkg
+
   def initialize obj
     @pkg = obj
   end
+
   def is_active?
     pkg.is_active?
   end
+
   def flavors
     flavors_as_string or "nil"
   end
+
   def flavors_as_string
     if @pkg.facts.flavors
       return @pkg.facts.flavors.join ", "
     end
   end
+
   def version
     @pkg.facts.version or 'n/a'
   end
+
   def upgradeable?
     @pkg.is_git_repo?
   end
+
   def manifest
     return @pkg.facts.facts_file
   end
