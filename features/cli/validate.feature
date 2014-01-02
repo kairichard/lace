@@ -203,6 +203,50 @@ Feature: Validation of a manifest file
         # cassia/simple/hooks/post_install.sh is not executable
     """
 
+  Scenario: A manifest with references - config_files are flattened
+    Given an empty file named "cassia/simple/bashrc"
+    And an empty file named "cassia/simple/vimrc"
+    And an empty file named "cassia/simple/tmux"
+    And a package named "cassia/simple" with the following manifest:
+    """
+    ---
+    vim: &vim
+      - vimrc
+      - tmux
+
+    config_files:
+      - *vim
+      - bashrc
+    """
+    Then I run `dotkoon validate cassia/simple`
+    Then the exit status should be 1
+    And the output should contain:
+    """
+      config-files:                                              [ found ]
+    """
+
+  Scenario: A manifest with references - hooks are flattened
+   Given an empty file named "cassia/simple/hooks/post_install.sh"
+   Given the file named "cassia/simple/hooks/post_install.sh" has mode "755"
+   And a package named "cassia/simple" with the following manifest:
+    """
+    ---
+    always: &always
+      - cassia/simple/hooks/post_install.sh
+    post:
+      update:
+        - *always
+      install:
+        - *always
+    """
+    Then I run `dotkoon validate cassia/simple`
+    Then the exit status should be 1
+    And the output should contain:
+    """
+      post-install hook:                                         [ ok ]
+      post-update hook:                                          [ ok ]
+    """
+
   Scenario: A manifest where everything is ok
     Given an empty file named "cassia/simple/hooks/post_install.sh"
     Given the file named "cassia/simple/hooks/post_install.sh" has mode "755"
