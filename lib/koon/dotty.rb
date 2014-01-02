@@ -77,13 +77,21 @@ class Facts
   end
 
   def config_files
-    @facts["config_files"].flatten.map do |file|
-      @location + file
+    if @_facts.nil? or @facts["config_files"].nil?
+      []
+    else
+      @facts["config_files"].flatten.map do |file|
+        @location + file
+      end
     end
   end
 
   def has_flavors?
-    !@_facts["flavors"].nil?
+    @_facts && !@_facts["flavors"].nil?
+  end
+
+  def has_key? key
+    @_facts && @_facts.has_key?(key)
   end
 
   def version
@@ -91,7 +99,11 @@ class Facts
   end
 
   def flavors
-    @_facts["flavors"].keys if @_facts.key? "flavors"
+    if @_facts && @_facts.key?("flavors")
+      @_facts["flavors"].keys
+    else
+      []
+    end
   end
 
   def flavor! which_flavor
@@ -99,8 +111,12 @@ class Facts
     @facts = @_facts["flavors"][which_flavor]
   end
 
+  def unflavor!
+    @facts = @_facts
+  end
+
   def post hook_point
-    if !@facts.key? "post"
+    if @_facts.nil? or !@facts.key? "post"
       []
     else
       post_hook = @facts["post"]

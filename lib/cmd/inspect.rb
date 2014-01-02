@@ -13,9 +13,9 @@ Inspection of simple:
 EOS
 
 module Koon extend self
-	def inspect
-		resource = ARGV.shift
-		raise ResourceNotSpecified if not resource
+  def inspect
+    resource = ARGV.shift
+    raise ResourceNotSpecified if not resource
     dotty = PackagePresenter.new Dotty.new(resource, false)
     puts ERB.new(INSPECT).result(binding)
 	end
@@ -33,7 +33,7 @@ class PackagePresenter
   end
 
   def flavors
-    flavors_as_string or "nil"
+    flavors_as_string.empty? ? "nil" : flavors_as_string
   end
 
   def flavors_as_string

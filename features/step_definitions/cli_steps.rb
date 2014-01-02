@@ -46,6 +46,11 @@ Given(/^a git repo in a directory named "(.*?)"$/) do |dir_name|
    create_temp_repo(dir_name)
 end
 
+Given(/^a package named "(.*?)" with the following manifest:$/) do |name, manifest|
+    step "a directory named \"#{name}\""
+    step "a file named \"#{name}/dotty.yml\" with:", manifest
+end
+
 Then(/^I git\-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|
     step "I cd to \"#{dir}\""
     step "I run `git add .`"
