@@ -117,7 +117,7 @@ Feature: Validation of a manifest file
     And the output should contain:
     """
       homepage:                                                  [ missing ]
-        # adding a homepage improves credebility
+        # adding a homepage improves the credibility
         # of your package
     """
 

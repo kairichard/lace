@@ -118,6 +118,14 @@ If you want to contribute code, please try to:
 Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
+## TODO
+  * refactor hook invocation
+  * refactor validate.rb
+  * interactive-mode
+    * flavor choosing
+    * run hooks y/n
+
+
 License
 --------
 MIT License (MIT)

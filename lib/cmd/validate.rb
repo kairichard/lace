@@ -90,7 +90,7 @@ class PackageValidator
     if @facts.has_key? 'homepage'
       ["#{Tty.green}found#{Tty.reset}", nil]
     else
-      ["#{Tty.red}missing#{Tty.reset}", ['adding a homepage improves credebility', 'of your package']]
+      ["#{Tty.red}missing#{Tty.reset}", ['adding a homepage improves the credibility', 'of your package']]
     end
   end
 
