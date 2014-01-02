@@ -202,3 +202,21 @@ Feature: Validation of a manifest file
       post-update hook:                                          [ error ]
         # cassia/simple/hooks/post_install.sh is not executable
     """
+
+  Scenario: A manifest where everything is ok
+    Given an empty file named "cassia/simple/hooks/post_install.sh"
+    Given the file named "cassia/simple/hooks/post_install.sh" has mode "755"
+    And an empty file named "cassia/simple/bashrc"
+    And a package named "cassia/simple" with the following manifest:
+    """
+    ---
+    version: 0.1
+    homepage: http://example.org
+    config_files:
+      - bashrc
+    post:
+      update:
+        - cassia/simple/hooks/post_install.sh
+    """
+    Then I run `dotkoon validate cassia/simple`
+    Then the exit status should be 0
