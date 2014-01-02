@@ -1,7 +1,7 @@
 Zimt - dotfile management
 ========
 Logging in to different machines at work/home I just wanted to have an elegant solution to install configurations on them. Zimt provides. Also i wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Zimt provides. And i hoped for something that lets you share common dotfiles with your teammates by just installing them next to your own dotfiles.
-Zimt is inspired by brew. 
+Zimt is inspired by brew.
 ###### Synopsis
 ```bash
 zimt <cmd> <pkg-uri/name> [--name=<name>] [--version] [--no-hooks]
@@ -23,20 +23,43 @@ local git repos also works. **Installing means that a package is fetched and the
 > zimt install somewhere/on/mydisk
 # or from github
 > zimt install https://github.com/kairichard/example_dotfile_pkg.git
-# for some config files to take effect it may be required to reload your current terminal session 
+# for some config files to take effect it may be required to reload your current terminal session
 ```
 
 ### Playing around with a non intrusive example package
 Most likely you dont want to override your existing config files just to get a feeling on how zimt
 behaves. Therefore i prepared an example package for you to just install and play around with.
 ```bash
-> zimt fetch https://github.com/kairichard/example_dotfile_pkg.git 
+> zimt fetch https://github.com/kairichard/example_dotfile_pkg.git
 > zimt activate example_dotfile_pkg
 ```
 
 ```
 Example usage:
+  Synopsis:
+    zimt <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
 
+  zimt ls
+
+  zimt fetch <pkg-uri>
+  zimt fetch <pkg-uri>
+
+  zimt install <pkg-uri>
+  zimt install <pkg-uri> <flavor>
+
+  zimt activate <pkg-name>
+  zimt activate <pkg-name> <flavor>
+
+  zimt deactivate <pkg-name>
+  zimt deactivate <pkg-name> <flavor>
+
+  zimt remove <pkg-name>
+  zimt update <pkg-name>
+
+Troubleshooting:
+  zimt help
+  zimt info <pkg-name>
+  zimt validate <local-directory>
 ```
 - - -
 ## Learning how to make your own package
@@ -75,7 +98,7 @@ Zimt-Manifest Validation Report:
     # ~/.vim/install_bundles cannot be found
     # ~/.bootstrap/osx/brew cannot be found
 ```
-**NOTE** `zimt validate` only works with local directories 
+**NOTE** `zimt validate` only works with local directories
 
 ## Contributing Code
 
