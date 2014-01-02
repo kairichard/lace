@@ -53,6 +53,29 @@ Inspection of example_dotfile_pkg:
   homepage:    https://github.com/kairichard/example_dotfile_pkg
 ```
 Than just take a look at the `.zimt.yml` to learn some more and eventually make your own package.
+### Validating your own package
+When packaging your zimt-package you may want to validate your `.zimt.yml` to do that just run the following and study the output to improve your package
+```bash
+> zimt validate somewhere/on/mydisk
+Zimt-Manifest Validation Report:
+  config-files:                                              [ error ]
+    # arkrc is missing from this package
+  version:                                                   [ missing ]
+    # adding a version to the manifest improves
+    # a future update experince
+  homepage:                                                  [ missing ]
+    # adding a homepage improves the credibility
+    # of your package
+  post-install hook:                                         [ error ]
+    # ~/.vim/install_bundles cannot be found
+    # ~/.bootstrap/osx/brew cannot be found
+    # ~/.bootstrap/osx/defaults cannot be found
+    # ~/.bootstrap/osx/fonts cannot be found
+  post-update hook:                                          [ error ]
+    # ~/.vim/install_bundles cannot be found
+    # ~/.bootstrap/osx/brew cannot be found
+```
+**NOTE** `zimt validate` only works with local directories 
 
 ## Contributing Code
 
