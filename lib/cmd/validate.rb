@@ -16,13 +16,13 @@ Zimt-Manifest Validation Report:
 <% end -%>
 EOS
 
-module Koon extend self
+module Zimt extend self
 	def validate
 		resource = ARGV.shift
 		raise ResourceNotSpecified if not resource
     validation = PackageValidator.new Facts.new(resource), ARGV.shift
     puts ERB.new(VALIDATE, nil, '-').result(binding)
-    Koon.failed = true if validation.has_errors?
+    Zimt.failed = true if validation.has_errors?
 	end
 end
 

@@ -29,7 +29,7 @@ For further help visit:
   https://github.com/kairichard/zimt
 EOS
 
-module Koon extend self
+module Zimt extend self
   def help
     puts HELP
   end

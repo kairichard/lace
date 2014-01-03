@@ -19,12 +19,12 @@ if ENV["ZIMT_FOLDER"]
 end
 KOON_DOTTIES = packages_folder
 
-module Koon extend self
+module Zimt extend self
   attr_accessor :failed
   alias_method :failed?, :failed
 end
 
-ARGV.extend(KoonArgvExtension)
+ARGV.extend(ZimtArgvExtension)
 
 if ARGV.debug?
   require "debugger"
@@ -32,13 +32,13 @@ end
 
 case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
   require 'cmd/help'
-  puts Koon.help_s
+  puts Zimt.help_s
   exit ARGV.first ? 0 : 1
 when '--version'
-  puts Koon::VERSION
+  puts Zimt::VERSION
   exit 0
 when '-v'
-  puts "dotkoon #{Koon::VERSION}"
+  puts "dotkoon #{Zimt::VERSION}"
   # Shift the -v to the end of the parameter list
   ARGV << ARGV.shift
   # If no other arguments, just quit here.
@@ -59,7 +59,7 @@ begin
   cmd = aliases[cmd] if aliases[cmd]
 
   if require "cmd/" + cmd
-    Koon.send cmd.to_s.gsub('-', '_').downcase
+    Zimt.send cmd.to_s.gsub('-', '_').downcase
   else
     onoe "Unknown command: #{cmd}"
     exit 1
@@ -87,5 +87,5 @@ rescue Exception => e
   puts e.backtrace
   exit 1
 else
-  exit 1 if Koon.failed?
+  exit 1 if Zimt.failed?
 end

@@ -12,7 +12,7 @@ Inspection of simple:
   manifest:    <%= dotty.manifest %>
 EOS
 
-module Koon extend self
+module Zimt extend self
   def inspect
     resource = ARGV.shift
     raise ResourceNotSpecified if not resource

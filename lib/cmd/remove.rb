@@ -1,7 +1,7 @@
 require 'koon/dotty'
 require 'koon/exceptions'
 
-module Koon extend self
+module Zimt extend self
 	def remove
 		dotty_name = ARGV.shift
 		raise ResourceNotSpecified if not dotty_name

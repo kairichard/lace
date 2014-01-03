@@ -151,7 +151,7 @@ class Dotty
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise "Dotty #{name} is not installed" unless Koon.installed_dotties.include? name
+    raise "Dotty #{name} is not installed" unless Zimt.installed_dotties.include? name
     @name = name
     @path = KOON_DOTTIES/name
     @flavor = flavor
@@ -167,7 +167,7 @@ class Dotty
     if @facts.has_flavors? && @flavor == false
       @facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
     else
-      linked_files = Set.new Koon.linked_files.map(&:to_s)
+      linked_files = Set.new Zimt.linked_files.map(&:to_s)
       config_files = Set.new @facts.config_files.map(&:to_s)
       config_files.subset? linked_files
     end

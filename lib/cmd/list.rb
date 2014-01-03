@@ -1,6 +1,6 @@
 require 'koon/dotty'
 
-module Koon extend self
+module Zimt extend self
 
   def linked_files
     home_dir = ENV["HOME"]

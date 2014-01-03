@@ -1,4 +1,4 @@
-module KoonArgvExtension
+module ZimtArgvExtension
   def named
     @named ||= reject{|arg| arg[0..0] == '-'}
   end
