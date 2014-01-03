@@ -17,7 +17,7 @@ module Zimt extend self
   end
 
   def installed_dotties
-    Dir.glob(File.join(KOON_DOTTIES, "**")).map do |p|
+    Dir.glob(File.join(ZIMT_PKGS_FOLDER, "**")).map do |p|
       Pathname.new(p).basename.to_s
     end
   end

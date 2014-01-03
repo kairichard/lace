@@ -17,7 +17,7 @@ packages_folder = Pathname.new(ENV["HOME"]).join(".cassias")
 if ENV["ZIMT_FOLDER"]
   packages_folder = Pathname.new(ENV["ZIMT_FOLDER"])
 end
-KOON_DOTTIES = packages_folder
+ZIMT_PKGS_FOLDER = packages_folder
 
 module Zimt extend self
   attr_accessor :failed

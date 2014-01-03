@@ -7,7 +7,7 @@ require 'koon/exceptions'
 
 class DottyUtils
   def self.is_dotty_any_flavor_active name
-    @path = KOON_DOTTIES/name
+    @path = ZIMT_PKGS_FOLDER/name
     facts = Facts.new @path
     facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
   end
@@ -153,7 +153,7 @@ class Dotty
     require 'cmd/list'
     raise "Dotty #{name} is not installed" unless Zimt.installed_dotties.include? name
     @name = name
-    @path = KOON_DOTTIES/name
+    @path = ZIMT_PKGS_FOLDER/name
     @flavor = flavor
     read_facts!
   end

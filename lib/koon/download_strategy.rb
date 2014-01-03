@@ -5,7 +5,7 @@ class AbstractDownloadStrategy
 
   def initialize uri
     @uri = uri
-    @target_folder = KOON_DOTTIES/name
+    @target_folder = ZIMT_PKGS_FOLDER/name
   end
 
   # All download strategies are expected to implement these methods
@@ -71,7 +71,7 @@ class GitUpdateStrategy
   include GitCommands
 
   def initialize name
-    @target_folder = KOON_DOTTIES/name
+    @target_folder = ZIMT_PKGS_FOLDER/name
   end
 
   def update
