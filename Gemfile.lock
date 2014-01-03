@@ -27,6 +27,7 @@ GEM
       multi_json (~> 1.3)
     multi_json (1.8.2)
     multi_test (0.0.2)
+    rake (0.9.2.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -43,4 +44,5 @@ DEPENDENCIES
   aruba
   cucumber
   debugger
+  rake
   rspec
