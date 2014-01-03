@@ -21,8 +21,8 @@ Feature: Installing with flavors from a location
     """
 
   Scenario: Installing with a flavor
-    When I run `dotkoon install cassia/flavors desktop`
-    And I run `dotkoon ls`
+    When I run `zimt install cassia/flavors desktop`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -31,8 +31,8 @@ Feature: Installing with flavors from a location
       | HOME/.bashrc |
 
   Scenario: Installing with another flavor
-    When I run `dotkoon install cassia/flavors console`
-    And I run `dotkoon ls`
+    When I run `zimt install cassia/flavors console`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -43,8 +43,8 @@ Feature: Installing with flavors from a location
 
 
   Scenario: Installing with a flavor and a custome name
-    When I run `dotkoon install cassia/flavors desktop --name=mykit`
-    And I run `dotkoon ls`
+    When I run `zimt install cassia/flavors desktop --name=mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] mykit

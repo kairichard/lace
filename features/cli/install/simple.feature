@@ -15,8 +15,8 @@ Feature: Installing
 
 
   Scenario: Installing from a local dirctory
-    When I run `dotkoon install cassia/simple`
-    And I run `dotkoon ls`
+    When I run `zimt install cassia/simple`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] simple
@@ -25,8 +25,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory twice
-    When I run `dotkoon install cassia/simple`
-    And I run `dotkoon install cassia/simple`
+    When I run `zimt install cassia/simple`
+    And I run `zimt install cassia/simple`
     Then the output should contain:
     """
     Package already installed
@@ -35,8 +35,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `dotkoon install cassia/simple --name=mykit`
-    And I run `dotkoon ls`
+    When I run `zimt install cassia/simple --name=mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] mykit
@@ -45,8 +45,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `dotkoon install cassia/simple --name=mykit`
-    And I run `dotkoon ls`
+    When I run `zimt install cassia/simple --name=mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] mykit

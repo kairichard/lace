@@ -13,8 +13,8 @@ Feature: Fetching a kit from a location
     """
 
   Scenario: Fetching from a local dirctory
-    When I run `dotkoon fetch cassia/simple`
-    And I run `dotkoon ls`
+    When I run `zimt fetch cassia/simple`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [ ] simple
@@ -23,8 +23,8 @@ Feature: Fetching a kit from a location
       | HOME/.bashrc |
 
   Scenario: Fetching from a local dirctory with a name
-    When I run `dotkoon fetch cassia/simple --name=mykit`
-    And I run `dotkoon ls`
+    When I run `zimt fetch cassia/simple --name=mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [ ] mykit

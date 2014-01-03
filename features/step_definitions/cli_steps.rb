@@ -7,7 +7,7 @@ end
 
 Given(/^an active kit with flavors named "(.*?)"$/) do |name|
     step "an installed kit with flavors named \"#{name}\""
-    step "I run `dotkoon activate #{name} osx`"
+    step "I run `zimt activate #{name} osx`"
 end
 
 Given(/^an installed kit with flavors named "(.*?)"$/) do |name|
@@ -19,7 +19,7 @@ end
 
 Given(/^an active kit named "(.*?)"$/) do |kit_name|
     step "an installed kit named \"#{kit_name}\""
-    step "I run `dotkoon activate #{kit_name}`"
+    step "I run `zimt activate #{kit_name}`"
 end
 
 Given(/^a file named "([^"]*)" with mode "([^"]*)" and with:$/) do |file_name, file_mode, file_content|

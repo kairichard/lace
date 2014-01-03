@@ -3,7 +3,7 @@ Feature: Display a help message
   is invoked with the usual help flags.
 
   Scenario: Invoking with helpflag
-    When I successfully run `dotkoon -h`
+    When I successfully run `zimt -h`
     Then the output should contain:
     """
     Example usage:

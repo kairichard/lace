@@ -20,16 +20,16 @@ Feature: Activating with flavors
           - vimrc
 
     """
-    And I run `dotkoon fetch cassia/flavors`
+    And I run `zimt fetch cassia/flavors`
     Then the output should contain "==> Fetching"
-    And I run `dotkoon ls`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [ ] flavors
     """
 
   Scenario: Activating without a flavor fails
-    When I run `dotkoon activate flavors`
+    When I run `zimt activate flavors`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -41,8 +41,8 @@ Feature: Activating with flavors
       | HOME/.bashrc |
 
   Scenario: Installing with a flavor
-    When I run `dotkoon activate flavors desktop`
-    And I run `dotkoon ls`
+    When I run `zimt activate flavors desktop`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -51,8 +51,8 @@ Feature: Activating with flavors
       | HOME/.bashrc |
 
   Scenario: Installing with another flavor
-    When I run `dotkoon activate flavors console`
-    And I run `dotkoon ls`
+    When I run `zimt activate flavors console`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -62,8 +62,8 @@ Feature: Activating with flavors
       | HOME/.vimrc |
 
   Scenario: Installing more than one flavor from the same kit
-    When I run `dotkoon activate flavors desktop`
-    Then I run `dotkoon activate flavors console`
+    When I run `zimt activate flavors desktop`
+    Then I run `zimt activate flavors console`
     Then the exit status should be 1
     Then the output should contain:
     """

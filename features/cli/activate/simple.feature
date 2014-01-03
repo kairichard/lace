@@ -14,9 +14,9 @@ Feature: Activating
 
 
   Scenario: Activating by name
-    When I run `dotkoon fetch cassia/simple`
-    When I run `dotkoon activate simple`
-    And I run `dotkoon ls`
+    When I run `zimt fetch cassia/simple`
+    When I run `zimt activate simple`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] simple
@@ -25,9 +25,9 @@ Feature: Activating
       | HOME/.bashrc |
 
   Scenario: Activating by a overridden name
-    When I run `dotkoon fetch cassia/simple --name=mykit`
-    When I run `dotkoon activate mykit`
-    And I run `dotkoon ls`
+    When I run `zimt fetch cassia/simple --name=mykit`
+    When I run `zimt activate mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] mykit
@@ -36,10 +36,10 @@ Feature: Activating
       | HOME/.bashrc |
 
   Scenario: Activating one from a list of two
-    When I run `dotkoon fetch cassia/simple --name=mykit`
-    When I run `dotkoon fetch cassia/simple --name=otherkit`
-    When I run `dotkoon activate mykit`
-    And I run `dotkoon ls`
+    When I run `zimt fetch cassia/simple --name=mykit`
+    When I run `zimt fetch cassia/simple --name=otherkit`
+    When I run `zimt activate mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] mykit

@@ -11,10 +11,10 @@ Feature: Deactivating
     config_files:
       - bashrc
     """
-    When I run `dotkoon fetch cassia/simple`
+    When I run `zimt fetch cassia/simple`
     Then the output should contain "==> Fetching"
-    Then I run `dotkoon activate simple`
-    And I run `dotkoon ls`
+    Then I run `zimt activate simple`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] simple
@@ -22,8 +22,8 @@ Feature: Deactivating
 
 
   Scenario: Deactivating by name
-    When I run `dotkoon deactivate simple`
-    And I run `dotkoon ls`
+    When I run `zimt deactivate simple`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [ ] simple
@@ -32,12 +32,12 @@ Feature: Deactivating
       | HOME/.bashrc |
 
   Scenario: Deativating one from a list of two
-    Given I successfully run `dotkoon deactivate simple`
-    And I successfully run `dotkoon remove simple`
-    When I run `dotkoon fetch cassia/simple --name=mykit`
-    When I run `dotkoon fetch cassia/simple --name=otherkit`
-    When I run `dotkoon activate mykit`
-    And I run `dotkoon ls`
+    Given I successfully run `zimt deactivate simple`
+    And I successfully run `zimt remove simple`
+    When I run `zimt fetch cassia/simple --name=mykit`
+    When I run `zimt fetch cassia/simple --name=otherkit`
+    When I run `zimt activate mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [*] mykit
@@ -45,8 +45,8 @@ Feature: Deactivating
     """
     And the following files should exist:
       | HOME/.bashrc |
-    Then I run `dotkoon deactivate mykit`
-    And I run `dotkoon ls`
+    Then I run `zimt deactivate mykit`
+    And I run `zimt ls`
     Then the output should contain:
     """
     - [ ] mykit

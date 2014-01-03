@@ -15,8 +15,8 @@ Feature: Getting information about a installed pkg
     config_files:
       - bashrc
     """
-    Then I run `dotkoon fetch cassia/simple`
-    And I run `dotkoon inspect simple`
+    Then I run `zimt fetch cassia/simple`
+    And I run `zimt inspect simple`
     Then the output should contain:
     """
     Inspection of simple:
@@ -36,8 +36,8 @@ Feature: Getting information about a installed pkg
     config_files:
       - bashrc
     """
-    Then I run `dotkoon install cassia/simple`
-    And I run `dotkoon inspect simple`
+    Then I run `zimt install cassia/simple`
+    And I run `zimt inspect simple`
     Then the output should contain:
     """
     Inspection of simple:
@@ -64,8 +64,8 @@ Feature: Getting information about a installed pkg
           - vimrc
 
     """
-    Then I run `dotkoon fetch cassia/simple`
-    And I run `dotkoon inspect simple`
+    Then I run `zimt fetch cassia/simple`
+    And I run `zimt inspect simple`
     Then the output should contain:
     """
     Inspection of simple:
@@ -85,8 +85,8 @@ Feature: Getting information about a installed pkg
       - bashrc
     """
     Then I git-commit "cassia/simple_git" saying "Initial"
-    And I run `dotkoon install cassia/simple_git`
-    And I run `dotkoon inspect simple_git`
+    And I run `zimt install cassia/simple_git`
+    And I run `zimt inspect simple_git`
     Then the output should contain:
     """
     Inspection of simple:

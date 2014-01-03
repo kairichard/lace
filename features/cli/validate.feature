@@ -10,7 +10,7 @@ Feature: Validation of a manifest file
     """
     ---
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -25,7 +25,7 @@ Feature: Validation of a manifest file
       - bashrc
     """
     And an empty file named "cassia/simple/bashrc"
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -42,7 +42,7 @@ Feature: Validation of a manifest file
     """
     And an empty file named "cassia/simple/bashrc"
     And a file named "cassia/simple/not_there" should not exist
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -57,7 +57,7 @@ Feature: Validation of a manifest file
     config_files_with_a_typo:
       - bashrc
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -71,7 +71,7 @@ Feature: Validation of a manifest file
     ---
     version: 1.0
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -84,7 +84,7 @@ Feature: Validation of a manifest file
     ---
     no_version: 1.0
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -99,7 +99,7 @@ Feature: Validation of a manifest file
     ---
     homepage: http://example.org
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -112,7 +112,7 @@ Feature: Validation of a manifest file
     ---
     no_homepage: nil
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -126,7 +126,7 @@ Feature: Validation of a manifest file
     """
     ---
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -142,7 +142,7 @@ Feature: Validation of a manifest file
         - ~/.hooks/post_install.sh
         - ~/.hooks/another_hook.sh
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -160,7 +160,7 @@ Feature: Validation of a manifest file
       install:
         - cassia/simple/hooks/post_install.sh
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -177,7 +177,7 @@ Feature: Validation of a manifest file
         - ~/.hooks/post_update.sh
         - ~/.hooks/another_hook.sh
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -195,7 +195,7 @@ Feature: Validation of a manifest file
       update:
         - cassia/simple/hooks/post_install.sh
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -218,7 +218,7 @@ Feature: Validation of a manifest file
       - *vim
       - bashrc
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -239,7 +239,7 @@ Feature: Validation of a manifest file
       install:
         - *always
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -262,5 +262,5 @@ Feature: Validation of a manifest file
       update:
         - cassia/simple/hooks/post_install.sh
     """
-    Then I run `dotkoon validate cassia/simple`
+    Then I run `zimt validate cassia/simple`
     Then the exit status should be 0
