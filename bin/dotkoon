@@ -2,8 +2,8 @@
 std_trap = trap("INT") { exit! 130 } # no backtrace thanks
 require 'pathname'
 
-KOON_LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
-$:.unshift(KOON_LIB_PATH)
+LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
+$:.unshift(LIB_PATH)
 
 require "koon/utils"
 require "koon/exceptions"
@@ -12,12 +12,12 @@ require "koon/version"
 require "extend/ARGV"
 require "extend/pathname"
 
-kit_folder = Pathname.new(ENV["HOME"]).join("dotkoon")
+packages_folder = Pathname.new(ENV["HOME"]).join(".cassias")
 
 if ENV["ZIMT_FOLDER"]
-  kit_folder = Pathname.new(ENV["ZIMT_FOLDER"])
+  packages_folder = Pathname.new(ENV["ZIMT_FOLDER"])
 end
-KOON_DOTTIES = kit_folder
+KOON_DOTTIES = packages_folder
 
 module Koon extend self
   attr_accessor :failed
