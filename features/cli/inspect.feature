@@ -9,7 +9,7 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting a simple pkg
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/dotty.yml" with:
+    And a file named "cassia/simple/.zimt.yml" with:
     """
     ---
     config_files:
@@ -29,7 +29,7 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting an installed and active pkg
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/dotty.yml" with:
+    And a file named "cassia/simple/.zimt.yml" with:
     """
     ---
     version: 1.0.0
@@ -50,7 +50,7 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting an installed pkg which has flavors
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/dotty.yml" with:
+    And a file named "cassia/simple/.zimt.yml" with:
     """
     ---
     version: 1.0.0
@@ -78,7 +78,7 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting an installed pkg which was installed using git
     Given a git repo in a directory named "cassia/simple_git"
     And an empty file named "cassia/simple_git/bashrc"
-    And a file named "cassia/simple_git/dotty.yml" with:
+    And a file named "cassia/simple_git/.zimt.yml" with:
     """
     ---
     config_files:

@@ -6,7 +6,7 @@ Feature: Updating a installed kit which was installed using git
   Background:
     Given a git repo in a directory named "cassia/simple_git"
     And an empty file named "cassia/simple_git/bashrc"
-    And a file named "cassia/simple_git/dotty.yml" with:
+    And a file named "cassia/simple_git/.zimt.yml" with:
     """
     ---
     config_files:
@@ -19,7 +19,7 @@ Feature: Updating a installed kit which was installed using git
 
   Scenario: Updating a kit which was installed using git
     Given an empty file named "cassia/simple_git/vimrc"
-    And a file named "cassia/simple_git/dotty.yml" with:
+    And a file named "cassia/simple_git/.zimt.yml" with:
     """
     ---
     config_files:
@@ -37,7 +37,7 @@ Feature: Updating a installed kit which was installed using git
     """
     echo "HELLO FROM POST UPDATE HOOK"
     """
-    And a file named "cassia/simple_git/dotty.yml" with:
+    And a file named "cassia/simple_git/.zimt.yml" with:
     """
     ---
     config_files:
@@ -59,7 +59,7 @@ Feature: Updating a installed kit which was installed using git
     """
     echo "HELLO FROM POST UPDATE HOOK"
     """
-    And a file named "cassia/simple_git/dotty.yml" with:
+    And a file named "cassia/simple_git/.zimt.yml" with:
     """
     ---
     config_files:

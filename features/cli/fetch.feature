@@ -5,7 +5,7 @@ Feature: Fetching a kit from a location
   Background:
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/dotty.yml" with:
+    And a file named "cassia/simple/.zimt.yml" with:
     """
     ---
     config_files:

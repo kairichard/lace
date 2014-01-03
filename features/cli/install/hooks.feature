@@ -12,7 +12,7 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
     """
     echo "HELLO FROM POST INSTALL HOOK"
     """
-    And a file named "cassia/hooks/dotty.yml" with:
+    And a file named "cassia/hooks/.zimt.yml" with:
     """
     ---
     config_files:

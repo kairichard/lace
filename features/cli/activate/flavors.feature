@@ -7,7 +7,7 @@ Feature: Activating with flavors
     Given a directory named "cassia/flavors"
     And an empty file named "cassia/flavors/bashrc"
     And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/dotty.yml" with:
+    And a file named "cassia/flavors/.zimt.yml" with:
     """
     ---
     flavors:

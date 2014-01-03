@@ -1,11 +1,11 @@
-require 'koon/dotty'
+require 'koon/package'
 require 'koon/exceptions'
 
 module Zimt extend self
 	def remove
-		dotty_name = ARGV.shift
-		raise ResourceNotSpecified if not dotty_name
-		PackageUtils.remove dotty_name, ARGV
+		package_name = ARGV.shift
+		raise ResourceNotSpecified if not package_name
+		PackageUtils.remove package_name, ARGV
 	end
 end
 

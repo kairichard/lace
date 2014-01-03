@@ -6,7 +6,7 @@ require 'koon/download_strategy'
 require 'koon/exceptions'
 
 class PackageUtils
-  def self.is_dotty_any_flavor_active name
+  def self.is_package_any_flavor_active name
     @path = ZIMT_PKGS_FOLDER/name
     facts = Facts.new @path
     facts.flavors.any?{|f| Package.new(@name, f).is_active?}
@@ -20,11 +20,11 @@ class PackageUtils
     downloader.fetch
   end
 
-  def self.remove dotty_name, argv
+  def self.remove package_name, argv
     ohai "Removing"
-    dotty = Package.new dotty_name, false
-    unless dotty.is_active?
-      FileUtils.rm_rf dotty.path
+    package = Package.new package_name, false
+    unless package.is_active?
+      FileUtils.rm_rf package.path
       ohai "Successfully removed"
     else
       ofail "Cannot remove active kit, deactivate first"
@@ -37,32 +37,32 @@ class PackageUtils
       raise "Package already installed"
     end
     downloader.fetch
-    dotty = Package.new downloader.name, ARGV.first
-    dotty.activate!
-    dotty.after_install
+    package = Package.new downloader.name, ARGV.first
+    package.activate!
+    package.after_install
   end
 
-  def self.deactivate dotty_name, argv
-    dotty = Package.new dotty_name, ARGV.shift
-    raise NonActiveFlavorError.new unless dotty.is_active?
-    dotty.deactivate!
+  def self.deactivate package_name, argv
+    package = Package.new package_name, ARGV.shift
+    raise NonActiveFlavorError.new unless package.is_active?
+    package.deactivate!
   end
 
-  def self.activate dotty_name, argv
-    dotty = Package.new dotty_name, ARGV.shift
-    raise AlreadyActiveError.new if Package.new(dotty_name, false).is_active?
-    dotty.activate!
+  def self.activate package_name, argv
+    package = Package.new package_name, ARGV.shift
+    raise AlreadyActiveError.new if Package.new(package_name, false).is_active?
+    package.activate!
   end
 
-  def self.update dotty_name, argv
-    dotty = Package.new dotty_name, false
-    raise OnlyGitReposCanBeUpdatedError.new unless dotty.is_git_repo?
-    updater = GitUpdateStrategy.new dotty_name
-    dotty.deactivate!
+  def self.update package_name, argv
+    package = Package.new package_name, false
+    raise OnlyGitReposCanBeUpdatedError.new unless package.is_git_repo?
+    updater = GitUpdateStrategy.new package_name
+    package.deactivate!
     updater.update
-    dotty.read_facts!
-    dotty.activate!
-    dotty.after_update
+    package.read_facts!
+    package.activate!
+    package.after_update
   end
 end
 
@@ -70,8 +70,8 @@ class Facts
   attr_reader :facts_file
   def initialize location
     @location = Pathname.new(location)
-    @facts_file = @location/"dotty.yml"
-    raise RuntimeError.new "No dotty file found in #@location" unless @facts_file.exist?
+    @facts_file = @location/".zimt.yml"
+    raise RuntimeError.new "No package file found in #@location" unless @facts_file.exist?
     @facts = YAML.load @facts_file.read
     @_facts = YAML.load @facts_file.read
   end

@@ -1,11 +1,11 @@
-require 'koon/dotty'
+require 'koon/package'
 require 'koon/exceptions'
 
 module Zimt extend self
 	def deactivate
-		dotty_name = ARGV.shift
-		raise ResourceNotSpecified if not dotty_name
-		PackageUtils.deactivate dotty_name, ARGV
+		package_name = ARGV.shift
+		raise ResourceNotSpecified if not package_name
+		PackageUtils.deactivate package_name, ARGV
 	end
 end
 

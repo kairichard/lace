@@ -1,22 +1,22 @@
 require 'erb'
 
-require 'koon/dotty'
+require 'koon/package'
 require 'koon/exceptions'
 
 INSPECT = <<-EOS
 Inspection of simple:
-  active:      <%= dotty.is_active? %>
-  flavors:     <%= dotty.flavors %>
-  version:     <%= dotty.version %>
-  upgradeable: <%= dotty.upgradeable? %>
-  manifest:    <%= dotty.manifest %>
+  active:      <%= package.is_active? %>
+  flavors:     <%= package.flavors %>
+  version:     <%= package.version %>
+  upgradeable: <%= package.upgradeable? %>
+  manifest:    <%= package.manifest %>
 EOS
 
 module Zimt extend self
   def inspect
     resource = ARGV.shift
     raise ResourceNotSpecified if not resource
-    dotty = PackagePresenter.new Package.new(resource, false)
+    package = PackagePresenter.new Package.new(resource, false)
     puts ERB.new(INSPECT).result(binding)
 	end
 end

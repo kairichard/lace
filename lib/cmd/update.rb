@@ -1,4 +1,4 @@
-require 'koon/dotty'
+require 'koon/package'
 require 'koon/exceptions'
 
 module Zimt extend self

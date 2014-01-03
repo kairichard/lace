@@ -2,7 +2,7 @@ Given(/^an installed kit named "(.*?)"$/) do |name|
     target = File.join @installed_cassias, name
     step "a directory named \"#{target}\""
     step "an empty file named \"#{target}/bashrc\""
-    step "a file named \"#{target}/dotty.yml\" with:", SIMPLE_DOTTY
+    step "a file named \"#{target}/.zimt.yml\" with:", SIMPLE_DOTTY
 end
 
 Given(/^an active kit with flavors named "(.*?)"$/) do |name|
@@ -14,7 +14,7 @@ Given(/^an installed kit with flavors named "(.*?)"$/) do |name|
     target = File.join @installed_cassias, name
     step "a directory named \"#{target}\""
     step "an empty file named \"#{target}/bashrc\""
-    step "a file named \"#{target}/dotty.yml\" with:", FLAVORED_DOTTY
+    step "a file named \"#{target}/.zimt.yml\" with:", FLAVORED_DOTTY
 end
 
 Given(/^an active kit named "(.*?)"$/) do |kit_name|
@@ -48,7 +48,7 @@ end
 
 Given(/^a package named "(.*?)" with the following manifest:$/) do |name, manifest|
     step "a directory named \"#{name}\""
-    step "a file named \"#{name}/dotty.yml\" with:", manifest
+    step "a file named \"#{name}/.zimt.yml\" with:", manifest
 end
 
 Then(/^I git\-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|

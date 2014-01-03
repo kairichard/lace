@@ -1,6 +1,6 @@
 require 'erb'
 
-require 'koon/dotty'
+require 'koon/package'
 require 'koon/utils'
 require 'koon/exceptions'
 

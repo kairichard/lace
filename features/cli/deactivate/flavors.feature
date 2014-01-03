@@ -8,7 +8,7 @@ Feature: Deactivating with flavors
     And an empty file named "cassia/flavors/bashrc"
     And an empty file named "cassia/flavors/defaults"
     And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/dotty.yml" with:
+    And a file named "cassia/flavors/.zimt.yml" with:
     """
     ---
     flavors:
