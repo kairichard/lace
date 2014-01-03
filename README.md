@@ -22,7 +22,7 @@ local git repos also works. **Installing means that a package is fetched and the
 # install something from disk
 > zimt install somewhere/on/mydisk
 # or from github
-> zimt install https://github.com/kairichard/example_dotfile_pkg.git
+> zimt install https://github.com/kairichard/zimt_example_dotfile_pkg.git
 # for some config files to take effect it may be required to reload your current terminal session
 ```
 
@@ -30,8 +30,8 @@ local git repos also works. **Installing means that a package is fetched and the
 Most likely you dont want to override your existing config files just to get a feeling on how zimt
 behaves. Therefore i prepared an example package for you to just install and play around with.
 ```bash
-> zimt fetch https://github.com/kairichard/example_dotfile_pkg.git
-> zimt activate example_dotfile_pkg
+> zimt fetch https://github.com/kairichard/zimt_example_dotfile_pkg.git
+> zimt activate zimt_example_dotfile_pkg
 ```
 
 ```
@@ -63,17 +63,17 @@ Troubleshooting:
 ```
 - - -
 ## Learning how to make your own package
-A good staring point is to look at the output of `zimt inspect`. Given you have installed the example_dotfile_pkg
+A good staring point is to look at the output of `zimt inspect`. Given you have installed the zimt_example_dotfile_pkg
 you can run the following command:
 ```bash
-> zimt inspect example_dotfile_pkg
-Inspection of example_dotfile_pkg:
+> zimt inspect zimt_example_dotfile_pkg
+Inspection of zimt_example_dotfile_pkg:
   active:      true
   flavors:     osx, linux, production
   version:     0.1
   upgradeable: true
-  manifest:    ~/.cassias/example_dotfile_pkg/.zimt.yml
-  homepage:    https://github.com/kairichard/example_dotfile_pkg
+  manifest:    ~/.cassias/zimt_example_dotfile_pkg/.zimt.yml
+  homepage:    https://github.com/kairichard/zimt_example_dotfile_pkg
 ```
 Than just take a look at the `.zimt.yml` to learn some more and eventually make your own package.
 ### Validating your own package
