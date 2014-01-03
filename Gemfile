@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
-gem 'debugger', :group => [:dev, :test]
+
+group :development  do
+  gem 'debugger'
+end
+
 group :test do
   gem 'rspec'
   gem 'cucumber'
