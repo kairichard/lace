@@ -5,24 +5,24 @@ require 'set'
 require 'koon/download_strategy'
 require 'koon/exceptions'
 
-class DottyUtils
+class PackageUtils
   def self.is_dotty_any_flavor_active name
     @path = ZIMT_PKGS_FOLDER/name
     facts = Facts.new @path
-    facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
+    facts.flavors.any?{|f| Package.new(@name, f).is_active?}
   end
 
   def self.fetch uri, argv
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
-      raise "Dotty already installed"
+      raise "Package already installed"
     end
     downloader.fetch
   end
 
   def self.remove dotty_name, argv
     ohai "Removing"
-    dotty = Dotty.new dotty_name, false
+    dotty = Package.new dotty_name, false
     unless dotty.is_active?
       FileUtils.rm_rf dotty.path
       ohai "Successfully removed"
@@ -34,28 +34,28 @@ class DottyUtils
   def self.install uri, argv
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
-      raise "Dotty already installed"
+      raise "Package already installed"
     end
     downloader.fetch
-    dotty = Dotty.new downloader.name, ARGV.first
+    dotty = Package.new downloader.name, ARGV.first
     dotty.activate!
     dotty.after_install
   end
 
   def self.deactivate dotty_name, argv
-    dotty = Dotty.new dotty_name, ARGV.shift
+    dotty = Package.new dotty_name, ARGV.shift
     raise NonActiveFlavorError.new unless dotty.is_active?
     dotty.deactivate!
   end
 
   def self.activate dotty_name, argv
-    dotty = Dotty.new dotty_name, ARGV.shift
-    raise AlreadyActiveError.new if Dotty.new(dotty_name, false).is_active?
+    dotty = Package.new dotty_name, ARGV.shift
+    raise AlreadyActiveError.new if Package.new(dotty_name, false).is_active?
     dotty.activate!
   end
 
   def self.update dotty_name, argv
-    dotty = Dotty.new dotty_name, false
+    dotty = Package.new dotty_name, false
     raise OnlyGitReposCanBeUpdatedError.new unless dotty.is_git_repo?
     updater = GitUpdateStrategy.new dotty_name
     dotty.deactivate!
@@ -125,7 +125,7 @@ class Facts
   end
 end
 
-class Dotty
+class Package
   include GitCommands
   attr_reader :name, :facts, :path
 
@@ -151,7 +151,7 @@ class Dotty
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise "Dotty #{name} is not installed" unless Zimt.installed_dotties.include? name
+    raise "Package #{name} is not installed" unless Zimt.installed_dotties.include? name
     @name = name
     @path = ZIMT_PKGS_FOLDER/name
     @flavor = flavor
@@ -165,7 +165,7 @@ class Dotty
 
   def is_active?
     if @facts.has_flavors? && @flavor == false
-      @facts.flavors.any?{|f| Dotty.new(@name, f).is_active?}
+      @facts.flavors.any?{|f| Package.new(@name, f).is_active?}
     else
       linked_files = Set.new Zimt.linked_files.map(&:to_s)
       config_files = Set.new @facts.config_files.map(&:to_s)

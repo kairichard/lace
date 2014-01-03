@@ -16,7 +16,7 @@ module Zimt extend self
   def inspect
     resource = ARGV.shift
     raise ResourceNotSpecified if not resource
-    dotty = PackagePresenter.new Dotty.new(resource, false)
+    dotty = PackagePresenter.new Package.new(resource, false)
     puts ERB.new(INSPECT).result(binding)
 	end
 end

@@ -25,7 +25,7 @@ module Zimt extend self
   def list
     if installed_dotties.length > 0
       installed_dotties.map do |d|
-        dotty = Dotty.new d, false
+        dotty = Package.new d, false
         puts "- [#{Tty.green}#{dotty.is_active? ? "*" : " "}#{Tty.reset}] #{d}"
       end
     else

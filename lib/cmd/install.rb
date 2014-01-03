@@ -5,6 +5,6 @@ module Zimt extend self
 	def install
 		resource = ARGV.shift
 		raise ResourceNotSpecified if not resource
-		DottyUtils.install resource, ARGV
+		PackageUtils.install resource, ARGV
 	end
 end

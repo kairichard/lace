@@ -29,7 +29,7 @@ Feature: Installing
     And I run `dotkoon install cassia/simple`
     Then the output should contain:
     """
-    Dotty already installed
+    Package already installed
     """
     And the following files should exist:
       | HOME/.bashrc |
