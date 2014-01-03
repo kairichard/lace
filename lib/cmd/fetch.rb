@@ -1,5 +1,5 @@
-require 'koon/package'
-require 'koon/exceptions'
+require 'zimt/package'
+require 'zimt/exceptions'
 
 module Zimt extend self
 	def fetch

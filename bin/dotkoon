@@ -5,9 +5,9 @@ require 'pathname'
 LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
 $:.unshift(LIB_PATH)
 
-require "koon/utils"
-require "koon/exceptions"
-require "koon/version"
+require "zimt/utils"
+require "zimt/exceptions"
+require "zimt/version"
 
 require "extend/ARGV"
 require "extend/pathname"

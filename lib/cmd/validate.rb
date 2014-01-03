@@ -1,8 +1,8 @@
 require 'erb'
 
-require 'koon/package'
-require 'koon/utils'
-require 'koon/exceptions'
+require 'zimt/package'
+require 'zimt/utils'
+require 'zimt/exceptions'
 
 VALIDATE = <<-EOS
 Zimt-Manifest Validation Report:

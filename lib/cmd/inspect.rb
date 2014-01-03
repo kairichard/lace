@@ -1,7 +1,7 @@
 require 'erb'
 
-require 'koon/package'
-require 'koon/exceptions'
+require 'zimt/package'
+require 'zimt/exceptions'
 
 INSPECT = <<-EOS
 Inspection of simple:

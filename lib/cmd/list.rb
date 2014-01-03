@@ -1,4 +1,4 @@
-require 'koon/package'
+require 'zimt/package'
 
 module Zimt extend self
 

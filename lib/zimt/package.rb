@@ -2,8 +2,8 @@ require 'yaml'
 require 'ostruct'
 require 'set'
 
-require 'koon/download_strategy'
-require 'koon/exceptions'
+require 'zimt/download_strategy'
+require 'zimt/exceptions'
 
 class PackageUtils
   def self.is_package_any_flavor_active name
