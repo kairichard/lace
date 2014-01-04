@@ -72,8 +72,8 @@ class Facts
     @location = Pathname.new(location)
     @facts_file = @location/".lace.yml"
     raise RuntimeError.new "No package file found in #@location" unless @facts_file.exist?
-    @facts = YAML.load @facts_file.read
-    @_facts = YAML.load @facts_file.read
+    @facts = facts_file_to_hash
+    @_facts = facts_file_to_hash
   end
 
   def config_files
@@ -121,6 +121,16 @@ class Facts
     else
       post_hook = @facts["post"]
       (post_hook[hook_point.to_s] || []).flatten
+    end
+  end
+
+  protected
+  def facts_file_to_hash
+    value = YAML.load @facts_file.read
+    if value.is_a?(String) && value == "---"
+      return Hash.new
+    else
+      value
     end
   end
 end
