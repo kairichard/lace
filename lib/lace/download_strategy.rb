@@ -20,7 +20,7 @@ end
 class LocalFileStrategy < AbstractDownloadStrategy
   def fetch
     ohai "Fetching #@uri into #@target_folder"
-    FileUtils.cp_r @uri, @target_folder
+    FileUtils.cp_r @uri, @target_folder, :preserve => true
     @target_folder
   end
 
