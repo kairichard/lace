@@ -10,7 +10,8 @@ Installing
 -------------
 Lace comes as a gem, so given you have ruby install simply do the following
 ```bash
-#> gem install lace # namespace is taken for now
+> gem install lace
+#or
 > git clone https://github.com/kairichard/lace.git
 > cd lace
 > gem build lace.gemspec
