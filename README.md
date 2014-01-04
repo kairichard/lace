@@ -10,7 +10,11 @@ Installing
 -------------
 Zimt comes as a gem, so given you have ruby install simply do the following
 ```bash
-> gem install zimt
+#> gem install zimt # namespace is taken for now
+> git clone https://github.com/kairichard/zimt.git
+> cd zimt
+> gem build zimt.gemspec
+> gem install zimt-*.gem
 ```
 Usage
 -----------
