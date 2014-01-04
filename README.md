@@ -126,8 +126,12 @@ changes.
 ## TODO
   * refactor hook invocation
   * refactor validate.rb
+  * raise no such command instead of "Report Bug" when using unknown cmd
+  * erb in .lace.yml
+  * if installing fails due to missing flavor hooks arent executed
+    * remains installed but not active
   * interactive-mode
-    * flavor choosing
+    * flavor choosing on install
     * run hooks y/n
 
 
