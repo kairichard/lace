@@ -1,4 +1,3 @@
-@wip
 Feature: Validation of a manifest file
   As a User I want to publish my dotfiles in a way that
   other lace user can use them. In order to supply a correct manifest
