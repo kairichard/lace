@@ -7,7 +7,7 @@ Feature: Activating with flavors
     Given a directory named "cassia/flavors"
     And an empty file named "cassia/flavors/bashrc"
     And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/.zimt.yml" with:
+    And a file named "cassia/flavors/.lace.yml" with:
     """
     ---
     flavors:
@@ -20,16 +20,16 @@ Feature: Activating with flavors
           - vimrc
 
     """
-    And I run `zimt fetch cassia/flavors`
+    And I run `lace fetch cassia/flavors`
     Then the output should contain "==> Fetching"
-    And I run `zimt ls`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [ ] flavors
     """
 
   Scenario: Activating without a flavor fails
-    When I run `zimt activate flavors`
+    When I run `lace activate flavors`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -41,8 +41,8 @@ Feature: Activating with flavors
       | HOME/.bashrc |
 
   Scenario: Installing with a flavor
-    When I run `zimt activate flavors desktop`
-    And I run `zimt ls`
+    When I run `lace activate flavors desktop`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -51,8 +51,8 @@ Feature: Activating with flavors
       | HOME/.bashrc |
 
   Scenario: Installing with another flavor
-    When I run `zimt activate flavors console`
-    And I run `zimt ls`
+    When I run `lace activate flavors console`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -62,8 +62,8 @@ Feature: Activating with flavors
       | HOME/.vimrc |
 
   Scenario: Installing more than one flavor from the same kit
-    When I run `zimt activate flavors desktop`
-    Then I run `zimt activate flavors console`
+    When I run `lace activate flavors desktop`
+    Then I run `lace activate flavors console`
     Then the exit status should be 1
     Then the output should contain:
     """

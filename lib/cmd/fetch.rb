@@ -1,7 +1,7 @@
-require 'zimt/package'
-require 'zimt/exceptions'
+require 'lace/package'
+require 'lace/exceptions'
 
-module Zimt extend self
+module Lace extend self
 	def fetch
 		resource = ARGV.shift
 		raise ResourceNotSpecified if not resource

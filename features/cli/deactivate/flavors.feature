@@ -8,7 +8,7 @@ Feature: Deactivating with flavors
     And an empty file named "cassia/flavors/bashrc"
     And an empty file named "cassia/flavors/defaults"
     And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/.zimt.yml" with:
+    And a file named "cassia/flavors/.lace.yml" with:
     """
     ---
     flavors:
@@ -22,10 +22,10 @@ Feature: Deactivating with flavors
           - vimrc
 
     """
-    And I run `zimt fetch cassia/flavors`
+    And I run `lace fetch cassia/flavors`
     Then the output should contain "==> Fetching"
-    When I successfully run `zimt activate flavors desktop`
-    And I run `zimt ls`
+    When I successfully run `lace activate flavors desktop`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -35,7 +35,7 @@ Feature: Deactivating with flavors
       | HOME/.bashrc |
 
   Scenario: Activating without a flavor fails
-    When I run `zimt deactivate flavors`
+    When I run `lace deactivate flavors`
     Then the exit status should be 1
     And the output should contain:
     """
@@ -46,8 +46,8 @@ Feature: Deactivating with flavors
     And the folder "HOME/" should be empty
 
   Scenario: Deactivating with a flavor
-    When I run `zimt deactivate flavors desktop`
-    And I run `zimt ls`
+    When I run `lace deactivate flavors desktop`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [ ] flavors
@@ -55,13 +55,13 @@ Feature: Deactivating with flavors
     And the folder "HOME/" should be empty
 
   Scenario: Deactivating a flavor which wasnt activated
-    When I run `zimt deactivate flavors console`
+    When I run `lace deactivate flavors console`
     Then the exit status should be 1
     Then the output should contain:
     """
     It looks like the flavor you tried to deactivate is not active after all
     """
-    And I run `zimt ls`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -71,8 +71,8 @@ Feature: Deactivating with flavors
       | HOME/.defaults |
 
   Scenario: Deactivating more than once raises error
-    When I run `zimt deactivate flavors desktop`
-    Then I run `zimt deactivate flavors desktop`
+    When I run `lace deactivate flavors desktop`
+    Then I run `lace deactivate flavors desktop`
     Then the exit status should be 1
     Then the output should contain:
     """
@@ -83,8 +83,8 @@ Feature: Deactivating with flavors
       | HOME/.defaults |
 
   Scenario: Deactivating twice with different flavors from the same kit raises error
-    When I run `zimt deactivate flavors desktop`
-    Then I run `zimt deactivate flavors console`
+    When I run `lace deactivate flavors desktop`
+    Then I run `lace deactivate flavors console`
     Then the exit status should be 1
     Then the output should contain:
     """

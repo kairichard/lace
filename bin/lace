@@ -5,26 +5,26 @@ require 'pathname'
 LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
 $:.unshift(LIB_PATH)
 
-require "zimt/utils"
-require "zimt/exceptions"
-require "zimt/version"
+require "lace/utils"
+require "lace/exceptions"
+require "lace/version"
 
 require "extend/ARGV"
 require "extend/pathname"
 
 packages_folder = Pathname.new(ENV["HOME"]).join(".cassias")
 
-if ENV["ZIMT_FOLDER"]
-  packages_folder = Pathname.new(ENV["ZIMT_FOLDER"])
+if ENV["LACE_FOLDER"]
+  packages_folder = Pathname.new(ENV["LACE_FOLDER"])
 end
-ZIMT_PKGS_FOLDER = packages_folder
+LACE_PKGS_FOLDER = packages_folder
 
-module Zimt extend self
+module Lace extend self
   attr_accessor :failed
   alias_method :failed?, :failed
 end
 
-ARGV.extend(ZimtArgvExtension)
+ARGV.extend(LaceArgvExtension)
 
 if ARGV.debug?
   require "debugger"
@@ -32,13 +32,13 @@ end
 
 case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
   require 'cmd/help'
-  puts Zimt.help_s
+  puts Lace.help_s
   exit ARGV.first ? 0 : 1
 when '--version'
-  puts Zimt::VERSION
+  puts Lace::VERSION
   exit 0
 when '-v'
-  puts "zimt #{Zimt::VERSION}"
+  puts "lace #{Lace::VERSION}"
   # Shift the -v to the end of the parameter list
   ARGV << ARGV.shift
   # If no other arguments, just quit here.
@@ -59,7 +59,7 @@ begin
   cmd = aliases[cmd] if aliases[cmd]
 
   if require "cmd/" + cmd
-    Zimt.send cmd.to_s.gsub('-', '_').downcase
+    Lace.send cmd.to_s.gsub('-', '_').downcase
   else
     onoe "Unknown command: #{cmd}"
     exit 1
@@ -87,5 +87,5 @@ rescue Exception => e
   puts e.backtrace
   exit 1
 else
-  exit 1 if Zimt.failed?
+  exit 1 if Lace.failed?
 end

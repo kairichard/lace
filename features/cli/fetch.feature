@@ -5,7 +5,7 @@ Feature: Fetching a kit from a location
   Background:
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     config_files:
@@ -13,8 +13,8 @@ Feature: Fetching a kit from a location
     """
 
   Scenario: Fetching from a local dirctory
-    When I run `zimt fetch cassia/simple`
-    And I run `zimt ls`
+    When I run `lace fetch cassia/simple`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [ ] simple
@@ -23,8 +23,8 @@ Feature: Fetching a kit from a location
       | HOME/.bashrc |
 
   Scenario: Fetching from a local dirctory with a name
-    When I run `zimt fetch cassia/simple --name=mykit`
-    And I run `zimt ls`
+    When I run `lace fetch cassia/simple --name=mykit`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [ ] mykit

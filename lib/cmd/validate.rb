@@ -1,11 +1,11 @@
 require 'erb'
 
-require 'zimt/package'
-require 'zimt/utils'
-require 'zimt/exceptions'
+require 'lace/package'
+require 'lace/utils'
+require 'lace/exceptions'
 
 VALIDATE = <<-EOS
-Zimt-Manifest Validation Report:
+Lace-Manifest Validation Report:
 <% validation.errors.each do |error| -%>
   <%= "%-58s [ %s ]" % [error[0] + ':', error[1]] %>
 <% unless error[2].nil? -%>
@@ -16,13 +16,13 @@ Zimt-Manifest Validation Report:
 <% end -%>
 EOS
 
-module Zimt extend self
+module Lace extend self
 	def validate
 		resource = ARGV.shift
 		raise ResourceNotSpecified if not resource
     validation = PackageValidator.new Facts.new(resource), ARGV.shift
     puts ERB.new(VALIDATE, nil, '-').result(binding)
-    Zimt.failed = true if validation.has_errors?
+    Lace.failed = true if validation.has_errors?
 	end
 end
 

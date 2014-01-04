@@ -1,4 +1,4 @@
-module ZimtHelper
+module LaceHelper
   def chmod(mode, name)
     in_current_dir do
       raise "expected #{name} to be present" unless FileTest.exists?(name)
@@ -26,5 +26,5 @@ module ZimtHelper
   end
 end
 
-World ZimtHelper
+World LaceHelper
 

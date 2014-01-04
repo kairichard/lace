@@ -6,7 +6,7 @@ Feature: Updating a installed kit
   Background:
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     config_files:
@@ -14,8 +14,8 @@ Feature: Updating a installed kit
     """
 
   Scenario: Updating a kit which was installed from a directory
-    Given I run `zimt install cassia/simple`
-    Then I run `zimt update simple`
+    Given I run `lace install cassia/simple`
+    Then I run `lace update simple`
     Then the output should contain:
     """
     Only kits installed via git can be updated

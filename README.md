@@ -1,20 +1,20 @@
-Zimt - dotfile management
+Lace - dotfile management
 ========
-Logging in to different machines at work/home I just wanted to have an elegant solution to install configurations on them. Zimt provides. Also i wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Zimt provides. And i hoped for something that lets you share common dotfiles with your teammates by just installing them next to your own dotfiles.
-Zimt is inspired by brew.
+Logging in to different machines at work/home I just wanted to have an elegant solution to install configurations on them. Lace provides. Also i wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. And i hoped for something that lets you share common dotfiles with your teammates by just installing them next to your own dotfiles.
+Lace is inspired by brew.
 ###### Synopsis
 ```bash
-zimt <cmd> <pkg-uri/name> [--name=<name>] [--version] [--no-hooks]
+lace <cmd> <pkg-uri/name> [--name=<name>] [--version] [--no-hooks]
 ```
 Installing
 -------------
-Zimt comes as a gem, so given you have ruby install simply do the following
+Lace comes as a gem, so given you have ruby install simply do the following
 ```bash
-#> gem install zimt # namespace is taken for now
-> git clone https://github.com/kairichard/zimt.git
-> cd zimt
-> gem build zimt.gemspec
-> gem install zimt-*.gem
+#> gem install lace # namespace is taken for now
+> git clone https://github.com/kairichard/lace.git
+> cd lace
+> gem build lace.gemspec
+> gem install lace-*.gem
 ```
 Usage
 -----------
@@ -24,67 +24,67 @@ local git repos also works. **Installing means that a package is fetched and the
 
 ```bash
 # install something from disk
-> zimt install somewhere/on/mydisk
+> lace install somewhere/on/mydisk
 # or from github
-> zimt install https://github.com/kairichard/zimt_example_dotfile_pkg.git
+> lace install https://github.com/kairichard/lace_example_dotfile_pkg.git
 # for some config files to take effect it may be required to reload your current terminal session
 ```
 
 ### Playing around with a non intrusive example package
-Most likely you dont want to override your existing config files just to get a feeling on how zimt
+Most likely you dont want to override your existing config files just to get a feeling on how lace
 behaves. Therefore i prepared an example package for you to just install and play around with.
 ```bash
-> zimt fetch https://github.com/kairichard/zimt_example_dotfile_pkg.git
-> zimt activate zimt_example_dotfile_pkg
+> lace fetch https://github.com/kairichard/lace_example_dotfile_pkg.git
+> lace activate lace_example_dotfile_pkg
 ```
 
 ```
 Example usage:
   Synopsis:
-    zimt <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
+    lace <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
 
-  zimt ls
+  lace ls
 
-  zimt fetch <pkg-uri>
-  zimt fetch <pkg-uri>
+  lace fetch <pkg-uri>
+  lace fetch <pkg-uri>
 
-  zimt install <pkg-uri>
-  zimt install <pkg-uri> <flavor>
+  lace install <pkg-uri>
+  lace install <pkg-uri> <flavor>
 
-  zimt activate <pkg-name>
-  zimt activate <pkg-name> <flavor>
+  lace activate <pkg-name>
+  lace activate <pkg-name> <flavor>
 
-  zimt deactivate <pkg-name>
-  zimt deactivate <pkg-name> <flavor>
+  lace deactivate <pkg-name>
+  lace deactivate <pkg-name> <flavor>
 
-  zimt remove <pkg-name>
-  zimt update <pkg-name>
+  lace remove <pkg-name>
+  lace update <pkg-name>
 
 Troubleshooting:
-  zimt help
-  zimt info <pkg-name>
-  zimt validate <local-directory>
+  lace help
+  lace info <pkg-name>
+  lace validate <local-directory>
 ```
 - - -
 ## Learning how to make your own package
-A good staring point is to look at the output of `zimt inspect`. Given you have installed the zimt_example_dotfile_pkg
+A good staring point is to look at the output of `lace inspect`. Given you have installed the lace_example_dotfile_pkg
 you can run the following command:
 ```bash
-> zimt inspect zimt_example_dotfile_pkg
-Inspection of zimt_example_dotfile_pkg:
+> lace inspect lace_example_dotfile_pkg
+Inspection of lace_example_dotfile_pkg:
   active:      true
   flavors:     osx, linux, production
   version:     0.1
   upgradeable: true
-  manifest:    ~/.cassias/zimt_example_dotfile_pkg/.zimt.yml
-  homepage:    https://github.com/kairichard/zimt_example_dotfile_pkg
+  manifest:    ~/.cassias/lace_example_dotfile_pkg/.lace.yml
+  homepage:    https://github.com/kairichard/lace_example_dotfile_pkg
 ```
-Than just take a look at the `.zimt.yml` to learn some more and eventually make your own package.
+Than just take a look at the `.lace.yml` to learn some more and eventually make your own package.
 ### Validating your own package
-When packaging your zimt-package you may want to validate your `.zimt.yml` to do that just run the following and study the output to improve your package
+When packaging your lace-package you may want to validate your `.lace.yml` to do that just run the following and study the output to improve your package
 ```bash
-> zimt validate somewhere/on/mydisk
-Zimt-Manifest Validation Report:
+> lace validate somewhere/on/mydisk
+Lace-Manifest Validation Report:
   config-files:                                              [ error ]
     # arkrc is missing from this package
   version:                                                   [ missing ]
@@ -102,7 +102,7 @@ Zimt-Manifest Validation Report:
     # ~/.vim/install_bundles cannot be found
     # ~/.bootstrap/osx/brew cannot be found
 ```
-**NOTE** `zimt validate` only works with local directories
+**NOTE** `lace validate` only works with local directories
 
 ## Contributing Code
 

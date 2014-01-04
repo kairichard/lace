@@ -1,35 +1,35 @@
 HELP = <<-EOS
 Example usage:
   Synopsis:
-    zimt <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
+    lace <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
 
-  zimt ls
+  lace ls
 
-  zimt fetch <pkg-uri>
-  zimt fetch <pkg-uri>
+  lace fetch <pkg-uri>
+  lace fetch <pkg-uri>
 
-  zimt install <pkg-uri>
-  zimt install <pkg-uri> <flavor>
+  lace install <pkg-uri>
+  lace install <pkg-uri> <flavor>
 
-  zimt activate <pkg-name>
-  zimt activate <pkg-name> <flavor>
+  lace activate <pkg-name>
+  lace activate <pkg-name> <flavor>
 
-  zimt deactivate <pkg-name>
-  zimt deactivate <pkg-name> <flavor>
+  lace deactivate <pkg-name>
+  lace deactivate <pkg-name> <flavor>
 
-  zimt remove <pkg-name>
-  zimt update <pkg-name>
+  lace remove <pkg-name>
+  lace update <pkg-name>
 
 Troubleshooting:
-  zimt help
-  zimt info <pkg-name>
-  zimt validate <local-directory>
+  lace help
+  lace info <pkg-name>
+  lace validate <local-directory>
 
 For further help visit:
-  https://github.com/kairichard/zimt
+  https://github.com/kairichard/lace
 EOS
 
-module Zimt extend self
+module Lace extend self
   def help
     puts HELP
   end

@@ -1,7 +1,7 @@
 require 'erb'
 
-require 'zimt/package'
-require 'zimt/exceptions'
+require 'lace/package'
+require 'lace/exceptions'
 
 INSPECT = <<-EOS
 Inspection of simple:
@@ -12,7 +12,7 @@ Inspection of simple:
   manifest:    <%= package.manifest %>
 EOS
 
-module Zimt extend self
+module Lace extend self
   def inspect
     resource = ARGV.shift
     raise ResourceNotSpecified if not resource

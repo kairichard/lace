@@ -5,7 +5,7 @@ Feature: Activating
   Background:
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     config_files:
@@ -14,9 +14,9 @@ Feature: Activating
 
 
   Scenario: Activating by name
-    When I run `zimt fetch cassia/simple`
-    When I run `zimt activate simple`
-    And I run `zimt ls`
+    When I run `lace fetch cassia/simple`
+    When I run `lace activate simple`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] simple
@@ -25,9 +25,9 @@ Feature: Activating
       | HOME/.bashrc |
 
   Scenario: Activating by a overridden name
-    When I run `zimt fetch cassia/simple --name=mykit`
-    When I run `zimt activate mykit`
-    And I run `zimt ls`
+    When I run `lace fetch cassia/simple --name=mykit`
+    When I run `lace activate mykit`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] mykit
@@ -36,10 +36,10 @@ Feature: Activating
       | HOME/.bashrc |
 
   Scenario: Activating one from a list of two
-    When I run `zimt fetch cassia/simple --name=mykit`
-    When I run `zimt fetch cassia/simple --name=otherkit`
-    When I run `zimt activate mykit`
-    And I run `zimt ls`
+    When I run `lace fetch cassia/simple --name=mykit`
+    When I run `lace fetch cassia/simple --name=otherkit`
+    When I run `lace activate mykit`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] mykit

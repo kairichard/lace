@@ -9,14 +9,14 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting a simple pkg
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     config_files:
       - bashrc
     """
-    Then I run `zimt fetch cassia/simple`
-    And I run `zimt inspect simple`
+    Then I run `lace fetch cassia/simple`
+    And I run `lace inspect simple`
     Then the output should contain:
     """
     Inspection of simple:
@@ -29,15 +29,15 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting an installed and active pkg
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     version: 1.0.0
     config_files:
       - bashrc
     """
-    Then I run `zimt install cassia/simple`
-    And I run `zimt inspect simple`
+    Then I run `lace install cassia/simple`
+    And I run `lace inspect simple`
     Then the output should contain:
     """
     Inspection of simple:
@@ -50,7 +50,7 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting an installed pkg which has flavors
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     version: 1.0.0
@@ -64,8 +64,8 @@ Feature: Getting information about a installed pkg
           - vimrc
 
     """
-    Then I run `zimt fetch cassia/simple`
-    And I run `zimt inspect simple`
+    Then I run `lace fetch cassia/simple`
+    And I run `lace inspect simple`
     Then the output should contain:
     """
     Inspection of simple:
@@ -78,15 +78,15 @@ Feature: Getting information about a installed pkg
   Scenario: Inspecting an installed pkg which was installed using git
     Given a git repo in a directory named "cassia/simple_git"
     And an empty file named "cassia/simple_git/bashrc"
-    And a file named "cassia/simple_git/.zimt.yml" with:
+    And a file named "cassia/simple_git/.lace.yml" with:
     """
     ---
     config_files:
       - bashrc
     """
     Then I git-commit "cassia/simple_git" saying "Initial"
-    And I run `zimt install cassia/simple_git`
-    And I run `zimt inspect simple_git`
+    And I run `lace install cassia/simple_git`
+    And I run `lace inspect simple_git`
     Then the output should contain:
     """
     Inspection of simple:

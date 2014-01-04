@@ -57,7 +57,7 @@ end
 
 def ofail error
   onoe error
-  Zimt.failed = true
+  Lace.failed = true
 end
 
 def odie error
@@ -73,7 +73,7 @@ def determine_os
   end
 end
 
-module Zimt extend self
+module Lace extend self
   def system cmd, *args
     puts "#{cmd} #{args*' '}" if ARGV.verbose?
     fork do
@@ -89,7 +89,7 @@ end
 
 # Kernel.system but with exceptions
 def safe_system cmd, *args
-  unless Zimt.system cmd, *args
+  unless Lace.system cmd, *args
     args = args.map{ |arg| arg.to_s.gsub " ", "\\ " } * " "
     raise ErrorDuringExecution, "Failure while executing: #{cmd} #{args}"
   end
@@ -97,7 +97,7 @@ end
 
 # prints no output
 def quiet_system cmd, *args
-  Zimt.system(cmd, *args) do
+  Lace.system(cmd, *args) do
     # Redirect output streams to `/dev/null` instead of closing as some programs
     # will fail to execute if they can't write to an open stream.
     $stdout.reopen('/dev/null')

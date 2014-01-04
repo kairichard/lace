@@ -2,12 +2,12 @@ require 'yaml'
 require 'ostruct'
 require 'set'
 
-require 'zimt/download_strategy'
-require 'zimt/exceptions'
+require 'lace/download_strategy'
+require 'lace/exceptions'
 
 class PackageUtils
   def self.is_package_any_flavor_active name
-    @path = ZIMT_PKGS_FOLDER/name
+    @path = LACE_PKGS_FOLDER/name
     facts = Facts.new @path
     facts.flavors.any?{|f| Package.new(@name, f).is_active?}
   end
@@ -70,7 +70,7 @@ class Facts
   attr_reader :facts_file
   def initialize location
     @location = Pathname.new(location)
-    @facts_file = @location/".zimt.yml"
+    @facts_file = @location/".lace.yml"
     raise RuntimeError.new "No package file found in #@location" unless @facts_file.exist?
     @facts = YAML.load @facts_file.read
     @_facts = YAML.load @facts_file.read
@@ -107,7 +107,7 @@ class Facts
   end
 
   def flavor! which_flavor
-    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: zimt <command> <kit-uri> <flavor>" unless flavors.include? which_flavor
+    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <kit-uri> <flavor>" unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
 
@@ -151,9 +151,9 @@ class Package
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise "Package #{name} is not installed" unless Zimt.installed_dotties.include? name
+    raise "Package #{name} is not installed" unless Lace.installed_dotties.include? name
     @name = name
-    @path = ZIMT_PKGS_FOLDER/name
+    @path = LACE_PKGS_FOLDER/name
     @flavor = flavor
     read_facts!
   end
@@ -167,7 +167,7 @@ class Package
     if @facts.has_flavors? && @flavor == false
       @facts.flavors.any?{|f| Package.new(@name, f).is_active?}
     else
-      linked_files = Set.new Zimt.linked_files.map(&:to_s)
+      linked_files = Set.new Lace.linked_files.map(&:to_s)
       config_files = Set.new @facts.config_files.map(&:to_s)
       config_files.subset? linked_files
     end

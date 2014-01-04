@@ -6,7 +6,7 @@ Feature: Installing
   Background:
     Given a directory named "cassia/simple"
     And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.zimt.yml" with:
+    And a file named "cassia/simple/.lace.yml" with:
     """
     ---
     config_files:
@@ -15,8 +15,8 @@ Feature: Installing
 
 
   Scenario: Installing from a local dirctory
-    When I run `zimt install cassia/simple`
-    And I run `zimt ls`
+    When I run `lace install cassia/simple`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] simple
@@ -25,8 +25,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory twice
-    When I run `zimt install cassia/simple`
-    And I run `zimt install cassia/simple`
+    When I run `lace install cassia/simple`
+    And I run `lace install cassia/simple`
     Then the output should contain:
     """
     Package already installed
@@ -35,8 +35,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `zimt install cassia/simple --name=mykit`
-    And I run `zimt ls`
+    When I run `lace install cassia/simple --name=mykit`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] mykit
@@ -45,8 +45,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `zimt install cassia/simple --name=mykit`
-    And I run `zimt ls`
+    When I run `lace install cassia/simple --name=mykit`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] mykit

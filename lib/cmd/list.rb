@@ -1,6 +1,6 @@
-require 'zimt/package'
+require 'lace/package'
 
-module Zimt extend self
+module Lace extend self
 
   def linked_files
     home_dir = ENV["HOME"]
@@ -17,7 +17,7 @@ module Zimt extend self
   end
 
   def installed_dotties
-    Dir.glob(File.join(ZIMT_PKGS_FOLDER, "**")).sort.map do |p|
+    Dir.glob(File.join(LACE_PKGS_FOLDER, "**")).sort.map do |p|
       Pathname.new(p).basename.to_s
     end
   end

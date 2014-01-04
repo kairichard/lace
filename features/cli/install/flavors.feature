@@ -6,7 +6,7 @@ Feature: Installing with flavors from a location
     Given a directory named "cassia/flavors"
     And an empty file named "cassia/flavors/bashrc"
     And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/.zimt.yml" with:
+    And a file named "cassia/flavors/.lace.yml" with:
     """
     ---
     flavors:
@@ -21,8 +21,8 @@ Feature: Installing with flavors from a location
     """
 
   Scenario: Installing with a flavor
-    When I run `zimt install cassia/flavors desktop`
-    And I run `zimt ls`
+    When I run `lace install cassia/flavors desktop`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -31,8 +31,8 @@ Feature: Installing with flavors from a location
       | HOME/.bashrc |
 
   Scenario: Installing with another flavor
-    When I run `zimt install cassia/flavors console`
-    And I run `zimt ls`
+    When I run `lace install cassia/flavors console`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] flavors
@@ -43,8 +43,8 @@ Feature: Installing with flavors from a location
 
 
   Scenario: Installing with a flavor and a custome name
-    When I run `zimt install cassia/flavors desktop --name=mykit`
-    And I run `zimt ls`
+    When I run `lace install cassia/flavors desktop --name=mykit`
+    And I run `lace ls`
     Then the output should contain:
     """
     - [*] mykit

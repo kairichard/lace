@@ -1,8 +1,8 @@
 
-require 'zimt/package'
-require 'zimt/exceptions'
+require 'lace/package'
+require 'lace/exceptions'
 
-module Zimt extend self
+module Lace extend self
 	def activate
 		package_name = ARGV.shift
 		raise ResourceNotSpecified if not package_name

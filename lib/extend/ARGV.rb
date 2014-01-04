@@ -1,4 +1,4 @@
-module ZimtArgvExtension
+module LaceArgvExtension
   def named
     @named ||= reject{|arg| arg[0..0] == '-'}
   end
