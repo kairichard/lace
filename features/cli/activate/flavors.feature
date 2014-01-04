@@ -61,7 +61,7 @@ Feature: Activating with flavors
       | HOME/.bashrc |
       | HOME/.vimrc |
 
-  Scenario: Installing more than one flavor from the same kit
+  Scenario: Installing more than one flavor from the same pkg
     When I run `lace activate flavors desktop`
     Then I run `lace activate flavors console`
     Then the exit status should be 1

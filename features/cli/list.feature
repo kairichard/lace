@@ -1,47 +1,47 @@
-Feature: Listing installed and active kits
-  As a user i want to see what kits are installed
+Feature: Listing installed and active pkgs
+  As a user i want to see what pkgs are installed
   or active so i can quickly see what commands or aliasses might
-  be available, or i simply forgot what the name of the kit was i installed.
+  be available, or i simply forgot what the name of the pkg was i installed.
   So i can look the name up and use that in subsequent command.
 
-  Scenario: With no installed kits
+  Scenario: With no installed pkgs
     When I successfully run `lace ls`
-    Then the output should contain "There are no kits installed"
+    Then the output should contain "There are no pkgs installed"
 
-  Scenario: With one installed kit
-    Given an installed kit named "mykit"
+  Scenario: With one installed pkg
+    Given an installed pkg named "mypkg"
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [ ] mykit
+    - [ ] mypkg
     """
 
-  Scenario: With more than one installed kit
-    Given an installed kit named "mykit_1"
-    Given an installed kit named "mykit_2"
-    Given an installed kit named "mykit_3"
+  Scenario: With more than one installed pkg
+    Given an installed pkg named "mypkg_1"
+    Given an installed pkg named "mypkg_2"
+    Given an installed pkg named "mypkg_3"
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [ ] mykit_1
-    - [ ] mykit_2
-    - [ ] mykit_3
+    - [ ] mypkg_1
+    - [ ] mypkg_2
+    - [ ] mypkg_3
     """
   Scenario: Active Kits are marked with a star
-    Given an active kit named "mykit"
-    Given an installed kit named "otherkit"
+    Given an active pkg named "mypkg"
+    Given an installed pkg named "otherpkg"
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [*] mykit
-    - [ ] otherkit
+    - [*] mypkg
+    - [ ] otherpkg
     """
 
   Scenario: Active Kits are marked with a star also when they have flavors
-    Given an active kit with flavors named "mykit"
+    Given an active pkg with flavors named "mypkg"
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [*] mykit
+    - [*] mypkg
     """
 

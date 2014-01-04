@@ -1,7 +1,7 @@
-Feature: Updating a installed kit which was installed using git
+Feature: Updating a installed pkg which was installed using git
   As a user when I update my own dotfiles
-  or a maintainer updates the kit i installed
-  I then want to be able to update that kit.
+  or a maintainer updates the pkg i installed
+  I then want to be able to update that pkg.
 
   Background:
     Given a git repo in a directory named "cassia/simple_git"
@@ -17,7 +17,7 @@ Feature: Updating a installed kit which was installed using git
     Then the following files should exist:
       | HOME/.bashrc |
 
-  Scenario: Updating a kit which was installed using git
+  Scenario: Updating a pkg which was installed using git
     Given an empty file named "cassia/simple_git/vimrc"
     And a file named "cassia/simple_git/.lace.yml" with:
     """
@@ -32,7 +32,7 @@ Feature: Updating a installed kit which was installed using git
       | HOME/.bashrc |
       | HOME/.vimrc |
 
-  Scenario: Updating a kit which was installed using git - adding hooks
+  Scenario: Updating a pkg which was installed using git - adding hooks
     Given a file named "cassia/simple_git/hooks/post_update.sh" with mode "775" and with:
     """
     echo "HELLO FROM POST UPDATE HOOK"
@@ -54,7 +54,7 @@ Feature: Updating a installed kit which was installed using git
       | HOME/.bashrc |
       | HOME/.hooks/post_update.sh |
 
-  Scenario: Updating a kit which was installed using git - adding hooks but running with no-hooks
+  Scenario: Updating a pkg which was installed using git - adding hooks but running with no-hooks
     Given a file named "cassia/simple_git/hooks/post_update.sh" with mode "775" and with:
     """
     echo "HELLO FROM POST UPDATE HOOK"

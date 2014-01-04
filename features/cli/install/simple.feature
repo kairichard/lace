@@ -1,5 +1,5 @@
 Feature: Installing
-  As a user i want to install a kit from a local or
+  As a user i want to install a pkg from a local or
   remote location so that i can start right away using
   my newly configured system
 
@@ -35,21 +35,21 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `lace install cassia/simple --name=mykit`
+    When I run `lace install cassia/simple --name=mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mykit
+    - [*] mypkg
     """
     And the following files should exist:
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `lace install cassia/simple --name=mykit`
+    When I run `lace install cassia/simple --name=mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mykit
+    - [*] mypkg
     """
     And the following files should exist:
       | HOME/.bashrc |

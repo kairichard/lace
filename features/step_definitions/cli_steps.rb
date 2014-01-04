@@ -1,25 +1,25 @@
-Given(/^an installed kit named "(.*?)"$/) do |name|
+Given(/^an installed pkg named "(.*?)"$/) do |name|
     target = File.join @installed_cassias, name
     step "a directory named \"#{target}\""
     step "an empty file named \"#{target}/bashrc\""
     step "a file named \"#{target}/.lace.yml\" with:", SIMPLE_DOTTY
 end
 
-Given(/^an active kit with flavors named "(.*?)"$/) do |name|
-    step "an installed kit with flavors named \"#{name}\""
+Given(/^an active pkg with flavors named "(.*?)"$/) do |name|
+    step "an installed pkg with flavors named \"#{name}\""
     step "I run `lace activate #{name} osx`"
 end
 
-Given(/^an installed kit with flavors named "(.*?)"$/) do |name|
+Given(/^an installed pkg with flavors named "(.*?)"$/) do |name|
     target = File.join @installed_cassias, name
     step "a directory named \"#{target}\""
     step "an empty file named \"#{target}/bashrc\""
     step "a file named \"#{target}/.lace.yml\" with:", FLAVORED_DOTTY
 end
 
-Given(/^an active kit named "(.*?)"$/) do |kit_name|
-    step "an installed kit named \"#{kit_name}\""
-    step "I run `lace activate #{kit_name}`"
+Given(/^an active pkg named "(.*?)"$/) do |pkg_name|
+    step "an installed pkg named \"#{pkg_name}\""
+    step "I run `lace activate #{pkg_name}`"
 end
 
 Given(/^a file named "([^"]*)" with mode "([^"]*)" and with:$/) do |file_name, file_mode, file_content|

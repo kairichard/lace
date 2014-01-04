@@ -82,7 +82,7 @@ Feature: Deactivating with flavors
       | HOME/.bashrc |
       | HOME/.defaults |
 
-  Scenario: Deactivating twice with different flavors from the same kit raises error
+  Scenario: Deactivating twice with different flavors from the same pkg raises error
     When I run `lace deactivate flavors desktop`
     Then I run `lace deactivate flavors console`
     Then the exit status should be 1

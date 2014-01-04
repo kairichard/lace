@@ -43,11 +43,11 @@ Feature: Installing with flavors from a location
 
 
   Scenario: Installing with a flavor and a custome name
-    When I run `lace install cassia/flavors desktop --name=mykit`
+    When I run `lace install cassia/flavors desktop --name=mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mykit
+    - [*] mypkg
     """
     And the following files should exist:
       | HOME/.bashrc |

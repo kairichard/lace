@@ -1,5 +1,5 @@
-Feature: Fetching a kit from a location
-  As a user i want to fetch a kit from a local or
+Feature: Fetching a pkg from a location
+  As a user i want to fetch a pkg from a local or
   remote location so that i can interact with it
 
   Background:
@@ -23,11 +23,11 @@ Feature: Fetching a kit from a location
       | HOME/.bashrc |
 
   Scenario: Fetching from a local dirctory with a name
-    When I run `lace fetch cassia/simple --name=mykit`
+    When I run `lace fetch cassia/simple --name=mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] mykit
+    - [ ] mypkg
     """
     And the following files should not exist:
       | HOME/.bashrc |

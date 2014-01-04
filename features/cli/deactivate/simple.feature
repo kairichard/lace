@@ -34,23 +34,23 @@ Feature: Deactivating
   Scenario: Deativating one from a list of two
     Given I successfully run `lace deactivate simple`
     And I successfully run `lace remove simple`
-    When I run `lace fetch cassia/simple --name=mykit`
-    When I run `lace fetch cassia/simple --name=otherkit`
-    When I run `lace activate mykit`
+    When I run `lace fetch cassia/simple --name=mypkg`
+    When I run `lace fetch cassia/simple --name=otherpkg`
+    When I run `lace activate mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mykit
-    - [ ] otherkit
+    - [*] mypkg
+    - [ ] otherpkg
     """
     And the following files should exist:
       | HOME/.bashrc |
-    Then I run `lace deactivate mykit`
+    Then I run `lace deactivate mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] mykit
-    - [ ] otherkit
+    - [ ] mypkg
+    - [ ] otherpkg
     """
     And the following files should not exist:
       | HOME/.bashrc |

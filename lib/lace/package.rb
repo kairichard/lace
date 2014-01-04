@@ -27,7 +27,7 @@ class PackageUtils
       FileUtils.rm_rf package.path
       ohai "Successfully removed"
     else
-      ofail "Cannot remove active kit, deactivate first"
+      ofail "Cannot remove active pkg, deactivate first"
     end
   end
 
@@ -107,7 +107,7 @@ class Facts
   end
 
   def flavor! which_flavor
-    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <kit-uri> <flavor>" unless flavors.include? which_flavor
+    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <pkg-uri> <flavor>" unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
 

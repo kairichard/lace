@@ -4,7 +4,7 @@ class ErrorDuringExecution < RuntimeError; end
 
 class OnlyGitReposCanBeUpdatedError < RuntimeError
   def initialize
-    super "Only kits installed via git can be updated"
+    super "Only pkgs installed via git can be updated"
   end
 end
 

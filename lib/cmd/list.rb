@@ -29,7 +29,7 @@ module Lace extend self
         puts "- [#{Tty.green}#{package.is_active? ? "*" : " "}#{Tty.reset}] #{d}"
       end
     else
-      puts "There are no kits installed"
+      puts "There are no pkgs installed"
     end
   end
 
