@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace)
 Lace - dotfile management
 ========
 Logging in to different machines at work/home I just wanted to have an elegant solution to install configurations on them. Lace provides. Also i wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. And i hoped for something that lets you share common dotfiles with your teammates by just installing them next to your own dotfiles.
