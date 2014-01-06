@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace)
-Lace - dotfile management
+Lace - dotfile management [![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace)
 ========
 Logging in to different machines at work/home I just wanted to have an elegant solution to install configurations on them. Lace provides. Also i wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. And i hoped for something that lets you share common dotfiles with your teammates by just installing them next to your own dotfiles.
 Lace is inspired by brew.
@@ -28,7 +27,7 @@ local git repos also works. **Installing means that a package is fetched and the
 # install something from disk
 > lace install somewhere/on/mydisk
 # or from github
-> lace install https://github.com/kairichard/lace_example_dotfile_pkg.git
+> lace install https://github.com/user/repo.git <flavor>
 # for some config files to take effect it may be required to reload your current terminal session
 ```
 
