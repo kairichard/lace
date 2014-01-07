@@ -89,7 +89,7 @@ Feature: Getting information about a installed pkg
     And I run `lace inspect simple_git`
     Then the output should contain:
     """
-    Inspection of simple:
+    Inspection of simple_git:
       active:      true
       flavors:     nil
       version:     n/a
