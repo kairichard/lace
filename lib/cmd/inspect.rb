@@ -18,7 +18,7 @@ module Lace extend self
     raise ResourceNotSpecified if not resource
     package = PackagePresenter.new Package.new(resource, false)
     puts ERB.new(INSPECT).result(binding)
-	end
+  end
 end
 
 class PackagePresenter
