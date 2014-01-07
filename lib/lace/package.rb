@@ -6,6 +6,7 @@ require 'lace/download_strategy'
 require 'lace/exceptions'
 
 class PackageUtils
+  # that a wired method name
   def self.is_package_any_flavor_active name
     @path = LACE_PKGS_FOLDER/name
     facts = Facts.new @path
@@ -15,6 +16,7 @@ class PackageUtils
   def self.fetch uri, argv
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
+      # refactor to use proper Exception
       raise "Package already installed"
     end
     downloader.fetch
@@ -55,6 +57,9 @@ class PackageUtils
   end
 
   def self.update package_name, argv
+    # todo this should fail when there is an active flavor but
+    # no flavor was provided, because then newly added files wouldnt be added
+    # may be keep a diff and only activate that.
     package = Package.new package_name, false
     raise OnlyGitReposCanBeUpdatedError.new unless package.is_git_repo?
     updater = GitUpdateStrategy.new package_name
@@ -107,6 +112,7 @@ class Facts
   end
 
   def flavor! which_flavor
+    # refactor to use Proper Exception
     raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <pkg-uri> <flavor>" unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
@@ -184,8 +190,10 @@ class Package
   end
 
   def read_facts!
+    # todo simplify
     @facts = Facts.new @path
     if @facts.has_flavors? && @flavor.nil?
+      # todo raise an FlavorError here
       raise RuntimeError.new FlavorArgumentMsg % @facts.flavors.join("\n- ")
     elsif @facts.has_flavors? && @flavor != false
       @facts.flavor! @flavor
