@@ -32,6 +32,13 @@ class PackageFactsNotFound < RuntimeError
   end
 end
 
+class PackageFlavorDoesNotExist < RuntimeError
+  def initialize which_flavor, flavors
+    super "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <pkg-uri> <flavor>"
+  end
+end
+
+
 FlavorArgumentMsg = <<-EOS
 Sorry, this command needs a flavor argument you can choose from the following:
 - %s

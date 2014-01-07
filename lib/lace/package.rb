@@ -112,7 +112,7 @@ class Facts
 
   def flavor! which_flavor
     # refactor to use Proper Exception
-    raise RuntimeError.new "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <pkg-uri> <flavor>" unless flavors.include? which_flavor
+    raise PackageFlavorDoesNotExist.new(which_flavor, flavors) unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
 
