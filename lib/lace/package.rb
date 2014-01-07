@@ -33,10 +33,7 @@ class PackageUtils
 
   def self.install uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
-    if downloader.target_folder.exist?
-      raise PackageAlreadyInstalled.new
-    end
-    downloader.fetch
+    self.fetch uri
     package = Package.new downloader.name, ARGV.first
     package.activate!
     package.after_install
