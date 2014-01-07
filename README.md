@@ -132,10 +132,13 @@ changes.
   * show if there is an update available
   * if installing fails due to missing flavor hooks arent executed
     * remains installed but not active
+  * improve list mode to show if uptodate and show version
   * interactive-mode
+  * pakage.rb contains todos
+    * update command with flavors does not update config_files 
+  * yes mode
     * flavor choosing on install
     * run hooks y/n
-
 
 License
 --------
