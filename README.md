@@ -128,6 +128,7 @@ changes.
   * refactor validate.rb
   * raise no such command instead of "Report Bug" when using unknown cmd
   * erb in .lace.yml
+  * show if there is an update available
   * if installing fails due to missing flavor hooks arent executed
     * remains installed but not active
   * interactive-mode
