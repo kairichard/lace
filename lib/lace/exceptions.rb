@@ -26,6 +26,18 @@ class PackageAlreadyInstalled < RuntimeError
   end
 end
 
+class PackageNotInstalled < RuntimeError
+  def initialize name
+    super "Package #{name} is not installed"
+  end
+end
+
+class FlavorArgumentRequired < ArgumentError
+  def initialize available_flavors
+    super FlavorArgumentMsg % available_flavors.join("\n- ")
+  end
+end
+
 class PackageFactsNotFound < RuntimeError
   def initialize path
     super "No PackageFacts found in #{path}"

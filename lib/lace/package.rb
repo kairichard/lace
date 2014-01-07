@@ -111,7 +111,6 @@ class Facts
   end
 
   def flavor! which_flavor
-    # refactor to use Proper Exception
     raise PackageFlavorDoesNotExist.new(which_flavor, flavors) unless flavors.include? which_flavor
     @facts = @_facts["flavors"][which_flavor]
   end
@@ -166,7 +165,7 @@ class Package
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise "Package #{name} is not installed" unless Lace.installed_packages.include? name
+    raise PackageNotInstalled.new unless Lace.installed_packages.include? name
     @name = name
     @path = LACE_PKGS_FOLDER/name
     @flavor = flavor
@@ -192,8 +191,7 @@ class Package
     # todo simplify
     @facts = Facts.new @path
     if @facts.has_flavors? && @flavor.nil?
-      # todo raise an FlavorError here
-      raise RuntimeError.new FlavorArgumentMsg % @facts.flavors.join("\n- ")
+      raise FlavorArgumentRequired.new @facts.flavors
     elsif @facts.has_flavors? && @flavor != false
       @facts.flavor! @flavor
     end
