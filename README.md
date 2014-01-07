@@ -1,6 +1,6 @@
 Lace - dotfile management [![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace)
 ========
-Logging in to different machines at work/home I just wanted to have an elegant solution to install configurations on them. Lace provides. Also i wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. And i hoped for something that lets you share common dotfiles with your teammates by just installing them next to your own dotfiles.
+Logging in to different machines at work or at home I just wanted to have an elegant solution to install .dotfiles on them. Lace provides. Also I wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. Updateing these should be a breeze. Lace provides. And I hoped for something that lets you share common .dotfiles with your teammates by just installing them next to your own dotfiles. Lace provides.
 Lace is inspired by brew.
 ###### Synopsis
 ```bash
@@ -8,7 +8,7 @@ lace <cmd> <pkg-uri/name> [--name=<name>] [--version] [--no-hooks]
 ```
 Installing
 -------------
-Lace comes as a gem, so given you have ruby install simply do the following
+Lace comes as a gem, so given you have ruby installed simply do the following
 ```bash
 > gem install lace
 #or
