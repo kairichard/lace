@@ -21,7 +21,7 @@ Usage
 -----------
 ### Installing a Package
 Its possible to install a Package either locally via the files system or by specifying a remote git repo,
-local git repos also works. **Installing means that a package is fetched and then activated**.
+local git repos also work. **Installing means that a package is fetched and then activated**.
 
 ```bash
 # install something from disk
@@ -33,7 +33,7 @@ local git repos also works. **Installing means that a package is fetched and the
 
 ### Playing around with a non intrusive example package
 Most likely you dont want to override your existing config files just to get a feeling on how lace
-behaves. Therefore i prepared an example package for you to just install and play around with.
+behaves. Therefore I prepared an example package for you to just install and play around with.
 ```bash
 > lace fetch https://github.com/kairichard/lace_example_dotfile_pkg.git
 > lace activate lace_example_dotfile_pkg
@@ -112,7 +112,7 @@ If you want to contribute code, please try to:
 * Follow the same coding style as used in the project. Pay attention to the
   usage of tabs, spaces, newlines and brackets. Try to copy the aesthetics the
   best you can.
-* Add an scenario under `features` that verifies your change (test with `rake features`). Look at the existing test
+* Add a scenario under `features` that verifies your change (test with `rake features`). Look at the existing test
   suite to get an idea for the kind of tests I like. If you do not provide a
   test, explain why.
 * Write [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html),
