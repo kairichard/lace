@@ -125,6 +125,7 @@ changes.
 
 ## TODO
   * refactor hook invocation
+  * refactor features to use shortcut step to create a valid package
   * refactor validate.rb
   * raise no such command instead of "Report Bug" when using unknown cmd
   * erb in .lace.yml
