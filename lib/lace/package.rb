@@ -75,7 +75,7 @@ class Facts
   def initialize location
     @location = Pathname.new(location)
     @facts_file = @location/".lace.yml"
-    raise RuntimeError.new "No package file found in #@location" unless @facts_file.exist?
+    raise PackageFactsNotFound.new(@location) unless @facts_file.exist?
     @facts = facts_file_to_hash
     @_facts = facts_file_to_hash
   end

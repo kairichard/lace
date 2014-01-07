@@ -27,8 +27,8 @@ class PackageAlreadyInstalled < RuntimeError
 end
 
 class PackageFactsNotFound < RuntimeError
-  def initialize
-    super "Package already installed"
+  def initialize path
+    super "No PackageFacts found in #{path}"
   end
 end
 
