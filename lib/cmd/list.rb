@@ -10,21 +10,21 @@ module Lace extend self
     end.compact.uniq
   end
 
-  def active_dotties
+  def active_packages
     linked_files.map do |path|
       Pathname.new File.dirname(path)
     end.uniq
   end
 
-  def installed_dotties
+  def installed_packages
     Dir.glob(File.join(LACE_PKGS_FOLDER, "**")).sort.map do |p|
       Pathname.new(p).basename.to_s
     end
   end
 
   def list
-    if installed_dotties.length > 0
-      installed_dotties.map do |d|
+    if installed_packages.length > 0
+      installed_packages.map do |d|
         package = Package.new d, false
         puts "- [#{Tty.green}#{package.is_active? ? "*" : " "}#{Tty.reset}] #{d}"
       end
