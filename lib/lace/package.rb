@@ -7,7 +7,7 @@ require 'lace/exceptions'
 
 class PackageUtils
   # that a wired method name
-  def self.is_package_any_flavor_active name
+  def self.has_active_flavors name
     @path = LACE_PKGS_FOLDER/name
     facts = Facts.new @path
     facts.flavors.any?{|f| Package.new(@name, f).is_active?}
@@ -16,8 +16,7 @@ class PackageUtils
   def self.fetch uri, argv
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
-      # refactor to use proper Exception
-      raise "Package already installed"
+      raise PackageAlreadyInstalled.new
     end
     downloader.fetch
   end
@@ -36,7 +35,7 @@ class PackageUtils
   def self.install uri, argv
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
-      raise "Package already installed"
+      raise PackageAlreadyInstalled.new
     end
     downloader.fetch
     package = Package.new downloader.name, ARGV.first

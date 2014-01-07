@@ -20,6 +20,18 @@ class NonActiveFlavorError < RuntimeError
   end
 end
 
+class PackageAlreadyInstalled < RuntimeError
+  def initialize
+    super "Package already installed"
+  end
+end
+
+class PackageFactsNotFound < RuntimeError
+  def initialize
+    super "Package already installed"
+  end
+end
+
 FlavorArgumentMsg = <<-EOS
 Sorry, this command needs a flavor argument you can choose from the following:
 - %s
