@@ -1,12 +1,11 @@
+require 'set'
 require 'yaml'
 require 'ostruct'
-require 'set'
 
 require 'lace/download_strategy'
 require 'lace/exceptions'
 
 class PackageUtils
-  # that a wired method name
   def self.has_active_flavors name
     @path = LACE_PKGS_FOLDER/name
     facts = Facts.new @path
@@ -56,9 +55,6 @@ class PackageUtils
   end
 
   def self.update package_name, argv
-    # todo this should fail when there is an active flavor but
-    # no flavor was provided, because then newly added files wouldnt be added
-    # may be keep a diff and only activate that.
     package = Package.new package_name, false
     raise OnlyGitReposCanBeUpdatedError.new unless package.is_git_repo?
     updater = GitUpdateStrategy.new package_name
