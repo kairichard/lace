@@ -12,7 +12,7 @@ class PackageUtils
     facts.flavors.any?{|f| Package.new(@name, f).is_active?}
   end
 
-  def self.fetch uri, argv
+  def self.fetch uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
       raise PackageAlreadyInstalled.new
@@ -20,7 +20,7 @@ class PackageUtils
     downloader.fetch
   end
 
-  def self.remove package_name, argv
+  def self.remove package_name
     ohai "Removing"
     package = Package.new package_name, false
     unless package.is_active?
@@ -31,7 +31,7 @@ class PackageUtils
     end
   end
 
-  def self.install uri, argv
+  def self.install uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     if downloader.target_folder.exist?
       raise PackageAlreadyInstalled.new
@@ -42,26 +42,26 @@ class PackageUtils
     package.after_install
   end
 
-  def self.deactivate package_name, argv
-    package = Package.new package_name, ARGV.shift
+  def self.deactivate package_name
+    package = Package.new package_name, ARGV.first
     raise NonActiveFlavorError.new unless package.is_active?
     package.deactivate!
   end
 
-  def self.activate package_name, argv
-    package = Package.new package_name, ARGV.shift
+  def self.activate package_name
+    package = Package.new package_name, ARGV.first
     raise AlreadyActiveError.new if Package.new(package_name, false).is_active?
     package.activate!
   end
 
-  def self.update package_name, argv
+  def self.update package_name
     package = Package.new package_name, false
     raise OnlyGitReposCanBeUpdatedError.new unless package.is_git_repo?
     updater = GitUpdateStrategy.new package_name
-    package.deactivate!
+    self.deactivate package_name
     updater.update
-    package.read_facts!
-    package.activate!
+    self.activate package_name
+    package = Package.new package_name, false
     package.after_update
   end
 end

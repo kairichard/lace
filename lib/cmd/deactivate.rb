@@ -5,7 +5,7 @@ module Lace extend self
 	def deactivate
 		package_name = ARGV.shift
 		raise ResourceNotSpecified if not package_name
-		PackageUtils.deactivate package_name, ARGV
+		PackageUtils.deactivate package_name
 	end
 end
 
