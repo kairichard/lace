@@ -130,15 +130,18 @@ changes.
   * raise no such command instead of "Report Bug" when using unknown cmd
   * erb in .lace.yml
   * show if there is an update available
+  * what happens if you download something that doesnt have package facts ?
   * if installing fails due to missing flavor hooks arent executed
     * remains installed but not active
   * improve list mode to show if uptodate and show version
   * interactive-mode
-  * pakage.rb contains todos
-    * update command with flavors does not update config_files 
+  * override existing files check
+    * force override of existing
   * yes mode
     * flavor choosing on install
     * run hooks y/n
+  * updating from no flavor to a config with flavors
+    * may be through a default flavor which is used when there is no flavor available
 
 License
 --------
