@@ -4,7 +4,7 @@ require 'lace/package'
 require 'lace/exceptions'
 
 INSPECT = <<-EOS
-Inspection of simple:
+Inspection of <%= package.name %>:
   active:      <%= package.is_active? %>
   flavors:     <%= package.flavors %>
   version:     <%= package.version %>
@@ -26,6 +26,10 @@ class PackagePresenter
 
   def initialize obj
     @pkg = obj
+  end
+
+  def name
+    @pkg.name
   end
 
   def is_active?
