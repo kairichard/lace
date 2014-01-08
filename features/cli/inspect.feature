@@ -73,7 +73,7 @@ Feature: Getting information about a installed pkg
     """
 
   Scenario: Inspecting an installed pkg which was installed using git
-    Given a package named "cassia/simple" with the following manifest:
+    Given a package named "cassia/simple_git" with the following manifest:
     """
     ---
     config_files:
