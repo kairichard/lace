@@ -1,4 +1,3 @@
-@wip
 Feature: Updating a installed pkg which was installed using git when it has flavors
   As a user when I update my own dotfiles
   or a maintainer updates the pkg I installed
