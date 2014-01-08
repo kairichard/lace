@@ -5,14 +5,7 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
   manifest.
 
   Background:
-    Given a directory named "cassia/hooks"
-    And an empty file named "cassia/hooks/bashrc"
-    And an empty file named "cassia/hooks/vimrc"
-    And a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
-    """
-    echo "HELLO FROM POST INSTALL HOOK"
-    """
-    And a file named "cassia/hooks/.lace.yml" with:
+    Given a package named "cassia/hooks" with the following manifest:
     """
     ---
     config_files:
@@ -21,6 +14,12 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
     post:
       install:
           - ~/.hooks/post_install.sh
+    """
+    And an empty file named "cassia/hooks/bashrc"
+    And an empty file named "cassia/hooks/vimrc"
+    And a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
+    """
+    echo "HELLO FROM POST INSTALL HOOK"
     """
 
   Scenario: Installing from a local dirctory with a post install hook

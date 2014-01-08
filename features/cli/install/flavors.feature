@@ -3,10 +3,7 @@ Feature: Installing with flavors from a location
   which gives the user a finer grained control over where to install what
 
   Background:
-    Given a directory named "cassia/flavors"
-    And an empty file named "cassia/flavors/bashrc"
-    And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/.lace.yml" with:
+    Given a package named "cassia/flavors" with the following manifest:
     """
     ---
     flavors:
@@ -19,6 +16,8 @@ Feature: Installing with flavors from a location
           - vimrc
 
     """
+    And an empty file named "cassia/flavors/bashrc"
+    And an empty file named "cassia/flavors/vimrc"
 
   Scenario: Installing with a flavor
     When I run `lace install cassia/flavors desktop`

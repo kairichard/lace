@@ -4,11 +4,7 @@ Feature: Deactivating with flavors
   them in order to correctly function
 
   Background:
-    Given a directory named "cassia/flavors"
-    And an empty file named "cassia/flavors/bashrc"
-    And an empty file named "cassia/flavors/defaults"
-    And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/.lace.yml" with:
+    Given a package named "cassia/flavors" with the following manifest:
     """
     ---
     flavors:
@@ -22,6 +18,9 @@ Feature: Deactivating with flavors
           - vimrc
 
     """
+    And an empty file named "cassia/flavors/bashrc"
+    And an empty file named "cassia/flavors/defaults"
+    And an empty file named "cassia/flavors/vimrc"
     And I run `lace fetch cassia/flavors`
     Then the output should contain "==> Fetching"
     When I successfully run `lace activate flavors desktop`
