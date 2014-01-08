@@ -125,12 +125,11 @@ changes.
 
 ## TODO
   * refactor hook invocation
-  * refactor features to use shortcut step to create a valid package
   * refactor validate.rb
-  * raise no such command instead of "Report Bug" when using unknown cmd
   * erb in .lace.yml
   * show if there is an update available
   * what happens if you download something that doesnt have package facts ?
+    * remove package with a notice
   * if installing fails due to missing flavor hooks arent executed
     * remains installed but not active
   * improve list mode to show if uptodate and show version
@@ -142,6 +141,7 @@ changes.
     * run hooks y/n
   * updating from no flavor to a config with flavors
     * may be through a default flavor which is used when there is no flavor available
+  * lace open
 
 License
 --------
