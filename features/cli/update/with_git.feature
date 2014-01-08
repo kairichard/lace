@@ -4,14 +4,13 @@ Feature: Updating a installed pkg which was installed using git
   I then want to be able to update that pkg.
 
   Background:
-    Given a git repo in a directory named "cassia/simple_git"
-    And an empty file named "cassia/simple_git/bashrc"
-    And a file named "cassia/simple_git/.lace.yml" with:
+    Given a git-package named "cassia/simple_git" with the following manifest:
     """
     ---
     config_files:
       - bashrc
     """
+    And an empty file named "cassia/simple_git/bashrc"
     Then I git-commit "cassia/simple_git" saying "Initial"
     And I run `lace install cassia/simple_git`
     Then the following files should exist:
