@@ -30,6 +30,14 @@ if ARGV.debug?
   require "debugger"
 end
 
+def require? path
+  require path.to_s.chomp
+rescue LoadError => e
+  # HACK :( because we should raise on syntax errors but
+  # not if the file doesn't exist. TODO make robust!
+  raise unless e.to_s.include? path
+end
+
 case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
   require 'cmd/help'
   puts Lace.help_s
@@ -58,7 +66,8 @@ begin
   cmd = ARGV.shift
   cmd = aliases[cmd] if aliases[cmd]
 
-  if require "cmd/" + cmd
+
+  if require? "cmd/" + cmd
     Lace.send cmd.to_s.gsub('-', '_').downcase
   else
     onoe "Unknown command: #{cmd}"
