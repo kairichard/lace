@@ -3,14 +3,13 @@ Feature: Activating
   installed so i can use the provided config files.
 
   Background:
-    Given a directory named "cassia/simple"
-    And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.lace.yml" with:
+    Given a package named "cassia/simple" with the following manifest:
     """
     ---
     config_files:
       - bashrc
     """
+    And an empty file named "cassia/simple/bashrc"
 
 
   Scenario: Activating by name
