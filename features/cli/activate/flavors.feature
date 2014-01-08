@@ -4,10 +4,7 @@ Feature: Activating with flavors
   to activate
 
   Background:
-    Given a directory named "cassia/flavors"
-    And an empty file named "cassia/flavors/bashrc"
-    And an empty file named "cassia/flavors/vimrc"
-    And a file named "cassia/flavors/.lace.yml" with:
+    Given a package named "cassia/flavors" with the following manifest:
     """
     ---
     flavors:
@@ -20,6 +17,8 @@ Feature: Activating with flavors
           - vimrc
 
     """
+    And an empty file named "cassia/flavors/bashrc"
+    And an empty file named "cassia/flavors/vimrc"
     And I run `lace fetch cassia/flavors`
     Then the output should contain "==> Fetching"
     And I run `lace ls`

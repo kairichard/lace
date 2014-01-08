@@ -3,14 +3,13 @@ Feature: Fetching a pkg from a location
   remote location so that i can interact with it
 
   Background:
-    Given a directory named "cassia/simple"
-    And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.lace.yml" with:
+    Given a package named "cassia/simple" with the following manifest:
     """
     ---
     config_files:
       - bashrc
     """
+    And an empty file named "cassia/simple/bashrc"
 
   Scenario: Fetching from a local dirctory
     When I run `lace fetch cassia/simple`
