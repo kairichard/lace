@@ -6,7 +6,7 @@ Feature: Updating a installed pkg which was installed using git when it has flav
   And I want possible new config files to be automatically present in my home.
 
   Background:
-    Given a git-package named "cassia/simple_git" with the following manifest:
+    Given a git-package named "cassia/flavor_git" with the following manifest:
     """
     ---
     flavors:
