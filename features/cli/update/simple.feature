@@ -4,14 +4,13 @@ Feature: Updating a installed pkg
   I then want to be able to update that pkg.
 
   Background:
-    Given a directory named "cassia/simple"
-    And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/.lace.yml" with:
+    Given a package named "cassia/simple" with the following manifest:
     """
     ---
     config_files:
       - bashrc
     """
+    And an empty file named "cassia/simple/bashrc"
 
   Scenario: Updating a pkg which was installed from a directory
     Given I run `lace install cassia/simple`

@@ -6,10 +6,7 @@ Feature: Updating a installed pkg which was installed using git when it has flav
   And I want possible new config files to be automatically present in my home.
 
   Background:
-    Given a git repo in a directory named "cassia/flavor_git"
-    And an empty file named "cassia/flavor_git/bashrc"
-    And an empty file named "cassia/flavor_git/vimrc"
-    And a file named "cassia/flavor_git/.lace.yml" with:
+    Given a git-package named "cassia/simple_git" with the following manifest:
     """
     ---
     flavors:
@@ -22,6 +19,8 @@ Feature: Updating a installed pkg which was installed using git when it has flav
           - vimrc
 
     """
+    And an empty file named "cassia/flavor_git/bashrc"
+    And an empty file named "cassia/flavor_git/vimrc"
     Then I git-commit "cassia/flavor_git" saying "Initial"
     And I run `lace fetch cassia/flavor_git`
 
