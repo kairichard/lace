@@ -8,6 +8,7 @@ Inspection of <%= package.name %>:
   active:      <%= package.is_active? %>
   flavors:     <%= package.flavors %>
   version:     <%= package.version %>
+  homepage:    <%= package.homepage %>
   upgradeable: <%= package.upgradeable? %>
   manifest:    <%= package.manifest %>
 EOS
@@ -48,6 +49,10 @@ class PackagePresenter
 
   def version
     @pkg.facts.version or 'n/a'
+  end
+
+  def homepage
+    @pkg.facts.homepage or 'n/a'
   end
 
   def upgradeable?

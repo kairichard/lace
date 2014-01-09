@@ -22,6 +22,7 @@ Feature: Getting information about a installed pkg
       active:      false
       flavors:     nil
       version:     n/a
+      homepage:    n/a
       upgradeable: false
     """
 
@@ -30,6 +31,7 @@ Feature: Getting information about a installed pkg
     """
     ---
     version: 1.0.0
+    homepage: http://example.org
     config_files:
       - bashrc
     """
@@ -42,6 +44,7 @@ Feature: Getting information about a installed pkg
       active:      true
       flavors:     nil
       version:     1.0.0
+      homepage:    http://example.org
       upgradeable: false
     """
 
@@ -69,6 +72,7 @@ Feature: Getting information about a installed pkg
       active:      false
       flavors:     desktop, console
       version:     1.0.0
+      homepage:    n/a
       upgradeable: false
     """
 
@@ -89,6 +93,7 @@ Feature: Getting information about a installed pkg
       active:      true
       flavors:     nil
       version:     n/a
+      homepage:    n/a
       upgradeable: true
     """
 

@@ -95,6 +95,10 @@ class Facts
     @_facts["version"] if @_facts.key? "version"
   end
 
+  def homepage
+    @_facts["homepage"] if @_facts.key? "homepage"
+  end
+
   def flavors
     if @_facts && @_facts.key?("flavors")
       @_facts["flavors"].keys

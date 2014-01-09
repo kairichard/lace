@@ -127,7 +127,6 @@ changes.
   * refactor hook invocation
   * refactor validate.rb
   * erb in .lace.yml
-  * show if there is an update available
   * what happens if you download something that doesnt have package facts ?
     * remove package with a notice
   * if installing fails due to missing flavor hooks arent executed
@@ -142,7 +141,6 @@ changes.
   * updating from no flavor to a config with flavors
     * may be through a default flavor which is used when there is no flavor available
   * lace open
-  * inspect should show homepage
 
 License
 --------
