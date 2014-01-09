@@ -14,21 +14,15 @@ class PackageUtils
 
   def self.fetch uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
-    if downloader.target_folder.exist?
-      raise PackageAlreadyInstalled.new
-    end
+    raise PackageAlreadyInstalled.new if downloader.target_folder.exist?
     downloader.fetch
   end
 
   def self.remove package_name
-    ohai "Removing"
     package = Package.new package_name, false
-    unless package.is_active?
-      FileUtils.rm_rf package.path
-      ohai "Successfully removed"
-    else
-      ofail "Cannot remove active pkg, deactivate first"
-    end
+    raise CannotRemoveActivePackage.new if package.is_active?
+    ohai "Removing"
+    FileUtils.rm_rf package.path
   end
 
   def self.install uri
@@ -42,12 +36,14 @@ class PackageUtils
   def self.deactivate package_name
     package = Package.new package_name, ARGV.first
     raise NonActiveFlavorError.new unless package.is_active?
+    ohai "Deactivating"
     package.deactivate!
   end
 
   def self.activate package_name
     package = Package.new package_name, ARGV.first
     raise AlreadyActiveError.new if Package.new(package_name, false).is_active?
+    ohai "Activating"
     package.activate!
   end
 
@@ -56,6 +52,7 @@ class PackageUtils
     raise OnlyGitReposCanBeUpdatedError.new unless package.is_git_repo?
     updater = GitUpdateStrategy.new package_name
     self.deactivate package_name
+    ohai "Updating"
     updater.update
     self.activate package_name
     package = Package.new package_name, false
@@ -195,7 +192,6 @@ class Package
   end
 
   def deactivate!
-    ohai "Deactivating"
     files = @facts.config_files
     home_dir = ENV["HOME"]
     files.each do |file|
@@ -205,7 +201,6 @@ class Package
   end
 
   def activate!
-    ohai "Activating"
     files = @facts.config_files
     home_dir = ENV["HOME"]
     files.each do |file|

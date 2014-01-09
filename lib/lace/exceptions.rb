@@ -26,6 +26,12 @@ class PackageAlreadyInstalled < RuntimeError
   end
 end
 
+class CannotRemoveActivePackage < RuntimeError
+  def initialize
+    super "Cannot remove active pkg, deactivate first"
+  end
+end
+
 class PackageNotInstalled < RuntimeError
   def initialize name
     super "Package #{name} is not installed"

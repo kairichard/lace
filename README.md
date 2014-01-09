@@ -124,14 +124,12 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * refactor hook invocation
-  * refactor validate.rb
   * erb in .lace.yml
   * what happens if you download something that doesnt have package facts ?
     * remove package with a notice
   * if installing fails due to missing flavor hooks arent executed
     * remains installed but not active
-  * improve list mode to show if uptodate and show version
+  * improve list mode to show version, installed on
   * interactive-mode
   * override existing files check
     * force override of existing
@@ -140,7 +138,10 @@ changes.
     * run hooks y/n
   * updating from no flavor to a config with flavors
     * may be through a default flavor which is used when there is no flavor available
-  * lace open
+  * Refactor
+    * hook invocation
+    * validate.rb
+    * facts key access
 
 License
 --------

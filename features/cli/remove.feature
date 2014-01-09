@@ -7,7 +7,6 @@ Feature: Removing a Kit
     Given an installed pkg named "mypkg"
     When I run `lace rm mypkg`
     Then the output should contain "==> Removing"
-    Then the output should contain "Successfully removed"
     And I run `lace ls`
     Then the output should contain "There are no pkgs installed"
 
@@ -21,6 +20,5 @@ Feature: Removing a Kit
     Given an installed pkg with flavors named "mypkg"
     When I run `lace rm mypkg`
     Then the output should contain "==> Removing"
-    Then the output should contain "Successfully removed"
     And I run `lace ls`
     Then the output should contain "There are no pkgs installed"
