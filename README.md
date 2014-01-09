@@ -142,6 +142,7 @@ changes.
   * updating from no flavor to a config with flavors
     * may be through a default flavor which is used when there is no flavor available
   * lace open
+  * inspect should show homepage
 
 License
 --------
