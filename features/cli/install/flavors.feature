@@ -51,4 +51,32 @@ Feature: Installing with flavors from a location
     And the following files should exist:
       | HOME/.bashrc |
 
+  Scenario: Installing a package with the wrong flavor
+    When I run `lace install cassia/flavors wrong_flavor`
+    Then the output should contain:
+    """
+    Error: Flavor 'wrong_flavor' does not exist
+    Error: Package remains installed but was not activated
+    """
+    And I run `lace ls`
+    And the output should contain:
+    """
+    - [ ] flavors
+    """
+
+  Scenario: Installing a package with the wrong flavor
+    When I run `lace install cassia/flavors`
+    Then the output should contain:
+    """
+    Error: Sorry, this command needs a flavor argument you can choose from the following:
+    - desktop
+    - console
+    Error: Package remains installed but was not activated
+    """
+    And I run `lace ls`
+    And the output should contain:
+    """
+    - [ ] flavors
+    """
+
 

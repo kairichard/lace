@@ -17,7 +17,7 @@ class PackageUtils
     raise PackageAlreadyInstalled.new if downloader.target_folder.exist?
     downloader.fetch
     begin
-      package = Package.new downloader.name, ARGV.first
+      package = Package.new downloader.name, false
     rescue PackageFactsNotFound => e
       onoe e.message
       onoe "Removing fetched files"
@@ -35,9 +35,14 @@ class PackageUtils
   def self.install uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     self.fetch uri
-    package = Package.new downloader.name, ARGV.first
-    package.activate!
-    package.after_install
+    begin
+      package = Package.new downloader.name, ARGV.first
+      package.activate!
+      package.after_install
+    rescue FlavorError => e
+      onoe e.message
+      onoe "Package remains installed but was not activated"
+    end
   end
 
   def self.deactivate package_name

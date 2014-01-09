@@ -124,14 +124,11 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * if installing fails due to missing flavor the hooks arent executed
-    and remains installed but not active
   * improve list mode to show version, installed on
   * interactive-mode
   * override existing files check
     * force override of existing
   * yes mode
-    * flavor choosing on install
     * run hooks y/n
   * updating from no flavor to a config with flavors
     * may be through a default flavor which is used when there is no flavor available
@@ -142,6 +139,7 @@ changes.
     * hook invocation
     * validate.rb
     * facts key access
+    * exceptions.rb has code duplication
 
 License
 --------

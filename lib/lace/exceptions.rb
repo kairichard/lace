@@ -38,7 +38,9 @@ class PackageNotInstalled < RuntimeError
   end
 end
 
-class FlavorArgumentRequired < ArgumentError
+class FlavorError < RuntimeError; end
+
+class FlavorArgumentRequired < FlavorError
   def initialize available_flavors
     super FlavorArgumentMsg % available_flavors.join("\n- ")
   end
@@ -50,9 +52,9 @@ class PackageFactsNotFound < RuntimeError
   end
 end
 
-class PackageFlavorDoesNotExist < RuntimeError
+class PackageFlavorDoesNotExist < FlavorError
   def initialize which_flavor, flavors
-    super "Flavor '#{which_flavor}' does not exist -> #{flavors.join(', ')} - use: lace <command> <pkg-uri> <flavor>"
+    super "Flavor '#{which_flavor}' does not exist"
   end
 end
 
