@@ -124,11 +124,8 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * erb in .lace.yml
-  * what happens if you download something that doesnt have package facts ?
-    * remove package with a notice
-  * if installing fails due to missing flavor hooks arent executed
-    * remains installed but not active
+  * if installing fails due to missing flavor the hooks arent executed
+    and remains installed but not active
   * improve list mode to show version, installed on
   * interactive-mode
   * override existing files check
@@ -138,6 +135,9 @@ changes.
     * run hooks y/n
   * updating from no flavor to a config with flavors
     * may be through a default flavor which is used when there is no flavor available
+  * erb in .lace.yml
+  * whats the active flavor
+    * the one with smallest delta of matching to non matching config_files
   * Refactor
     * hook invocation
     * validate.rb

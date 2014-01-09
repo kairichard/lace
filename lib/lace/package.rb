@@ -9,13 +9,20 @@ class PackageUtils
   def self.has_active_flavors name
     @path = LACE_PKGS_FOLDER/name
     facts = Facts.new @path
-    facts.flavors.any?{|f| Package.new(@name, f).is_active?}
+    facts.flavors.any?{|f| Package.new(@name, f).is_active? }
   end
 
   def self.fetch uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     raise PackageAlreadyInstalled.new if downloader.target_folder.exist?
     downloader.fetch
+    begin
+      package = Package.new downloader.name, ARGV.first
+    rescue PackageFactsNotFound => e
+      onoe e.message
+      onoe "Removing fetched files"
+      FileUtils.rm_rf downloader.target_folder
+    end
   end
 
   def self.remove package_name
@@ -159,7 +166,7 @@ class Package
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise PackageNotInstalled.new unless Lace.installed_packages.include? name
+    raise PackageNotInstalled.new(name) unless Lace.installed_packages.include? name
     @name = name
     @path = LACE_PKGS_FOLDER/name
     @flavor = flavor

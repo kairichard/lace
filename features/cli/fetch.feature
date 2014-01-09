@@ -31,3 +31,18 @@ Feature: Fetching a pkg from a location
     And the following files should not exist:
       | HOME/.bashrc |
 
+  Scenario: Fetching from a local dirctory without a .lace.yml
+    Given a directory named "cassia/nopkg"
+    And an empty file named "cassia/nopkg/bashrc"
+    When I run `lace fetch cassia/nopkg`
+    Then the output should contain:
+    """
+    Error: Removing fetched files
+    """
+    And the output should contain "No PackageFacts found in"
+    When I run `lace ls`
+    Then the output should contain:
+    """
+    There are no pkgs installed
+    """
+
