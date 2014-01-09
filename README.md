@@ -128,13 +128,14 @@ changes.
   * interactive-mode
   * override existing files check
     * force override of existing
-  * yes mode
-    * run hooks y/n
-  * updating from no flavor to a config with flavors
-    * may be through a default flavor which is used when there is no flavor available
   * erb in .lace.yml
-  * whats the active flavor
-    * the one with smallest delta of matching to non matching config_files
+  * Update without having to deactive
+    * figure out which is the active flavor
+      * the one with smallest delta of matching to non matching config_files
+    * build the diff between the old and new config
+    * only link the diff
+  * Naming
+    * .cassias is wrong should be .lace.packages
   * Refactor
     * hook invocation
     * validate.rb
