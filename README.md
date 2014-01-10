@@ -129,6 +129,7 @@ changes.
   * override existing files check
     * force override of existing
   * if install fails print note about missed hooks
+    * and offer a solution a la "you can try to run lace execute <pkg> flv.post.install"
   * erb in .lace.yml
   * Update without having to deactive
     * figure out which is the active flavor
