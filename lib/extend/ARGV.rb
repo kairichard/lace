@@ -33,6 +33,10 @@ module LaceArgvExtension
     flag? '--no-hooks'
   end
 
+  def force?
+    flag? '--force'
+  end
+
   def interactive?
     flag? '--interactive'
   end

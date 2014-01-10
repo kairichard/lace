@@ -125,7 +125,7 @@ changes.
 
 ## TODO
   * improve list mode to show version, installed on
-  * interactive-mode
+  * force deactivate
   * override existing files check
     * force override of existing
   * if install fails print note about missed hooks

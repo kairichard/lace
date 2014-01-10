@@ -44,6 +44,8 @@ Feature: Deactivating with flavors
     """
     And the folder "HOME/" should be empty
 
+  @wip
+  @announce
   Scenario: Deactivating with a flavor
     When I run `lace deactivate flavors desktop`
     And I run `lace ls`
@@ -58,7 +60,7 @@ Feature: Deactivating with flavors
     Then the exit status should be 1
     Then the output should contain:
     """
-    It looks like the flavor you tried to deactivate is not active after all
+    Cannot deactivate package that is not active
     """
     And I run `lace ls`
     Then the output should contain:
@@ -75,7 +77,7 @@ Feature: Deactivating with flavors
     Then the exit status should be 1
     Then the output should contain:
     """
-    It looks like the flavor you tried to deactivate is not active after all
+    Cannot deactivate package that is not active
     """
     And the following files should not exist:
       | HOME/.bashrc |
@@ -87,6 +89,6 @@ Feature: Deactivating with flavors
     Then the exit status should be 1
     Then the output should contain:
     """
-    It looks like the flavor you tried to deactivate is not active after all
+    Cannot deactivate package that is not active
     """
     And the folder "HOME/" should be empty

@@ -16,7 +16,7 @@ end
 
 class NonActiveFlavorError < RuntimeError
   def initialize
-    super "It looks like the flavor you tried to deactivate is not active after all"
+    super "Cannot deactivate package that is not active"
   end
 end
 

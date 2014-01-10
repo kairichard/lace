@@ -47,7 +47,7 @@ class PackageUtils
 
   def self.deactivate package_name
     package = Package.new package_name, ARGV.first
-    raise NonActiveFlavorError.new unless package.is_active?
+    raise NonActiveFlavorError.new unless package.is_active? || ARGV.force?
     ohai "Deactivating"
     package.deactivate!
   end
@@ -207,8 +207,9 @@ class Package
     files = @facts.config_files
     home_dir = ENV["HOME"]
     files.each do |file|
-      pn = Pathname.new file
-      FileUtils.rm_f File.join(home_dir, "." + pn.basename)
+      file = Pathname.new(file)
+      dotfile = file.as_dotfile(home_dir)
+      FileUtils.rm_f dotfile if dotfile.exist? && dotfile.readlink == file
     end
   end
 
@@ -217,8 +218,7 @@ class Package
     home_dir = ENV["HOME"]
     files.each do |file|
       # if ends in erb -> generate it
-      pn = Pathname.new file
-      FileUtils.ln_s file, File.join(home_dir, "." + pn.basename)
+      FileUtils.ln_s file, Pathname.new(file).as_dotfile(home_dir)
     end
   end
 end
