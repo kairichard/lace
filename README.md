@@ -4,7 +4,7 @@ Logging in to different machines at work or at home I just wanted to have an ele
 Lace is inspired by brew.
 ###### Synopsis
 ```bash
-lace <cmd> <pkg-uri/name> [--name=<name>] [--version] [--no-hooks]
+lace <cmd> <pkg-uri/name> [--name=<name>] [--version] [--no-hooks] [--force]
 ```
 Installing
 -------------
@@ -42,7 +42,7 @@ behaves. Therefore I prepared an example package for you to just install and pla
 ```
 Example usage:
   Synopsis:
-    lace <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
+    lace <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks] [--force]
 
   lace ls
 
@@ -125,17 +125,14 @@ changes.
 
 ## TODO
   * improve list mode to show version, installed on
-  * force deactivate
-  * override existing files check
-    * force override of existing
   * if install fails print note about missed hooks
     * and offer a solution a la "you can try to run lace execute <pkg> flv.post.install"
-  * erb in .lace.yml
   * Update without having to deactive
     * figure out which is the active flavor
       * the one with smallest delta of matching to non matching config_files
     * build the diff between the old and new config
     * only link the diff
+  * erb in .lace.yml
   * Naming
     * .cassias is wrong should be .lace.packages
   * Refactor

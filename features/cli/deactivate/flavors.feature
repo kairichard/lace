@@ -44,8 +44,6 @@ Feature: Deactivating with flavors
     """
     And the folder "HOME/" should be empty
 
-  @wip
-  @announce
   Scenario: Deactivating with a flavor
     When I run `lace deactivate flavors desktop`
     And I run `lace ls`

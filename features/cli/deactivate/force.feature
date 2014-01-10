@@ -1,5 +1,3 @@
-@wip
-@announce
 Feature: Forcing a deactivation
   As a user I want to deactivate a package which is even if not all
   files from the package can be found in HOME

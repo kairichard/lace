@@ -1,7 +1,7 @@
 HELP = <<-EOS
 Example usage:
   Synopsis:
-    lace <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks]
+    lace <cmd> <pkg-uri/name> [<flavor>] [--name=<name>] [--version] [--no-hooks] [--force]
 
   lace ls
 
