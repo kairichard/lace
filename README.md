@@ -128,6 +128,7 @@ changes.
   * interactive-mode
   * override existing files check
     * force override of existing
+  * if install fails print note about missed hooks
   * erb in .lace.yml
   * Update without having to deactive
     * figure out which is the active flavor
