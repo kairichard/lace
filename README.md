@@ -1,4 +1,4 @@
-Lace - dotfile management [![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace)
+Lace - dotfile management [![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace) [![Gem Version](https://badge.fury.io/rb/lace.png)](http://badge.fury.io/rb/lace)
 ========
 Logging in to different machines at work or at home I just wanted to have an elegant solution to install .dotfiles on them. Lace provides. Also I wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. Updateing these should be a breeze. Lace provides. And I hoped for something that lets you share common .dotfiles with your teammates by just installing them next to your own dotfiles. Lace provides.
 Lace is inspired by brew.
