@@ -57,8 +57,6 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  @wip
-  @announce
   Scenario: Installing from a local dirctory without a .lace.yml
     Given a directory named "cassia/nopkg"
     And an empty file named "cassia/nopkg/bashrc"

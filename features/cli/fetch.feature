@@ -45,4 +45,3 @@ Feature: Fetching a pkg from a location
     """
     There are no pkgs installed
     """
-
