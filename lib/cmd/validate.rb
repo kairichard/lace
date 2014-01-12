@@ -40,7 +40,7 @@ class PackageValidator
   validate 'config-files', :config_files_present
   validate 'version', :version_present
   validate 'homepage', :homepage_present
-  validate 'post-install hook', :post_install_hooks_ok
+  validate 'setup', :setup_ok
   validate 'post-update hook', :post_update_hooks_ok
 
   def initialize facts, flavor=nil
@@ -64,8 +64,8 @@ class PackageValidator
     end.compact
   end
 
-  def hook_ok hook
-    hook_cmd = @facts.post(hook)
+  def hook_ok config_files
+    hook_cmd = config_files
     if hook_cmd.empty?
       ["#{Tty.green}skipped#{Tty.reset}", nil]
     else
@@ -78,12 +78,12 @@ class PackageValidator
     end
   end
 
-  def post_install_hooks_ok
-    hook_ok :install
+  def setup_ok
+    hook_ok @facts.setup_files
   end
 
   def post_update_hooks_ok
-    hook_ok :update
+    hook_ok @facts.post :update
   end
 
   def homepage_present

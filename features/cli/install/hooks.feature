@@ -11,9 +11,8 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
     config_files:
       - bashrc
       - hooks
-    post:
-      install:
-          - ~/.hooks/post_install.sh
+    setup:
+        - ~/.hooks/post_install.sh
     """
     And an empty file named "cassia/hooks/bashrc"
     And an empty file named "cassia/hooks/vimrc"

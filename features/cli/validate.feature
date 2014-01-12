@@ -129,23 +129,22 @@ Feature: Validation of a manifest file
     Then the exit status should be 1
     And the output should contain:
     """
-      post-install hook:                                         [ skipped ]
+      setup:                                                     [ skipped ]
     """
 
   Scenario: A manifest where a post install hook cannot be found
     Given a package named "cassia/simple" with the following manifest:
     """
     ---
-    post:
-      install:
-        - ~/.hooks/post_install.sh
-        - ~/.hooks/another_hook.sh
+    setup:
+      - ~/.hooks/post_install.sh
+      - ~/.hooks/another_hook.sh
     """
     Then I run `lace validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
-      post-install hook:                                         [ error ]
+      setup:                                                     [ error ]
         # ~/.hooks/post_install.sh cannot be found
         # ~/.hooks/another_hook.sh cannot be found
         """
@@ -155,15 +154,14 @@ Feature: Validation of a manifest file
     And a package named "cassia/simple" with the following manifest:
     """
     ---
-    post:
-      install:
-        - cassia/simple/hooks/post_install.sh
+    setup:
+      - cassia/simple/hooks/post_install.sh
     """
     Then I run `lace validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
-      post-install hook:                                         [ error ]
+      setup:                                                     [ error ]
         # cassia/simple/hooks/post_install.sh is not executable
     """
 
@@ -232,17 +230,17 @@ Feature: Validation of a manifest file
     ---
     always: &always
       - cassia/simple/hooks/post_install.sh
+    setup:
+      - *always
     post:
       update:
-        - *always
-      install:
         - *always
     """
     Then I run `lace validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
-      post-install hook:                                         [ ok ]
+      setup:                                                     [ ok ]
       post-update hook:                                          [ ok ]
     """
 

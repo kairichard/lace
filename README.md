@@ -25,9 +25,14 @@ local git repos also work. **Installing means that a package is fetched and then
 
 ```bash
 # install something from disk
-> lace setup somewhere/on/mydisk
+> lace fetch somewhere/mydofiles
+> lace setup mydofiles
 # or from github
-> lace setup https://github.com/user/repo.git <flavor>
+> lace fetch https://github.com/user/repo.git
+> lace setup user <flavor>
+# or name it the way you like
+> lace fetch https://github.com/user/repo.git --name=prod
+> lace setup prod <flavor>
 # for some config files to take effect it may be required to reload your current terminal session
 ```
 
@@ -36,7 +41,7 @@ Most likely you dont want to override your existing config files just to get a f
 behaves. Therefore I prepared an example package for you to just install and play around with.
 ```bash
 > lace fetch https://github.com/kairichard/lace_example_dotfile_pkg.git
-> lace activate lace_example_dotfile_pkg
+> lace setup lace_example_dotfile_pkg
 ```
 
 ```
@@ -94,7 +99,7 @@ Lace-Manifest Validation Report:
   homepage:                                                  [ missing ]
     # adding a homepage improves the credibility
     # of your package
-  post-install hook:                                         [ error ]
+  setup:                                                     [ error ]
     # ~/.vim/install_bundles cannot be found
     # ~/.bootstrap/osx/brew cannot be found
     # ~/.bootstrap/osx/defaults cannot be found
@@ -124,8 +129,6 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * if install fails print note about missed hooks
-    * and offer a solution a la "you can try to run lace execute <pkg> flv.post.install"
   * Update without having to deactivate
     * figure out which is the active flavor
       * the one with smallest delta of matching to non matching config_files

@@ -30,7 +30,7 @@ class PackageUtils
     begin
       package = Package.new package_name, ARGV.first
       package.activate!
-      package.after_install
+      package.setup
     rescue FlavorError => e
       onoe e.message
       onoe "Package remains installed but was not activated"
@@ -96,6 +96,10 @@ class Facts
     @_facts["version"] if @_facts.key? "version"
   end
 
+  def setup_files
+    @facts["setup"].flatten rescue []
+  end
+
   def homepage
     @_facts["homepage"] if @_facts.key? "homepage"
   end
@@ -141,11 +145,10 @@ class Package
   include GitCommands
   attr_reader :name, :facts, :path
 
-  def after_install
+  def setup
     return if ARGV.nohooks?
      @path.cd do
-       ENV["CURRENT_DOTTY"] = @path
-       facts.post(:install).each do |cmd|
+       facts.setup_files.each do |cmd|
          safe_system cmd
        end
      end
@@ -154,7 +157,6 @@ class Package
   def after_update
     return if ARGV.nohooks?
     @path.cd do
-      ENV["CURRENT_DOTTY"] = @path
       facts.post(:update).each do |cmd|
         system cmd
       end
