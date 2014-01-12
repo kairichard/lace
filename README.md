@@ -134,7 +134,6 @@ changes.
       * the one with smallest delta of matching to non matching config_files
     * build the diff between the old and new config
     * only link the diff
-  * erb in .lace.yml
   * Naming
     * .cassias is wrong should be .lace.packages
   * Track events with PStore ?

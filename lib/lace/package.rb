@@ -66,10 +66,10 @@ end
 
 class Facts
   attr_reader :facts_file
-  def initialize location
-    @location = Pathname.new(location)
-    @facts_file = @location/".lace.yml"
-    raise PackageFactsNotFound.new(@location) unless @facts_file.exist?
+  def initialize package_path
+    @package_path = Pathname.new(package_path)
+    @facts_file = @package_path/".lace.yml"
+    raise PackageFactsNotFound.new(@package_path) unless @facts_file.exist?
     @facts = facts_file_to_hash
     @_facts = facts_file_to_hash
   end
@@ -79,7 +79,7 @@ class Facts
       []
     else
       @facts["config_files"].flatten.map do |file|
-        @location + file
+        @package_path + file
       end
     end
   end
@@ -132,7 +132,8 @@ class Facts
 
   protected
   def facts_file_to_hash
-    value = YAML.load @facts_file.read
+    rendered_lace = ERB.new(@facts_file.read, nil, '-').result(binding)
+    value = YAML.load rendered_lace
     if value.is_a?(String) && value == "---"
       return Hash.new
     else
