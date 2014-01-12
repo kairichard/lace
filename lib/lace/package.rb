@@ -16,14 +16,8 @@ class PackageUtils
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
     raise PackageAlreadyInstalled.new if downloader.target_folder.exist?
     downloader.fetch
-    begin
-      package = Package.new downloader.name, false
-    rescue PackageFactsNotFound => e
-      onoe e.message
-      onoe "Removing fetched files"
-      FileUtils.rm_rf downloader.target_folder
-    end
-  end
+    return downloader.name, downloader.target_folder
+ end
 
   def self.remove package_name
     package = Package.new package_name, false
@@ -32,11 +26,9 @@ class PackageUtils
     FileUtils.rm_rf package.path
   end
 
-  def self.install uri
-    downloader = DownloadStrategyDetector.detect(uri).new(uri)
-    self.fetch uri
+  def self.install package_name
     begin
-      package = Package.new downloader.name, ARGV.first
+      package = Package.new package_name, ARGV.first
       package.activate!
       package.after_install
     rescue FlavorError => e

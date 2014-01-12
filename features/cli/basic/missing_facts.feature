@@ -15,4 +15,4 @@ Feature: Commands should error when there are no PackageFacts
   Examples:
       | cmd      | output |
       | validate | cassia/no_facts |
-      | install  | no_facts |
+      | fetch    | no_facts |

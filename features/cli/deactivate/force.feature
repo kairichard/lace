@@ -16,7 +16,8 @@ Feature: Forcing a deactivation
     And an empty file named "cassia/simple/vimrc"
     And an empty file named "cassia/simple/ackrc"
     And an empty file named "cassia/simple/gitignore"
-    When I run `lace install cassia/simple`
+    When I successfully run `lace fetch cassia/simple`
+    When I successfully run `lace install simple`
     And the following files should exist:
       | HOME/.bashrc |
       | HOME/.vimrc |

@@ -3,8 +3,7 @@ require 'lace/exceptions'
 
 module Lace extend self
 	def install
-		resource = ARGV.shift
-		raise ResourceNotSpecified if not resource
-		PackageUtils.install resource
+		package_name = ARGV.shift
+		PackageUtils.install package_name
 	end
 end

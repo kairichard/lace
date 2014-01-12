@@ -124,7 +124,6 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * improve list mode to show version, installed on
   * if install fails print note about missed hooks
     * and offer a solution a la "you can try to run lace execute <pkg> flv.post.install"
   * Update without having to deactivate
@@ -137,6 +136,7 @@ changes.
     * .cassias is wrong should be .lace.packages
   * Track events with PStore ?
   * Refactor
+    * move hooks away from the package itself into the Utils
     * hook invocation
     * validate.rb
     * facts key access

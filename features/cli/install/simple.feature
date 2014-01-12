@@ -14,7 +14,8 @@ Feature: Installing
 
 
   Scenario: Installing from a local dirctory
-    When I run `lace install cassia/simple`
+    When I run `lace fetch cassia/simple`
+    And I run `lace install simple`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -24,8 +25,9 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory twice
-    When I run `lace install cassia/simple`
-    And I run `lace install cassia/simple`
+    When I run `lace fetch cassia/simple`
+    And I run `lace install simple`
+    When I run `lace fetch cassia/simple`
     Then the output should contain:
     """
     Package already installed
@@ -34,7 +36,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `lace install cassia/simple --name=mypkg`
+    When I run `lace fetch cassia/simple --name=mypkg`
+    And I run `lace install mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -44,7 +47,8 @@ Feature: Installing
       | HOME/.bashrc |
 
   Scenario: Installing from a local dirctory with a name
-    When I run `lace install cassia/simple --name=mypkg`
+    When I run `lace fetch cassia/simple --name=mypkg`
+    And I run `lace install mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -53,10 +57,12 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
+  @wip
+  @announce
   Scenario: Installing from a local dirctory without a .lace.yml
     Given a directory named "cassia/nopkg"
     And an empty file named "cassia/nopkg/bashrc"
-    When I run `lace install cassia/nopkg`
+    When I run `lace fetch cassia/nopkg`
     Then the output should contain:
     """
     Error: Removing fetched files

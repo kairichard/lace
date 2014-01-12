@@ -36,7 +36,8 @@ Feature: Getting information about a installed pkg
       - bashrc
     """
     And an empty file named "cassia/simple/bashrc"
-    Then I run `lace install cassia/simple`
+    Then I successfully run `lace fetch cassia/simple`
+    Then I successfully run `lace install simple`
     And I run `lace inspect simple`
     Then the output should contain:
     """
@@ -85,8 +86,9 @@ Feature: Getting information about a installed pkg
     """
     And an empty file named "cassia/simple_git/bashrc"
     Then I git-commit "cassia/simple_git" saying "Initial"
-    And I run `lace install cassia/simple_git`
-    And I run `lace inspect simple_git`
+    And I successfully run `lace fetch cassia/simple_git`
+    And I successfully run `lace install simple_git`
+    And I successfully run `lace inspect simple_git`
     Then the output should contain:
     """
     Inspection of simple_git:

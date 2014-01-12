@@ -13,7 +13,8 @@ Feature: Updating a installed pkg
     And an empty file named "cassia/simple/bashrc"
 
   Scenario: Updating a pkg which was installed from a directory
-    Given I run `lace install cassia/simple`
+    Given I run `lace fetch cassia/simple`
+    Given I run `lace install simple`
     Then I run `lace update simple`
     Then the output should contain:
     """

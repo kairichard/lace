@@ -19,7 +19,8 @@ Feature: Forcing a activation
     default
     """
     And an empty file named "cassia/simple/vimrc"
-    When I run `lace install cassia/simple`
+    When I successfully run `lace fetch cassia/simple`
+    When I run `lace install simple`
     Then the output should contain:
     """
     Error: File exists
