@@ -1,6 +1,7 @@
 require 'set'
 require 'yaml'
 require 'ostruct'
+require 'erb'
 
 require 'lace/download_strategy'
 require 'lace/exceptions'
