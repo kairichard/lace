@@ -16,7 +16,7 @@ Feature: Fetching a pkg from a location
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] simple
+    [ ] simple
     """
     And the following files should not exist:
       | HOME/.bashrc |
@@ -26,7 +26,7 @@ Feature: Fetching a pkg from a location
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] mypkg
+    [ ] mypkg
     """
     And the following files should not exist:
       | HOME/.bashrc |

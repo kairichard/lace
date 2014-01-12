@@ -13,7 +13,7 @@ Feature: Listing installed and active pkgs
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [ ] mypkg
+    [ ] mypkg
     """
 
   Scenario: With more than one installed pkg
@@ -23,9 +23,9 @@ Feature: Listing installed and active pkgs
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [ ] mypkg_1
-    - [ ] mypkg_2
-    - [ ] mypkg_3
+    [ ] mypkg_1
+    [ ] mypkg_2
+    [ ] mypkg_3
     """
   Scenario: Active Kits are marked with a star
     Given an active pkg named "mypkg"
@@ -33,8 +33,8 @@ Feature: Listing installed and active pkgs
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [*] mypkg
-    - [ ] otherpkg
+    [*] mypkg
+    [ ] otherpkg
     """
 
   Scenario: Active Kits are marked with a star also when they have flavors
@@ -42,6 +42,6 @@ Feature: Listing installed and active pkgs
     When I successfully run `lace ls`
     Then the output should contain:
     """
-    - [*] mypkg
+    [*] mypkg
     """
 

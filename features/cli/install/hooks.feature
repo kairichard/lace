@@ -28,7 +28,7 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] hooks
+    [*] hooks
     """
     And the following files should exist:
       | HOME/.bashrc |

@@ -24,7 +24,7 @@ Feature: Installing with flavors from a location
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] flavors
+    [*] flavors
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -34,7 +34,7 @@ Feature: Installing with flavors from a location
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] flavors
+    [*] flavors
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -46,7 +46,7 @@ Feature: Installing with flavors from a location
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mypkg
+    [*] mypkg
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -61,7 +61,7 @@ Feature: Installing with flavors from a location
     And I run `lace ls`
     And the output should contain:
     """
-    - [ ] flavors
+    [ ] flavors
     """
 
   Scenario: Installing a package with the wrong flavor
@@ -76,7 +76,7 @@ Feature: Installing with flavors from a location
     And I run `lace ls`
     And the output should contain:
     """
-    - [ ] flavors
+    [ ] flavors
     """
 
 

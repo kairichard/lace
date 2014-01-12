@@ -16,7 +16,7 @@ Feature: Deactivating
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] simple
+    [*] simple
     """
 
 
@@ -25,7 +25,7 @@ Feature: Deactivating
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] simple
+    [ ] simple
     """
     And the following files should not exist:
       | HOME/.bashrc |
@@ -39,8 +39,8 @@ Feature: Deactivating
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mypkg
-    - [ ] otherpkg
+    [*] mypkg
+    [ ] otherpkg
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -48,8 +48,8 @@ Feature: Deactivating
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] mypkg
-    - [ ] otherpkg
+    [ ] mypkg
+    [ ] otherpkg
     """
     And the following files should not exist:
       | HOME/.bashrc |

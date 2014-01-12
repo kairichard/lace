@@ -127,7 +127,7 @@ changes.
   * improve list mode to show version, installed on
   * if install fails print note about missed hooks
     * and offer a solution a la "you can try to run lace execute <pkg> flv.post.install"
-  * Update without having to deactive
+  * Update without having to deactivate
     * figure out which is the active flavor
       * the one with smallest delta of matching to non matching config_files
     * build the diff between the old and new config
@@ -135,6 +135,7 @@ changes.
   * erb in .lace.yml
   * Naming
     * .cassias is wrong should be .lace.packages
+  * Track events with PStore ?
   * Refactor
     * hook invocation
     * validate.rb

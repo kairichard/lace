@@ -24,7 +24,7 @@ Feature: Activating with flavors
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] flavors
+    [ ] flavors
     """
 
   Scenario: Activating without a flavor fails
@@ -44,7 +44,7 @@ Feature: Activating with flavors
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] flavors
+    [*] flavors
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -54,7 +54,7 @@ Feature: Activating with flavors
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] flavors
+    [*] flavors
     """
     And the following files should exist:
       | HOME/.bashrc |

@@ -18,7 +18,7 @@ Feature: Installing
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] simple
+    [*] simple
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -38,7 +38,7 @@ Feature: Installing
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mypkg
+    [*] mypkg
     """
     And the following files should exist:
       | HOME/.bashrc |
@@ -48,7 +48,7 @@ Feature: Installing
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] mypkg
+    [*] mypkg
     """
     And the following files should exist:
       | HOME/.bashrc |

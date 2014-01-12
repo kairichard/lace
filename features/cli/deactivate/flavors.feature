@@ -27,7 +27,7 @@ Feature: Deactivating with flavors
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] flavors
+    [*] flavors
     """
     And the following files should exist:
       | HOME/.defaults |
@@ -49,7 +49,7 @@ Feature: Deactivating with flavors
     And I run `lace ls`
     Then the output should contain:
     """
-    - [ ] flavors
+    [ ] flavors
     """
     And the folder "HOME/" should be empty
 
@@ -63,7 +63,7 @@ Feature: Deactivating with flavors
     And I run `lace ls`
     Then the output should contain:
     """
-    - [*] flavors
+    [*] flavors
     """
     And the following files should exist:
       | HOME/.bashrc |

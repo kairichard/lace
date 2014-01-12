@@ -1,5 +1,3 @@
-@wip
-@announce
 Feature: Forcing a activation
   As a user I want to activate a package
   which may override already existing files
