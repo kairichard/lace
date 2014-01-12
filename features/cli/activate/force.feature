@@ -31,3 +31,7 @@ Feature: Forcing a activation
       | HOME/.bashrc |
       | HOME/.vimrc |
 
+    And the file "HOME/.bashrc" should contain:
+    """
+    pkg
+    """
