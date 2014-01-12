@@ -61,6 +61,7 @@ begin
   end
 
   aliases = {'ls' => 'list',
+             'info' => 'inspect',
              'rm' => 'remove'}
 
   cmd = ARGV.shift
