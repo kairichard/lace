@@ -14,7 +14,7 @@ Feature: Updating a installed pkg
 
   Scenario: Updating a pkg which was installed from a directory
     Given I run `lace fetch cassia/simple`
-    Given I run `lace install simple`
+    Given I run `lace setup simple`
     Then I run `lace update simple`
     Then the output should contain:
     """

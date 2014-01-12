@@ -13,7 +13,7 @@ Feature: Updating a installed pkg which was installed using git
     And an empty file named "cassia/simple_git/bashrc"
     Then I git-commit "cassia/simple_git" saying "Initial"
     And I successfully run `lace fetch cassia/simple_git`
-    And I successfully run `lace install simple_git`
+    And I successfully run `lace setup simple_git`
     Then the following files should exist:
       | HOME/.bashrc |
 

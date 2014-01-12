@@ -24,7 +24,7 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
 
   Scenario: Installing from a local dirctory with a post install hook
     When I run `lace fetch cassia/hooks`
-    And I run `lace install hooks`
+    And I run `lace setup hooks`
     Then the output should contain "HELLO FROM POST INSTALL HOOK"
     And I run `lace ls`
     Then the output should contain:
@@ -37,18 +37,18 @@ Feature: Installable comes hooks which are command that are excuted after cmd ha
 
   Scenario: Installing with --no-hooks flag
     When I run `lace fetch cassia/hooks`
-    When I run `lace install hooks --no-hooks`
+    When I run `lace setup hooks --no-hooks`
     Then the output should not contain "HELLO FROM POST INSTALL HOOK"
 
   Scenario: Installing from a local dirctory with a post install hook that is not executable
     Given the file named "cassia/hooks/hooks/post_install.sh" has mode "655"
     When I run `lace fetch cassia/hooks`
-    When I run `lace install hooks`
+    When I run `lace setup hooks`
     Then the exit status should be 1
 
   Scenario: Installing from a local dirctory with a post install hook that is not at the given location
     Given I rename "cassia/hooks/hooks/post_install.sh" to "cassia/hooks/hooks/post_insall_typo.sh"
     When I run `lace fetch cassia/hooks`
-    When I run `lace install hooks`
+    When I run `lace setup hooks`
     Then the exit status should be 1
 

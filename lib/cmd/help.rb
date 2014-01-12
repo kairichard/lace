@@ -8,8 +8,8 @@ Example usage:
   lace fetch <pkg-uri>
   lace fetch <pkg-uri>
 
-  lace install <pkg-uri>
-  lace install <pkg-uri> <flavor>
+  lace setup <pkg-uri>
+  lace setup <pkg-uri> <flavor>
 
   lace activate <pkg-name>
   lace activate <pkg-name> <flavor>

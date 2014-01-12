@@ -2,8 +2,8 @@ require 'lace/package'
 require 'lace/exceptions'
 
 module Lace extend self
-	def install
+	def setup
 		package_name = ARGV.shift
-		PackageUtils.install package_name
+		PackageUtils.setup package_name
 	end
 end

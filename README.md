@@ -25,9 +25,9 @@ local git repos also work. **Installing means that a package is fetched and then
 
 ```bash
 # install something from disk
-> lace install somewhere/on/mydisk
+> lace setup somewhere/on/mydisk
 # or from github
-> lace install https://github.com/user/repo.git <flavor>
+> lace setup https://github.com/user/repo.git <flavor>
 # for some config files to take effect it may be required to reload your current terminal session
 ```
 
@@ -49,8 +49,8 @@ Example usage:
   lace fetch <pkg-uri>
   lace fetch <pkg-uri>
 
-  lace install <pkg-uri>
-  lace install <pkg-uri> <flavor>
+  lace setup <pkg-uri>
+  lace setup <pkg-uri> <flavor>
 
   lace activate <pkg-name>
   lace activate <pkg-name> <flavor>

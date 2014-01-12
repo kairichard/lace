@@ -26,7 +26,7 @@ class PackageUtils
     FileUtils.rm_rf package.path
   end
 
-  def self.install package_name
+  def self.setup package_name
     begin
       package = Package.new package_name, ARGV.first
       package.activate!

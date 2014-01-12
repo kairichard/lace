@@ -21,7 +21,7 @@ Feature: Installing with flavors from a location
 
   Scenario: Installing with a flavor
     When I run `lace fetch cassia/flavors`
-    And I run `lace install flavors desktop`
+    And I run `lace setup flavors desktop`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -32,7 +32,7 @@ Feature: Installing with flavors from a location
 
   Scenario: Installing with another flavor
     When I run `lace fetch cassia/flavors`
-    And I run `lace install flavors console`
+    And I run `lace setup flavors console`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -45,7 +45,7 @@ Feature: Installing with flavors from a location
 
   Scenario: Installing with a flavor and a custome name
     When I run `lace fetch cassia/flavors desktop --name=mypkg`
-    And I run `lace install mypkg desktop`
+    And I run `lace setup mypkg desktop`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -56,7 +56,7 @@ Feature: Installing with flavors from a location
 
   Scenario: Installing a package with the wrong flavor
     When I run `lace fetch cassia/flavors`
-    And I run `lace install flavors wrong_flavor`
+    And I run `lace setup flavors wrong_flavor`
     Then the output should contain:
     """
     Error: Flavor 'wrong_flavor' does not exist
@@ -70,7 +70,7 @@ Feature: Installing with flavors from a location
 
   Scenario: Installing a package with the wrong flavor
     When I run `lace fetch cassia/flavors`
-    And I run `lace install flavors`
+    And I run `lace setup flavors`
     Then the output should contain:
     """
     Error: Sorry, this command needs a flavor argument you can choose from the following:

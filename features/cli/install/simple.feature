@@ -15,7 +15,7 @@ Feature: Installing
 
   Scenario: Installing from a local dirctory
     When I run `lace fetch cassia/simple`
-    And I run `lace install simple`
+    And I run `lace setup simple`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -26,7 +26,7 @@ Feature: Installing
 
   Scenario: Installing from a local dirctory twice
     When I run `lace fetch cassia/simple`
-    And I run `lace install simple`
+    And I run `lace setup simple`
     When I run `lace fetch cassia/simple`
     Then the output should contain:
     """
@@ -37,7 +37,7 @@ Feature: Installing
 
   Scenario: Installing from a local dirctory with a name
     When I run `lace fetch cassia/simple --name=mypkg`
-    And I run `lace install mypkg`
+    And I run `lace setup mypkg`
     And I run `lace ls`
     Then the output should contain:
     """
@@ -48,7 +48,7 @@ Feature: Installing
 
   Scenario: Installing from a local dirctory with a name
     When I run `lace fetch cassia/simple --name=mypkg`
-    And I run `lace install mypkg`
+    And I run `lace setup mypkg`
     And I run `lace ls`
     Then the output should contain:
     """

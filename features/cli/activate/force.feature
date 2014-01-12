@@ -20,7 +20,7 @@ Feature: Forcing a activation
     """
     And an empty file named "cassia/simple/vimrc"
     When I successfully run `lace fetch cassia/simple`
-    When I run `lace install simple`
+    When I run `lace setup simple`
     Then the output should contain:
     """
     Error: File exists
