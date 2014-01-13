@@ -67,6 +67,11 @@ end
 
 class Facts
   attr_reader :facts_file
+
+  def to_s
+    "#<Facts:#{@package_path}>"
+  end
+
   def initialize package_path
     @package_path = Pathname.new(package_path)
     @facts_file = @package_path/".lace.yml"

@@ -27,15 +27,13 @@ Feature: The .lace.yml it's self is configurable
     """
     ---
     setup:
-      - <%= syntax,-error %>
+      - <%= not_found %>
     """
     Then I run `lace validate cassia/simple`
     Then the exit status should be 1
     And the output should contain:
     """
-    Error: (erb):3: syntax error, unexpected tUMINUS, expecting '='
-    ; _erbout.concat(( syntax,-error ).to_s); _erbout.force_...
-                               ^
+    Error: undefined local variable or method `not_found' for #<Facts:cassia/simple>
     in cassia/simple/.lace.yml
     """
 
