@@ -21,7 +21,7 @@ Usage
 -----------
 ### Installing a Package
 Its possible to install a Package either locally via the files system or by specifying a remote git repo,
-local git repos also work. **Installing means that a package is fetched and then activated**.
+local git repos also work.
 
 ```bash
 # install something from disk
