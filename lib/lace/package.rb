@@ -68,7 +68,7 @@ end
 class Facts
   attr_reader :facts_file
 
-  def to_s
+  def inspect
     "#<Facts:#{@package_path}>"
   end
 

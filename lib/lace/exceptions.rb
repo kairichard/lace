@@ -60,7 +60,7 @@ end
 
 class ManifestErbError < RuntimeError
   def initialize fact, exception
-    super "#{exception.exception}\nin #{fact.facts_file}"
+    super "#{exception.to_s}\nin #{fact.facts_file}"
   end
 end
 
