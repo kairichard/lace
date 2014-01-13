@@ -133,7 +133,11 @@ class Facts
 
   protected
   def facts_file_to_hash
-    rendered_lace = ERB.new(@facts_file.read, nil, '-').result(binding)
+    begin
+      rendered_lace = ERB.new(@facts_file.read, nil, '-').result(binding)
+    rescue Exception => e
+      raise ManifestErbError.new(self, e)
+    end
     value = YAML.load rendered_lace
     if value.is_a?(String) && value == "---"
       return Hash.new

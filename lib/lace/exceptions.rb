@@ -58,6 +58,12 @@ class PackageFlavorDoesNotExist < FlavorError
   end
 end
 
+class ManifestErbError < RuntimeError
+  def initialize fact, exception
+    super "#{exception.exception}\nin #{fact.facts_file}"
+  end
+end
+
 
 FlavorArgumentMsg = <<-EOS
 Sorry, this command needs a flavor argument you can choose from the following:

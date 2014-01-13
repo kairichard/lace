@@ -129,7 +129,6 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * nicer message for erb syntax error in .lace.yml
   * Update without having to deactivate
     * figure out which is the active flavor
       * the one with smallest delta of matching to non matching config_files

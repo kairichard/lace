@@ -73,7 +73,7 @@ class PackageValidator
       if errors.length > 0
         ["#{Tty.red}error#{Tty.reset}", errors]
       else
-        ["ok", nil]
+        ["#{Tty.green}ok#{Tty.reset}", nil]
       end
     end
   end
