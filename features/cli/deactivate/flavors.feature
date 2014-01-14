@@ -38,7 +38,7 @@ Feature: Deactivating with flavors
     Then the exit status should be 1
     And the output should contain:
     """
-    Sorry, this command needs a flavor argument you can choose from the following:
+    Error: Sorry, this command needs a flavor argument you can choose from the following:
     - desktop
     - console
     """
