@@ -112,7 +112,7 @@ class Facts
 
   def flavors
     if @_facts && @_facts.key?("flavors")
-      @_facts["flavors"].keys
+      @_facts["flavors"].keys.sort
     else
       []
     end

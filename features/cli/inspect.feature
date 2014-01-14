@@ -71,7 +71,7 @@ Feature: Getting information about a installed pkg
     """
     Inspection of simple:
       active:      false
-      flavors:     desktop, console
+      flavors:     console, desktop
       version:     1.0.0
       homepage:    n/a
       upgradeable: false

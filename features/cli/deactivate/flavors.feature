@@ -39,8 +39,8 @@ Feature: Deactivating with flavors
     And the output should contain:
     """
     Error: Sorry, this command needs a flavor argument you can choose from the following:
-    - desktop
     - console
+    - desktop
     """
     And the folder "HOME/" should be empty
 

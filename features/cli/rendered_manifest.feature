@@ -18,8 +18,6 @@ Feature: The .lace.yml it's self is configurable
       setup:                                                     [ ok ]
     """
 
-  @wip
-  @announce
   Scenario: .lace.yml with a syntax error
     Given an empty file named "cassia/simple/hooks/post_install.sh"
     Given the file named "cassia/simple/hooks/post_install.sh" has mode "755"

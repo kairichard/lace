@@ -74,8 +74,8 @@ Feature: Installing with flavors from a location
     Then the output should contain:
     """
     Error: Sorry, this command needs a flavor argument you can choose from the following:
-    - desktop
     - console
+    - desktop
     Error: Package remains installed but was not activated
     """
     And I run `lace ls`

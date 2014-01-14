@@ -33,8 +33,8 @@ Feature: Activating with flavors
     And the output should contain:
     """
     Sorry, this command needs a flavor argument you can choose from the following:
-    - desktop
     - console
+    - desktop
     """
     And the following files should not exist:
       | HOME/.bashrc |
