@@ -223,7 +223,7 @@ class Package
     home_dir = ENV["HOME"]
     files.each do |file|
       # if ends in erb -> generate it
-      FileUtils.ln_s file, Pathname.new(file).as_dotfile(home_dir), force: ARGV.force?
+      FileUtils.ln_s file, Pathname.new(file).as_dotfile(home_dir), :force => ARGV.force?
     end
   end
 end
