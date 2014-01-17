@@ -130,6 +130,7 @@ changes.
 
 ## TODO
   * Update if not active
+  * deactivate with a directory leaves director
   * Update without having to deactivate
     * figure out which is the active flavor
       * the one with smallest delta of matching to non matching config_files
