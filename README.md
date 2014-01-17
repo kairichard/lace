@@ -137,6 +137,7 @@ changes.
   * Naming
     * .cassias is wrong should be .lace.packages
   * Track events with PStore ?
+  * define a pkg.lace where i can define multiple pkgs to be fetched and setup
   * Refactor
     * move hooks away from the package itself into the Utils
     * hook invocation
