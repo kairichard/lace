@@ -98,5 +98,3 @@ Feature: Getting information about a installed pkg
       homepage:    n/a
       upgradeable: true
     """
-
-
