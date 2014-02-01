@@ -130,6 +130,7 @@ changes.
 
 ## TODO
   * Update if not active
+  * execute hook allow interaction
   * description in lace ls
   * deactivate with a directory leaves director
   * Update without having to deactivate
