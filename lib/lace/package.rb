@@ -7,11 +7,6 @@ require 'lace/download_strategy'
 require 'lace/exceptions'
 
 class PackageUtils
-  def self.has_active_flavors name
-    @path = LACE_PKGS_FOLDER/name
-    facts = Facts.new @path
-    facts.flavors.any?{|f| Package.new(@name, f).is_active? }
-  end
 
   def self.fetch uri
     downloader = DownloadStrategyDetector.detect(uri).new(uri)
@@ -140,11 +135,11 @@ class Facts
   protected
   def facts_file_to_hash
     begin
-      rendered_lace = ERB.new(@facts_file.read, nil, '-').result(binding)
+      rendered_manifest = ERB.new(@facts_file.read, nil, '-').result(binding)
     rescue Exception => e
       raise ManifestErbError.new(self, e)
     end
-    value = YAML.load rendered_lace
+    value = YAML.load rendered_manifest
     if value.is_a?(String) && value == "---"
       return Hash.new
     else

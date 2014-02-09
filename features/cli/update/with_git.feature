@@ -32,7 +32,6 @@ Feature: Updating a installed pkg which was installed using git
       | HOME/.bashrc |
       | HOME/.vimrc |
 
-  @wip
   Scenario: Updating a deactivated pkg which was installed using git
     Given an empty file named "cassia/simple_git/vimrc"
     And a file named "cassia/simple_git/.lace.yml" with:
