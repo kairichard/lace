@@ -129,6 +129,7 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
+  * execute hook allow interaction
   * description in lace ls
   * Update without having to deactivate
     * figure out which is the active flavor
