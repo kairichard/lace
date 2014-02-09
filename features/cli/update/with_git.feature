@@ -32,6 +32,24 @@ Feature: Updating a installed pkg which was installed using git
       | HOME/.bashrc |
       | HOME/.vimrc |
 
+  @wip
+  Scenario: Updating a deactivated pkg which was installed using git
+    Given an empty file named "cassia/simple_git/vimrc"
+    And a file named "cassia/simple_git/.lace.yml" with:
+    """
+    ---
+    config_files:
+      - bashrc
+      - vimrc
+    """
+    Then I git-commit "cassia/simple_git" saying "Adding vimrc"
+    Then I run `lace deactivate simple_git`
+    Then I successfully run `lace update simple_git`
+    Then I run `lace activate simple_git`
+    Then the following files should exist:
+      | HOME/.bashrc |
+      | HOME/.vimrc |
+
   Scenario: Updating a pkg which was installed using git - adding hooks
     Given a file named "cassia/simple_git/hooks/post_update.sh" with mode "775" and with:
     """

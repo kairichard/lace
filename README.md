@@ -129,7 +129,6 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * Update if not active
   * description in lace ls
   * Update without having to deactivate
     * figure out which is the active flavor

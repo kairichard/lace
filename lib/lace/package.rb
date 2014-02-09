@@ -56,10 +56,11 @@ class PackageUtils
     package = Package.new package_name, false
     raise OnlyGitReposCanBeUpdatedError.new unless package.is_git_repo?
     updater = GitUpdateStrategy.new package_name
-    self.deactivate package_name
+    was_active_before_update = package.is_active?
+    self.deactivate(package_name) if was_active_before_update
     ohai "Updating"
     updater.update
-    self.activate package_name
+    self.activate(package_name) if was_active_before_update
     package = Package.new package_name, false
     package.after_update
   end
