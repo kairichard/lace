@@ -130,6 +130,7 @@ changes.
 
 ## TODO
   * execute hook allow interaction
+  * info should show local modifications
   * description in lace ls
   * Update without having to deactivate
     * figure out which is the active flavor
