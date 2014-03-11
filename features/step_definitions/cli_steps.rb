@@ -2,7 +2,7 @@ Given(/^an installed pkg named "(.*?)"$/) do |name|
     target = File.join @installed_cassias, name
     step "a directory named \"#{target}\""
     step "an empty file named \"#{target}/bashrc\""
-    step "a file named \"#{target}/.lace.yml\" with:", SIMPLE_DOTTY
+    step "a file named \"#{target}/.lace.yml\" with:", SIMPLE_LACE
 end
 
 Given(/^an active pkg with flavors named "(.*?)"$/) do |name|
@@ -14,7 +14,7 @@ Given(/^an installed pkg with flavors named "(.*?)"$/) do |name|
     target = File.join @installed_cassias, name
     step "a directory named \"#{target}\""
     step "an empty file named \"#{target}/bashrc\""
-    step "a file named \"#{target}/.lace.yml\" with:", FLAVORED_DOTTY
+    step "a file named \"#{target}/.lace.yml\" with:", FLAVORED_LACE
 end
 
 Given(/^an active pkg named "(.*?)"$/) do |pkg_name|
@@ -66,13 +66,13 @@ Then(/^I git\-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|
     step "I cd to \"#{up_dir}\""
 end
 
-SIMPLE_DOTTY = """
+SIMPLE_LACE = """
 ---
 config_files:
   - bashrc
 """
 
-FLAVORED_DOTTY = """
+FLAVORED_LACE = """
 ---
 flavors:
   osx:
