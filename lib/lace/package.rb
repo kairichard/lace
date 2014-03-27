@@ -73,11 +73,11 @@ class Facts
     @facts_file = @package_path/".lace.yml"
     raise PackageFactsNotFound.new(@package_path) unless @facts_file.exist?
     @facts = facts_file_to_hash
-    @_facts = facts_file_to_hash
+    @unflavorable_facts = facts_file_to_hash
   end
 
   def config_files
-    if @_facts.nil? or @facts["config_files"].nil?
+    if @unflavorable_facts.nil? or @facts["config_files"].nil?
       []
     else
       @facts["config_files"].flatten.map do |file|
@@ -87,15 +87,15 @@ class Facts
   end
 
   def has_flavors?
-    @_facts && !@_facts["flavors"].nil?
+    @unflavorable_facts && !@unflavorable_facts["flavors"].nil?
   end
 
   def has_key? key
-    @_facts && @_facts.has_key?(key)
+    @unflavorable_facts && @unflavorable_facts.has_key?(key)
   end
 
   def version
-    @_facts["version"] if @_facts.key? "version"
+    @unflavorable_facts["version"] if @unflavorable_facts.key? "version"
   end
 
   def setup_files
@@ -103,12 +103,12 @@ class Facts
   end
 
   def homepage
-    @_facts["homepage"] if @_facts.key? "homepage"
+    @unflavorable_facts["homepage"] if @unflavorable_facts.key? "homepage"
   end
 
   def flavors
-    if @_facts && @_facts.key?("flavors")
-      @_facts["flavors"].keys.sort
+    if @unflavorable_facts && @unflavorable_facts.key?("flavors")
+      @unflavorable_facts["flavors"].keys.sort
     else
       []
     end
@@ -116,15 +116,15 @@ class Facts
 
   def flavor! which_flavor
     raise PackageFlavorDoesNotExist.new(which_flavor, flavors) unless flavors.include? which_flavor
-    @facts = @_facts["flavors"][which_flavor]
+    @facts = @unflavorable_facts["flavors"][which_flavor]
   end
 
   def unflavor!
-    @facts = @_facts
+    @facts = @unflavorable_facts
   end
 
   def post hook_point
-    if @_facts.nil? or !@facts.key? "post"
+    if @unflavorable_facts.nil? or !@facts.key? "post"
       []
     else
       post_hook = @facts["post"]
