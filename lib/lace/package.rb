@@ -13,7 +13,7 @@ class PackageUtils
     raise PackageAlreadyInstalled.new if downloader.target_folder.exist?
     downloader.fetch
     return downloader.name, downloader.target_folder
- end
+  end
 
   def self.remove package_name
     package = Package.new package_name, false
