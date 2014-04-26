@@ -9,5 +9,5 @@ group :test do
   gem 'cucumber'
   gem 'aruba'
   gem 'rake'
-  gem 'coveralls', require: false
+  gem 'coveralls', :require =>false
 end
