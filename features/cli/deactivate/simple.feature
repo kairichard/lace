@@ -30,7 +30,7 @@ Feature: Deactivating
     And the following files should not exist:
       | HOME/.bashrc |
 
-  Scenario: Deativating one from a list of two
+  Scenario: Deactivating one from a list of two
     Given I successfully run `lace deactivate simple`
     And I successfully run `lace remove simple`
     When I run `lace fetch cassia/simple --name=mypkg`
