@@ -1,4 +1,4 @@
-Lace - dotfile management 
+Lace - dotfile management
 ========
 [![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace) [![Gem Version](https://badge.fury.io/rb/lace.png)](http://badge.fury.io/rb/lace) [![Dependency Status](https://gemnasium.com/kairichard/lace.svg)](https://gemnasium.com/kairichard/lace) [![Coverage Status](https://coveralls.io/repos/kairichard/lace/badge.png?branch=master)](https://coveralls.io/r/kairichard/lace?branch=master)
 
@@ -156,4 +156,8 @@ License
 --------
 MIT License (MIT)
 
-Copyright (c) 2014 Kai Richard Koenig
+Attribution
+--------
+Thanks to the people creating and maintaining Homebrew. Without their prior work this tool would probably not exist.
+And if it did it would be in a worse state than it is today.
+
