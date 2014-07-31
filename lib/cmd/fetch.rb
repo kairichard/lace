@@ -11,7 +11,7 @@ module Lace extend self
     rescue PackageFactsNotFound => e
         onoe e.message
         onoe "Removing fetched files"
-        FileUtils.rm_rf target_folder
+        FileUtils.rm_rf(target_folder)
         Lace.failed = true
     end
 	end
