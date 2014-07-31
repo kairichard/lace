@@ -141,8 +141,6 @@ changes.
       * the one with smallest delta of matching to non matching config_files
     * build the diff between the old and new config
     * only link the diff
-  * Naming
-    * .cassias is wrong should be .lace.packages
   * Track events with PStore ?
   * define a pkg.lace where i can define multiple pkgs to be fetched and setup
   * Refactor
