@@ -11,8 +11,8 @@ require "lace/version"
 
 require "extend/ARGV"
 require "extend/pathname"
-
-packages_folder = Pathname.new(ENV["HOME"]).join(".cassias")
+require 'pry' if ENV["DEBUG"]
+packages_folder = Pathname.new(ENV["HOME"]).join(".lace.pkgs")
 
 if ENV["LACE_FOLDER"]
   packages_folder = Pathname.new(ENV["LACE_FOLDER"])
@@ -62,11 +62,11 @@ begin
 
   aliases = {'ls' => 'list',
              'info' => 'inspect',
+             '--upgrade' => 'upgrade',
              'rm' => 'remove'}
 
   cmd = ARGV.shift
   cmd = aliases[cmd] if aliases[cmd]
-
 
   if require? "cmd/" + cmd
     Lace.send cmd.to_s.gsub('-', '_').downcase
