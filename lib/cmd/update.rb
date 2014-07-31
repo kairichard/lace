@@ -4,7 +4,7 @@ require 'lace/exceptions'
 module Lace extend self
 	def update
 		resource = ARGV.shift
-		raise ResourceNotSpecified if not resource
+		raise ResourceNotSpecified unless resource
 		PackageUtils.update resource
 	end
 end
