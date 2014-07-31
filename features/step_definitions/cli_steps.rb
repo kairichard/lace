@@ -22,11 +22,6 @@ Given(/^an active pkg named "(.*?)"$/) do |pkg_name|
     step "I run `lace activate #{pkg_name}`"
 end
 
-Given(/^a file named "([^"]*)" with mode "([^"]*)" and with:$/) do |file_name, file_mode, file_content|
-    write_file(file_name, file_content)
-    chmod(file_mode, file_name)
-end
-
 Given(/^the file named "([^"]*)" has mode "([^"]*)"$/) do |file_name, file_mode|
   chmod(file_mode, file_name)
 end
