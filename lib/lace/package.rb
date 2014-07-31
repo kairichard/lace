@@ -172,7 +172,7 @@ class Package
 
   def initialize name, flavor=nil
     require 'cmd/list'
-    raise PackageNotInstalled.new(name) unless Lace.installed_packages.include? name
+    raise PackageNotInstalled.new(name) unless Lace.installed_packages.include?(name)
     @name = name
     @path = LACE_PKGS_FOLDER/name
     @flavor = flavor
