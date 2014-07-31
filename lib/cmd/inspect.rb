@@ -16,7 +16,7 @@ EOS
 module Lace extend self
   def inspect
     resource = ARGV.shift
-    raise ResourceNotSpecified if not resource
+    raise ResourceNotSpecified unless resource
     package = PackagePresenter.new Package.new(resource, false)
     puts ERB.new(INSPECT).result(binding)
   end

@@ -19,7 +19,7 @@ EOS
 module Lace extend self
 	def validate
 		resource = ARGV.shift
-		raise ResourceNotSpecified if not resource
+		raise ResourceNotSpecified unless resource
     validation = PackageValidator.new Facts.new(resource), ARGV.shift
     puts ERB.new(VALIDATE, nil, '-').result(binding)
     Lace.failed = true if validation.has_errors?
