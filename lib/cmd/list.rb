@@ -12,7 +12,7 @@ module Lace extend self
 
   def active_packages
     linked_files.map do |path|
-      Pathname.new File.dirname(path)
+      Pathname.new(File.dirname(path)).basename.to_s
     end.uniq
   end
 
