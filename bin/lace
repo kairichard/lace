@@ -29,24 +29,18 @@ require 'pathname'
 LIB_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("lib").to_s
 $:.unshift(LIB_PATH)
 
-require "lace/utils"
-require "lace/exceptions"
-require "lace/version"
+require 'lace'
 
 require "extend/ARGV"
 require "extend/pathname"
 require 'pry' if ENV["DEBUG"]
+
 packages_folder = Pathname.new(ENV["HOME"]).join(".lace.pkgs")
 
 if ENV["LACE_FOLDER"]
   packages_folder = Pathname.new(ENV["LACE_FOLDER"])
 end
 LACE_PKGS_FOLDER = packages_folder
-
-module Lace extend self
-  attr_accessor :failed
-  alias_method :failed?, :failed
-end
 
 ARGV.extend(LaceArgvExtension)
 
