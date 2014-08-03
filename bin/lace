@@ -33,7 +33,6 @@ require 'lace'
 
 require "extend/ARGV"
 require "extend/pathname"
-require 'pry' if ENV["DEBUG"]
 
 packages_folder = Pathname.new(ENV["HOME"]).join(".lace.pkgs")
 
@@ -45,7 +44,7 @@ LACE_PKGS_FOLDER = packages_folder
 ARGV.extend(LaceArgvExtension)
 
 if ARGV.debug?
-  require "debugger"
+  require 'pry'
 end
 
 def require? path
