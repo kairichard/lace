@@ -163,6 +163,7 @@ class Package
 
   def setup
     return if ARGV.nohooks?
+    ENV['LACEPKG_PATH'] = @path
      @path.cd do
        facts.setup_files.each do |cmd|
          safe_system cmd
