@@ -152,6 +152,15 @@ class Package
   include GitCommands
   attr_reader :name, :facts, :path
 
+  def initialize name, flavor=nil
+    require 'cmd/list'
+    raise PackageNotInstalled.new(name) unless Lace.installed_packages.include?(name)
+    @name = name
+    @path = LACE_PKGS_FOLDER/name
+    @flavor = flavor
+    read_facts!
+  end
+
   def setup
     return if ARGV.nohooks?
      @path.cd do
@@ -168,15 +177,6 @@ class Package
         system cmd
       end
     end
-  end
-
-  def initialize name, flavor=nil
-    require 'cmd/list'
-    raise PackageNotInstalled.new(name) unless Lace.installed_packages.include?(name)
-    @name = name
-    @path = LACE_PKGS_FOLDER/name
-    @flavor = flavor
-    read_facts!
   end
 
   def is_git_repo?
