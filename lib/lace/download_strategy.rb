@@ -28,7 +28,7 @@ class AbstractDownloadStrategy
 
   def initialize uri
     @uri = uri
-    @target_folder = LACE_PKGS_FOLDER/name
+    @target_folder = Lace.pkgs_folder/name
   end
 
   # All download strategies are expected to implement these methods
@@ -94,7 +94,7 @@ class GitUpdateStrategy
   include GitCommands
 
   def initialize name
-    @target_folder = LACE_PKGS_FOLDER/name
+    @target_folder = Lace.pkgs_folder/name
   end
 
   def update

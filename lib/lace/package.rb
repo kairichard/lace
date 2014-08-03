@@ -156,7 +156,7 @@ class Package
     require 'cmd/list'
     raise PackageNotInstalled.new(name) unless Lace.installed_packages.include?(name)
     @name = name
-    @path = LACE_PKGS_FOLDER/name
+    @path = Lace.pkgs_folder/name
     @flavor = flavor
     read_facts!
   end

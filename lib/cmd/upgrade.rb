@@ -14,7 +14,7 @@ module Lace extend self
   def upgrade_lace_folder
     old_dir = Pathname.new(ENV["HOME"])/".cassias"
     if old_dir.exist?
-      File.rename old_dir, LACE_PKGS_FOLDER
+      File.rename old_dir, Lace.pkgs_folder
       old_dir.rmdir_if_possible
     end
   end

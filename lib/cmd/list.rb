@@ -17,7 +17,7 @@ module Lace extend self
   end
 
   def installed_packages
-    Dir.glob(File.join(LACE_PKGS_FOLDER, "**")).sort.map do |p|
+    Dir.glob(File.join(Lace.pkgs_folder, "**")).sort.map do |p|
       Pathname.new(p).basename.to_s
     end
   end

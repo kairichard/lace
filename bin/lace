@@ -34,13 +34,6 @@ require 'lace'
 require "extend/ARGV"
 require "extend/pathname"
 
-packages_folder = Pathname.new(ENV["HOME"]).join(".lace.pkgs")
-
-if ENV["LACE_FOLDER"]
-  packages_folder = Pathname.new(ENV["LACE_FOLDER"])
-end
-LACE_PKGS_FOLDER = packages_folder
-
 ARGV.extend(LaceArgvExtension)
 
 if ARGV.debug?
