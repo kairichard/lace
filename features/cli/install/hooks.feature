@@ -39,7 +39,6 @@ Feature: Installable comes with hooks
     When I run `lace setup hooks --no-hooks`
     Then the output should not contain "HELLO FROM POST INSTALL HOOK"
 
-  @wip
   Scenario: Installing set environment variables accessible by the hook
     When a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
     """
