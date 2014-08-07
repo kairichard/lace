@@ -20,7 +20,7 @@ module Lace extend self
 	def validate
 		resource = ARGV.shift
 		raise ResourceNotSpecified unless resource
-    validation = PackageValidator.new Facts.new(resource), ARGV.shift
+    validation = PackageValidator.new PackageFacts.new(resource), ARGV.shift
     puts ERB.new(VALIDATE, nil, '-').result(binding)
     Lace.failed = true if validation.has_errors?
 	end
