@@ -15,6 +15,9 @@ module Lace extend self
     packages_folder
   end
 
+  def self.pstore
+    @pstore ||= PStore.new(pkgs_folder/".lace.pstore")
+  end
 end
 
 
