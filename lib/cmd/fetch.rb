@@ -7,7 +7,7 @@ module Lace extend self
 		raise ResourceNotSpecified unless resource
 		package_name, target_folder = PackageUtils.fetch(resource)
     begin
-        Package.new package_name, false
+        Package.new(package_name, false)
     rescue PackageFactsNotFound => e
         onoe e.message
         onoe "Removing fetched files"

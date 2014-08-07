@@ -19,8 +19,9 @@ EOS
 module Lace extend self
 	def validate
 		resource = ARGV.shift
+    flavor = ARGV.shift
 		raise ResourceNotSpecified unless resource
-    validation = PackageValidator.new PackageFacts.new(resource), ARGV.shift
+    validation = PackageValidator.new(PackageFacts.new(resource), flavor)
     puts ERB.new(VALIDATE, nil, '-').result(binding)
     Lace.failed = true if validation.has_errors?
 	end
@@ -47,7 +48,7 @@ class PackageValidator
     @facts = facts
     @errors = []
     if @facts.has_flavors? && flavor.nil?
-      raise RuntimeError.new FlavorArgumentMsg % @facts.flavors.join("\n- ")
+      raise RuntimeError.new(FlavorArgumentMsg % @facts.flavors.join("\n- "))
     elsif @facts.has_flavors? && flavor != false
       @facts.flavor! flavor
     end

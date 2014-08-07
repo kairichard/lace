@@ -25,7 +25,7 @@ module Lace extend self
   def list
     if installed_packages.length > 0
       installed_packages.map do |d|
-        package = Package.new d, false
+        package = Package.new(d, false)
         puts "[#{Tty.green}#{package.is_active? ? "*" : " "}#{Tty.reset}] #{d}"
       end
     else

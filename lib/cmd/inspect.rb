@@ -60,6 +60,6 @@ class PackagePresenter
   end
 
   def manifest
-    return @pkg.facts.facts_file
+    @pkg.facts.facts_file
   end
 end
