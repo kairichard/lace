@@ -165,9 +165,10 @@ class DownloadStrategyDetector
   end
 
   def self.detect_from_uri(uri)
-    if File.directory?(uri) && !File.directory?(uri+"/.git")
+    is_git_dir = File.directory?(uri+"/.git")
+    if File.directory?(uri) && !is_git_dir
       return LocalFileStrategy
-    elsif File.directory?(uri+"/.git")
+    elsif is_git_dir
       return GitDownloadStrategy
     end
 
