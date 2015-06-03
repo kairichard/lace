@@ -9,3 +9,4 @@ end
 
 
 RSpec::Core::RakeTask.new(:spec)
+task :test => [:spec, :features]
