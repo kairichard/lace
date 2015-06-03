@@ -26,7 +26,8 @@ require "fileutils"
 class AbstractDownloadStrategy
   attr_reader :name, :resource, :target_folder
 
-  def initialize uri
+  def initialize uri, desired_package_name=nil
+    @desired_package_name = desired_package_name
     @uri = uri
     @target_folder = Lace.pkgs_folder/name
   end
@@ -35,7 +36,7 @@ class AbstractDownloadStrategy
   def fetch; end
   def stage; end
   def name
-    ARGV.value "name"
+    @desired_package_name
   end
 end
 
