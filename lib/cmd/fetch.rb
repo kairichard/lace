@@ -4,7 +4,7 @@ require 'lace/exceptions'
 module Lace extend self
 	def fetch
 		resource = ARGV.shift
-   desired_package_name = ARGV.value "name"
+    desired_package_name = ARGV.value "name"
 		raise ResourceNotSpecified unless resource
 		package_name, target_folder = PackageUtils.fetch(resource, desired_package_name)
     begin
