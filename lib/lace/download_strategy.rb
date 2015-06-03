@@ -32,6 +32,10 @@ class AbstractDownloadStrategy
     @target_folder = Lace.pkgs_folder/name
   end
 
+  def uri
+    @uri
+  end
+
   # All download strategies are expected to implement these methods
   def fetch; end
   def stage; end
@@ -153,6 +157,13 @@ class GitDownloadStrategy < AbstractDownloadStrategy
 end
 
 class AbbrevGitDownloadStrategy < GitDownloadStrategy
+  def initialize uri
+    unless uri.end_with?(".git")
+      uri = "#{uri}.git"
+    end
+    uri = "https://github.com/#{uri}"
+    super uri
+  end
 end
 
 
