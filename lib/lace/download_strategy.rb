@@ -151,6 +151,9 @@ class GitDownloadStrategy < AbstractDownloadStrategy
 
 end
 
+class AbbrevGitDownloadStrategy < GitDownloadStrategy
+end
+
 
 class DownloadStrategyDetector
   def self.detect(uri, strategy=nil)
@@ -166,10 +169,13 @@ class DownloadStrategyDetector
 
   def self.detect_from_uri(uri)
     is_git_dir = File.directory?(uri+"/.git")
+    has_single_slash = uri.scan("/").count == 1
     if File.directory?(uri) && !is_git_dir
       return LocalFileStrategy
     elsif is_git_dir
       return GitDownloadStrategy
+    elsif has_single_slash
+      return AbbrevGitDownloadStrategy
     end
 
     case uri
