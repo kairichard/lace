@@ -135,7 +135,6 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * execute hook allow interaction
   * info should show local modifications
     * add mothership communication which notifies you about changes in the different environments
   * description in lace ls
