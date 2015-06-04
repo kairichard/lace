@@ -1,5 +1,5 @@
 Feature: Invoking commands that come with lace
-  Thes list of available commands is handled by the
+  The list of available commands is handled by the
   help message, but when there I as a user use a command which
   does not exist then I want a friendly message saying that
   there is no such command

@@ -43,7 +43,7 @@ Feature: Installing with flavors from a location
       | HOME/.vimrc |
 
 
-  Scenario: Installing with a flavor and a custome name
+  Scenario: Installing with a flavor and a custom name
     When I run `lace fetch cassia/flavors desktop --name=mypkg`
     And I run `lace setup mypkg desktop`
     And I run `lace ls`

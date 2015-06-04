@@ -1,6 +1,6 @@
 Feature: Upgrade a current lace installation
   As a user i want to update lace without doing much work
-  So lace should provide a way to upgrade the current installtion
+  So lace should provide a way to upgrade the current installation
   very smoothly
 
 

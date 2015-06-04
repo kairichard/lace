@@ -1,6 +1,6 @@
 Feature: Listing installed and active pkgs
   As a user i want to see what pkgs are installed
-  or active so i can quickly see what commands or aliasses might
+  or active so i can quickly see what commands or aliases might
   be available, or i simply forgot what the name of the pkg was i installed.
   So i can look the name up and use that in subsequent command.
 

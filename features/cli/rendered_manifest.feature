@@ -1,5 +1,5 @@
 Feature: The .lace.yml it's self is configurable
-  As I package auther I want to have some control
+  As I package author I want to have some control
   over what the .lace.yml will end up looking.
 
   Scenario: Making setup path absolute through erb

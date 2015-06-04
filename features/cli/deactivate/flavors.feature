@@ -53,7 +53,7 @@ Feature: Deactivating with flavors
     """
     And the folder "HOME/" should be empty
 
-  Scenario: Deactivating a flavor which wasnt activated
+  Scenario: Deactivating a flavor which wasn't activated
     When I run `lace deactivate flavors console`
     Then the exit status should be 1
     Then the output should contain:

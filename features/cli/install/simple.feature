@@ -13,7 +13,7 @@ Feature: Installing
     And an empty file named "cassia/simple/bashrc"
 
 
-  Scenario: Installing from a local dirctory
+  Scenario: Installing from a local directory
     When I run `lace fetch cassia/simple`
     And I run `lace setup simple`
     And I run `lace ls`
@@ -24,7 +24,7 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  Scenario: Installing from a local dirctory twice
+  Scenario: Installing from a local directory twice
     When I run `lace fetch cassia/simple`
     And I run `lace setup simple`
     When I run `lace fetch cassia/simple`
@@ -35,7 +35,7 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  Scenario: Installing from a local dirctory with a name
+  Scenario: Installing from a local directory with a name
     When I run `lace fetch cassia/simple --name=mypkg`
     And I run `lace setup mypkg`
     And I run `lace ls`
@@ -46,7 +46,7 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  Scenario: Installing from a local dirctory with a name
+  Scenario: Installing from a local directory with a name
     When I run `lace fetch cassia/simple --name=mypkg`
     And I run `lace setup mypkg`
     And I run `lace ls`
@@ -57,7 +57,7 @@ Feature: Installing
     And the following files should exist:
       | HOME/.bashrc |
 
-  Scenario: Installing from a local dirctory without a .lace.yml
+  Scenario: Installing from a local directory without a .lace.yml
     Given a directory named "cassia/nopkg"
     And an empty file named "cassia/nopkg/bashrc"
     When I run `lace fetch cassia/nopkg`

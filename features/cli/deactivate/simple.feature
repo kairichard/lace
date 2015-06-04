@@ -1,6 +1,6 @@
 Feature: Deactivating
   As a user i want to deactivate a package which is already
-  installed so i can use another one or temporarly disable it.
+  installed so i can use another one or temporally disable it.
 
   Background:
     Given a package named "cassia/simple" with the following manifest:
