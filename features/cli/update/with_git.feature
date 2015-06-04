@@ -109,7 +109,7 @@ Feature: Updating a installed pkg which was installed using git
 
 
   @wip
-  Scenario: A locally modified package should be made visible
+  Scenario: A git package appears in list
     Given I successfully run `lace ls`
     Then the output should contain:
     """
