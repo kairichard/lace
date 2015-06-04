@@ -33,6 +33,9 @@ local git repos also work.
 # or from github
 > lace fetch https://github.com/user/repo.git
 > lace setup user <flavor>
+# also works if the exact path is not present on disk
+> lace fetch user/repo.git # or
+> lace fetch user/repo
 # or name it the way you like
 > lace fetch https://github.com/user/repo.git --name=prod
 > lace setup prod <flavor>
