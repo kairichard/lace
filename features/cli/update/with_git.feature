@@ -92,3 +92,19 @@ Feature: Updating a installed pkg which was installed using git
     And the following files should exist:
       | HOME/.bashrc |
       | HOME/.hooks/post_update.sh |
+
+  @wip
+  Scenario: A locally modified package should be made visible
+    Given an installed pkg named "mypkg"
+    Given an installed pkg named "otherpkg"
+    And a file named "HOME/.vimrc" with:
+    """
+    I modified it
+    """
+    When I successfully run `lace ls`
+    Then the output should contain:
+    """
+    [ ] mypkg
+    [ ] otherpkg
+    [*] simple_git (has local modifications)
+    """
