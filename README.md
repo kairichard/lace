@@ -136,6 +136,7 @@ changes.
   * info should show local modifications
     * add mothership communication which notifies you about changes in the different environments
   * description in lace ls
+  * provide name in package it's self
   * Update without having to deactivate
     * figure out which is the active flavor
       * the one with smallest delta of matching to non matching config_files
