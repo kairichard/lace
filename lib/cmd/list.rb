@@ -26,7 +26,7 @@ module Lace extend self
     if installed_packages.length > 0
       installed_packages.map do |d|
         package = Package.new(d, false)
-        puts "[#{Tty.green}#{package.is_active? ? "*" : " "}#{Tty.reset}] #{d} #{package.is_modified? ? "(has local changes)":""}"
+        puts "[#{Tty.green}#{package.is_active? ? "*" : " "}#{Tty.reset}] #{d}#{package.is_modified? ? " (has local changes)":""}"
       end
     else
       puts "There are no pkgs installed"

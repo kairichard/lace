@@ -12,6 +12,7 @@ Before do
 
   ENV["LACE_FOLDER"] = File.expand_path('tmp/aruba/' + @installed_cassias)
   ENV["HOME"] = File.expand_path("tmp/aruba/HOME")
+  @aruba_timout_seconds = 5
 
   _mkdir ENV["HOME"]
   _mkdir ENV["LACE_FOLDER"]
