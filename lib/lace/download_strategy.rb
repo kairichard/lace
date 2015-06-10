@@ -166,12 +166,12 @@ class GitDownloadStrategy < AbstractDownloadStrategy
 end
 
 class AbbrevGitDownloadStrategy < GitDownloadStrategy
-  def initialize uri
+  def initialize uri, desired_package_name=nil
     unless uri.end_with?(".git")
       uri = "#{uri}.git"
     end
     uri = "https://github.com/#{uri}"
-    super uri
+    super uri, desired_package_name
   end
 end
 
