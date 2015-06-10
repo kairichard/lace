@@ -75,6 +75,15 @@ module GitCommands
     quiet_system "git", "--git-dir", git_dir, "status", "-s"
   end
 
+  def repo_modified?
+    @target_folder.cd do
+      result = `git status --porcelain`
+      result.split("\n").any? do |line|
+        line =~ /^ M/
+      end
+    end
+  end
+
   def submodules?
     @target_folder.join(".gitmodules").exist?
   end

@@ -39,6 +39,12 @@ class Package
     repo_valid?
   end
 
+  def is_modified?
+    return false unless is_git_repo?
+    @target_folder = @path
+    repo_modified?
+  end
+
   def is_active?
     if @facts.has_flavors? && @flavor == false
       @facts.flavors.any?{|f| Package.new(@name, f).is_active?}

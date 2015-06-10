@@ -11,11 +11,10 @@ module LaceHelper
   end
 
   def create_temp_repo(target_path)
-    FileUtils.cp_r(File.expand_path("fixtures/git/working/") + '/.', File.join(current_dir, target_path))
-    in_current_dir do
-      Dir.chdir(target_path) do
-        FileUtils.mv('dot_git', '.git')
-      end
+    expanded_target_path = File.expand_path(File.join(current_dir, target_path, "/"))
+    FileUtils.cp_r(File.expand_path("fixtures/git/working/") + '/.', expanded_target_path)
+    Dir.chdir(expanded_target_path) do
+      FileUtils.mv('dot_git', '.git')
     end
   end
 
