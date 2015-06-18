@@ -75,7 +75,25 @@ class Package
     home_dir = ENV["HOME"]
     files.each do |file|
       # if ends in erb -> generate it
-      FileUtils.ln_s file, Pathname.new(file).as_dotfile(home_dir), :force => ARGV.force?
+      src = Pathname.new(file)
+      dest = Pathname.new(file).as_dotfile(home_dir)
+      puts dest, src
+      if src.directory? && dest.exist? && dest.directory?
+        link_into_existing_folder src, dest
+      else
+        link_file_or_directory src, dest
+      end
     end
+  end
+
+  def link_into_existing_folder(src, dest)
+    if ARGV.force?
+      FileUtils.mv dest, dest.as_backup
+      FileUtils.ln_s src, dest
+    end
+  end
+
+  def link_file_or_directory(src, dest)
+    FileUtils.ln_s src, dest, :force => ARGV.force?
   end
 end

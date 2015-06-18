@@ -90,6 +90,10 @@ class Pathname
     join that.to_s
   end
 
+  def as_backup
+    Pathname.new File.join(dirname, "#{basename}.bak")
+  end
+
   def as_dotfile base_folder
     Pathname.new File.join(base_folder, ".#{basename}")
   end
