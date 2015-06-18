@@ -31,10 +31,10 @@ Feature: Activating with folders as configs
     When I run `lace fetch cassia/simple`
     When I run `lace activate simple -f`
     And the following files should exist:
-      | HOME/.bashrc            |
-      | HOME/.config/foo        |
-      | HOME/.config/bar        |
-      | HOME/.config.bak/screen |
+      | HOME/.bashrc                 |
+      | HOME/.config/foo             |
+      | HOME/.config/bar             |
+      | HOME/.config.lace.bak/screen |
     And the following files should not exist:
       | HOME/.config/screen     |
 

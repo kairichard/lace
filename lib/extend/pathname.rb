@@ -91,7 +91,7 @@ class Pathname
   end
 
   def as_backup
-    Pathname.new File.join(dirname, "#{basename}.bak")
+    Pathname.new File.join(dirname, "#{basename}.lace.bak")
   end
 
   def as_dotfile base_folder
