@@ -74,7 +74,7 @@ Feature: Activating with folders as configs
     ---
     config_files:
       - bashrc
-      - config/*
+      - config/**/*
     """
     And an empty file named "cassia/simple/config/screen/bar"
     And an empty file named "HOME/.config/screen/"
