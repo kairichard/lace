@@ -13,6 +13,6 @@ Feature: Commands should error when there are no PackageFacts
     And the output should contain "<output>"
 
   Examples:
-      | cmd      | output |
+      | cmd      | output          |
       | validate | cassia/no_facts |
-      | fetch    | no_facts |
+      | fetch    | no_facts        |
