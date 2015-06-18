@@ -77,8 +77,6 @@ Feature: Activating with folders as configs
       - config/**/*
     """
     And an empty file named "cassia/simple/config/screen/bar"
-    And an empty file named "HOME/.config/screen/"
-    And an empty file named "HOME/.config/screen/"
     And an empty file named "HOME/.config/screen/foo"
     When I run `lace fetch cassia/simple`
     When I run `lace activate simple`
