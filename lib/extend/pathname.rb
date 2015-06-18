@@ -94,8 +94,8 @@ class Pathname
     Pathname.new File.join(dirname, "#{basename}.lace.bak")
   end
 
-  def as_dotfile base_folder
-    Pathname.new File.join(base_folder, ".#{basename}")
+  def as_dotfile base_folder, subtract
+    Pathname.new File.join(base_folder, ".#{to_path.gsub(subtract, "")[1..-1]}")
   end
 
 end

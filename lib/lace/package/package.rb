@@ -65,35 +65,31 @@ class Package
     home_dir = ENV["HOME"]
     files.each do |file|
       file = Pathname.new(file)
-      dotfile = file.as_dotfile(home_dir)
+      dotfile = file.as_dotfile(home_dir, @path)
       FileUtils.rm_f dotfile if dotfile.exist? && dotfile.readlink == file
     end
   end
 
   def activate!
     files = @facts.config_files
-    home_dir = ENV["HOME"]
     files.each do |file|
-      # if ends in erb -> generate it
-      src = Pathname.new(file)
-      dest = Pathname.new(file).as_dotfile(home_dir)
-      puts dest, src
-      if src.directory? && dest.exist? && dest.directory?
-        link_into_existing_folder src, dest
-      else
-        link_file_or_directory src, dest
-      end
+      link_file file
     end
   end
 
-  def link_into_existing_folder(src, dest)
-    if ARGV.force?
+  def link_file file
+    home_dir = ENV["HOME"]
+    # if ends in erb -> generate it
+    src = file
+    dest = src.as_dotfile(home_dir, @path)
+    if src.exist? && dest.exist? && dest.directory? && ARGV.force?
       FileUtils.mv dest, dest.as_backup
-      FileUtils.ln_s src, dest
     end
+    link_file_or_directory src, dest
   end
 
   def link_file_or_directory(src, dest)
     FileUtils.ln_s src, dest, :force => ARGV.force?
   end
+
 end
