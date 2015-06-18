@@ -25,13 +25,15 @@ class PackageFacts
   end
 
   def config_files
-    if @unflavorable_facts.nil? or @facts["config_files"].nil?
-      []
-    else
+    if has_config_files?
       @facts["config_files"].flatten.map do |file|
         @package_path + file
       end
-    end
+    else [] end
+  end
+
+  def has_config_files?
+    has_key? 'config_files'
   end
 
   def has_flavors?
@@ -39,7 +41,7 @@ class PackageFacts
   end
 
   def has_key? key
-    @unflavorable_facts && @unflavorable_facts.has_key?(key)
+    @unflavorable_facts && ( @unflavorable_facts.has_key?(key) or @facts.has_key?(key))
   end
 
   def version
