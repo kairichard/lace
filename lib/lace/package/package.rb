@@ -89,6 +89,9 @@ class Package
   end
 
   def link_file_or_directory(src, dest)
+    if !dest.dirname.exist?
+      dest.dirname.mkpath
+    end
     FileUtils.ln_s src, dest, :force => ARGV.force?
   end
 
