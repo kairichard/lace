@@ -1,4 +1,3 @@
-@wip @announce
 Feature: Activating with folders as configs
   As a user I want to activate a pkg
   that has overlapping config folders so I can use the
@@ -26,25 +25,6 @@ Feature: Activating with folders as configs
       | HOME/.bashrc        |
       | HOME/.config/foo    |
       | HOME/.config/bar    |
-
-  Scenario: I activate with same folder in HOME fails with message
-    Given an empty file named "HOME/.config/screen"
-    When I run `lace fetch cassia/simple`
-    When I run `lace activate simple`
-    And the following files should exist:
-      | HOME/.bashrc        |
-      | HOME/.config/screen |
-    And the following files should not exist:
-      | HOME/.config/foo    |
-      | HOME/.config/bar    |
-    And the output should contain:
-    """
-    Cowardly refusing to overwrite .config
-    Use -f if you really want to do that
-    Or use - config/* if just want the files
-    from config in .config/ and keep everything
-    that is already there.
-    """
 
   Scenario: I activate with same folder in HOME using force
     Given an empty file named "HOME/.config/screen"
