@@ -31,24 +31,6 @@ Feature: Validation of a manifest file
       config-files:                                              [ found ]
     """
 
-  Scenario: A manifest with config_files where a files is missing
-    Given a package named "cassia/simple" with the following manifest:
-    """
-    ---
-    config_files:
-      - bashrc
-      - not_there
-    """
-    And an empty file named "cassia/simple/bashrc"
-    And a file named "cassia/simple/not_there" should not exist
-    Then I run `lace validate cassia/simple`
-    Then the exit status should be 1
-    And the output should contain:
-    """
-      config-files:                                              [ error ]
-        # not_there is missing from this package
-    """
-
   Scenario: A manifest without config_files part
     Given a package named "cassia/simple" with the following manifest:
     """
