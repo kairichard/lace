@@ -57,7 +57,7 @@ Feature: Activating with folders as configs
     ---
     config_files:
       - bashrc
-      - config/*
+      - config/**/*
     """
     Given an empty file named "HOME/.config/screen"
     When I run `lace fetch cassia/simple`

@@ -27,8 +27,8 @@ class PackageFacts
   def config_files
     if has_config_files?
       @facts["config_files"].flatten.map do |file|
-        @package_path + file
-      end
+        Pathname.glob(@package_path + file)
+      end.flatten
     else [] end
   end
 
