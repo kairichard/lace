@@ -26,9 +26,21 @@ class PackageFacts
 
   def config_files
     if has_config_files?
-      @facts["config_files"].flatten.map do |file|
+      paths = @facts["config_files"].flatten.map do |file|
         Pathname.glob(@package_path + file)
       end.flatten
+      ppaths = paths
+      ppaths.each do |path|
+        if path.file? and paths.include?(path.dirname)
+          paths.delete_if {|p| p == path.dirname}
+        end
+        if path.directory?
+          if !(paths & path.children).empty?
+            paths.delete_if {|p| p == path}
+          end
+        end
+      end
+      paths
     else [] end
   end
 
