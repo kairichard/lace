@@ -3,11 +3,18 @@ require 'lace/package'
 module Lace extend self
 
   def linked_files
-    home_dir = ENV["HOME"]
-    Dir.foreach(home_dir).map do |filename|
-      next if filename == '.' or filename == '..'
-      File.readlink File.join(home_dir, filename) if File.symlink? File.join(home_dir, filename)
-    end.compact.uniq
+    home_dir = Pathname.new ENV["HOME"]
+    find_links home_dir
+  end
+
+  def find_links dir
+    dir.children.map do |path|
+      if path.directory? && !path.symlink?
+        find_links path
+      else
+        File.readlink path if path.symlink?
+      end
+    end.flatten.compact.uniq
   end
 
   def active_packages
