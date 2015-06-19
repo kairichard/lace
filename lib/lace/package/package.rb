@@ -82,7 +82,7 @@ class Package
     # if ends in erb -> generate it
     src = file
     dest = src.as_dotfile(home_dir, @path)
-    if src.exist? && dest.exist? && dest.directory? && ARGV.force?
+    if dest.exist? && dest.directory? && ARGV.force?
       FileUtils.mv dest, dest.as_backup
     end
     link_file_or_directory src, dest
@@ -94,5 +94,4 @@ class Package
     end
     FileUtils.ln_s src, dest, :force => ARGV.force?
   end
-
 end
