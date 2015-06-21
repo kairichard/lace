@@ -36,10 +36,6 @@ require "extend/pathname"
 
 ARGV.extend(LaceArgvExtension)
 
-if ARGV.debug?
-  require 'pry'
-end
-
 def require? path
   require path.to_s.chomp
 rescue LoadError => e
