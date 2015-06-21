@@ -99,7 +99,6 @@ rescue Interrupt => e
 rescue RuntimeError, SystemCallError => e
   raise if e.message.empty?
   onoe e
-  puts e.backtrace if false
   exit 1
 rescue Exception => e
   onoe e
