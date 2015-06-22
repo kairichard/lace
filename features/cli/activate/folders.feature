@@ -78,16 +78,23 @@ Feature: Activating with folders as configs
     """
     And an empty file named "cassia/simple/config/screen/bar"
     And an empty file named "cassia/simple/config/something/subfolder/asd"
+    And an empty file named "cassia/simple/config/something/subfolder/path/dry"
+    And an empty file named "cassia/simple/config/something/subfolder/path/dry"
+    And an empty file named "cassia/simple/config/subfolder/main/dry"
+    And an empty file named "cassia/simple/config/subfolder/main/kiss"
+    And an empty file named "cassia/simple/config/subfolder/path/dry"
     And an empty file named "HOME/.config/screen/foo"
     And an empty file named "HOME/.config/something/foo"
-    When I run `lace fetch cassia/simple`
-    When I run `lace activate simple`
+    When I successfully run `lace fetch cassia/simple`
+    When I successfully run `lace activate simple`
     And the following files should exist:
-      | HOME/.bashrc                         |
-      | HOME/.config/screen/foo              |
-      | HOME/.config/screen/bar              |
-      | HOME/.config/something/subfolder/asd |
-      | HOME/.config/something/foo           |
-      | HOME/.config/foo                     |
-      | HOME/.config/bar                     |
+      | HOME/.bashrc                              |
+      | HOME/.config/screen/foo                   |
+      | HOME/.config/screen/bar                   |
+      | HOME/.config/something/subfolder/asd      |
+      | HOME/.config/something/subfolder/path/dry |
+      | HOME/.config/subfolder/path/dry           |
+      | HOME/.config/something/foo                |
+      | HOME/.config/foo                          |
+      | HOME/.config/bar                          |
 
