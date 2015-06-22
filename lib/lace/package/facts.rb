@@ -31,9 +31,7 @@ class PackageFacts
       end.flatten
       ppaths = paths
       ppaths.each do |path|
-        if path.file? and paths.include?(path.dirname)
-          paths.delete_if {|p| p == path.dirname}
-        end
+        paths.delete_if {|p| path.file? && p.directory? && path.dirname.to_path.include?(p.dirname) }
         if path.directory?
           if !(paths & path.children).empty?
             paths.delete_if {|p| p == path}
