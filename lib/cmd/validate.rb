@@ -17,14 +17,14 @@ Lace-Manifest Validation Report:
 EOS
 
 module Lace extend self
-	def validate
-		resource = ARGV.shift
+  def validate
+    resource = ARGV.shift
     flavor = ARGV.shift
-		raise ResourceNotSpecified unless resource
+    raise ResourceNotSpecified unless resource
     validation = PackageValidator.new(PackageFacts.new(resource), flavor)
     puts ERB.new(VALIDATE, nil, '-').result(binding)
     Lace.failed = true if validation.has_errors?
-	end
+  end
 end
 
 class PackageValidator
@@ -58,7 +58,7 @@ class PackageValidator
   def check_hooks hook_cmd
     hook_cmd.map do |cmd|
       if !File.exist? cmd
-         "#{cmd} cannot be found"
+        "#{cmd} cannot be found"
       elsif !File.executable? cmd
         "#{cmd} is not executable"
       end

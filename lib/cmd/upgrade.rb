@@ -2,7 +2,7 @@ require 'lace/package'
 require 'lace/exceptions'
 
 module Lace extend self
-	def upgrade
+  def upgrade
     require 'cmd/list'
     if Lace.active_packages.empty?
       upgrade_lace_folder
@@ -10,7 +10,7 @@ module Lace extend self
       onoe "Please deactivate all packages before continuing"
       Lace.failed = true
     end
-	end
+  end
   def upgrade_lace_folder
     old_dir = Pathname.new(ENV["HOME"])/".cassias"
     if old_dir.exist?

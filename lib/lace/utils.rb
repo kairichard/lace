@@ -90,9 +90,9 @@ end
 
 def determine_os
   case RUBY_PLATFORM
-    when /darwin/ then :mac
-    when /linux/ then :linux
-    else raise InvalidOSError
+  when /darwin/ then :mac
+  when /linux/ then :linux
+  else raise InvalidOSError
   end
 end
 

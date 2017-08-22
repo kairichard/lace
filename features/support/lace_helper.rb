@@ -26,4 +26,3 @@ module LaceHelper
 end
 
 World LaceHelper
-

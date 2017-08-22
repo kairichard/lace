@@ -1,25 +1,25 @@
 Given(/^an installed pkg named "(.*?)"$/) do |name|
-    target = File.join @installed_cassias, name
-    step "a directory named \"#{target}\""
-    step "an empty file named \"#{target}/bashrc\""
-    step "a file named \"#{target}/.lace.yml\" with:", SIMPLE_LACE
+  target = File.join @installed_cassias, name
+  step "a directory named \"#{target}\""
+  step "an empty file named \"#{target}/bashrc\""
+  step "a file named \"#{target}/.lace.yml\" with:", SIMPLE_LACE
 end
 
 Given(/^an active pkg with flavors named "(.*?)"$/) do |name|
-    step "an installed pkg with flavors named \"#{name}\""
-    step "I run `lace activate #{name} osx`"
+  step "an installed pkg with flavors named \"#{name}\""
+  step "I run `lace activate #{name} osx`"
 end
 
 Given(/^an installed pkg with flavors named "(.*?)"$/) do |name|
-    target = File.join @installed_cassias, name
-    step "a directory named \"#{target}\""
-    step "an empty file named \"#{target}/bashrc\""
-    step "a file named \"#{target}/.lace.yml\" with:", FLAVORED_LACE
+  target = File.join @installed_cassias, name
+  step "a directory named \"#{target}\""
+  step "an empty file named \"#{target}/bashrc\""
+  step "a file named \"#{target}/.lace.yml\" with:", FLAVORED_LACE
 end
 
 Given(/^an active pkg named "(.*?)"$/) do |pkg_name|
-    step "an installed pkg named \"#{pkg_name}\""
-    step "I run `lace activate #{pkg_name}`"
+  step "an installed pkg named \"#{pkg_name}\""
+  step "I run `lace activate #{pkg_name}`"
 end
 
 Given(/^the file named "([^"]*)" has mode "([^"]*)"$/) do |file_name, file_mode|
@@ -37,28 +37,28 @@ Given(/^I rename "(.*?)" to "(.*?)"$/) do |from, to|
 end
 
 Given(/^a git repo in a directory named "(.*?)"$/) do |dir_name|
-   create_dir(dir_name)
-   create_temp_repo(dir_name)
+  create_dir(dir_name)
+  create_temp_repo(dir_name)
 end
 
 Given(/^a package named "(.*?)" with the following manifest:$/) do |name, manifest|
-    step "a directory named \"#{name}\""
-    step "a file named \"#{name}/.lace.yml\" with:", manifest
+  step "a directory named \"#{name}\""
+  step "a file named \"#{name}/.lace.yml\" with:", manifest
 end
 
 Given(/^a git-package named "(.*?)" with the following manifest:$/) do |name, manifest|
-    step "a directory named \"#{name}\""
-    create_temp_repo(name)
-    step "a file named \"#{name}/.lace.yml\" with:", manifest
+  step "a directory named \"#{name}\""
+  create_temp_repo(name)
+  step "a file named \"#{name}/.lace.yml\" with:", manifest
 end
 
 Then(/^I git\-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|
-    step "I cd to \"#{dir}\""
-    step "a directory named \".git\" should exist"
-    step "I run `git add .`"
-    step "I run `git commit -am \'#{commit_msg}\'`"
-    up_dir = dir.gsub(/\b\w+\b/, "..")
-    step "I cd to \"#{up_dir}\""
+  step "I cd to \"#{dir}\""
+  step "a directory named \".git\" should exist"
+  step "I run `git add .`"
+  step "I run `git commit -am \'#{commit_msg}\'`"
+  up_dir = dir.gsub(/\b\w+\b/, "..")
+  step "I cd to \"#{up_dir}\""
 end
 
 SIMPLE_LACE = """
@@ -74,5 +74,3 @@ flavors:
     config_files:
       - bashrc
 """
-
-

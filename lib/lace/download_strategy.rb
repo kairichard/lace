@@ -155,9 +155,9 @@ class GitDownloadStrategy < AbstractDownloadStrategy
     if super
       super
     elsif @uri.include? "github.com"
-       @uri.split("/")[-2]
+      @uri.split("/")[-2]
     elsif File.directory? @uri
-        File.basename(@uri)
+      File.basename(@uri)
     else
       raise "Cannot determine a proper name with #@uri"
     end
@@ -200,8 +200,8 @@ class DownloadStrategyDetector
     end
 
     case uri
-      when %r[^git://] then GitDownloadStrategy
-      when %r[^https?://.+\.git$] then GitDownloadStrategy
+    when %r[^git://] then GitDownloadStrategy
+    when %r[^https?://.+\.git$] then GitDownloadStrategy
       # else CurlDownloadStrategy
     else
       raise "Cannot determine download startegy from #{uri}"
