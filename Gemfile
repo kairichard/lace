@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 group :development  do
-  gem 'debugger'
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-stack_explorer'
