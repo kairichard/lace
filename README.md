@@ -150,12 +150,12 @@ changes.
     * only link the diff
   * Track events with PStore ?
   * define a pkg.lace where i can define multiple pkgs to be fetched and setup
+  * killall running process if foreground is killed
   * Refactor
     * move hooks away from the package itself into the Utils
     * hook invocation
     * validate.rb
     * facts key access
-    * exceptions.rb has code duplication
 
 License
 --------
