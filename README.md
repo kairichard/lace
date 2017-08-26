@@ -139,8 +139,7 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * info should show local modifications
-    * add mothership communication which notifies you about changes in the different environments
+  * add mothership communication which notifies you about changes in the different environments
   * description in lace ls
   * provide name in package it's self
   * Update without having to deactivate
@@ -150,7 +149,6 @@ changes.
     * only link the diff
   * Track events with PStore ?
   * define a pkg.lace where i can define multiple pkgs to be fetched and setup
-  * killall running process if foreground is killed
   * Refactor
     * move hooks away from the package itself into the Utils
     * hook invocation
