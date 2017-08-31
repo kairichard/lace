@@ -9,7 +9,7 @@ end
 group :test do
   gem 'rspec'
   gem 'cucumber'
-  gem 'aruba'
+  gem 'aruba', '0.7.4'
   gem 'rake'
   gem 'coveralls', :require => false
 end
