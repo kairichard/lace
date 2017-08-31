@@ -27,7 +27,7 @@ Given(/^the file named "([^"]*)" has mode "([^"]*)"$/) do |file_name, file_mode|
 end
 
 Then(/^the folder "([^"]*)" should be empty$/) do |folder_name|
-  in_current_dir do
+  cd(".") do
     expect(Dir.glob(File.join(folder_name, "**/*"))).to be_empty
   end
 end

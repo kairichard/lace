@@ -1,6 +1,6 @@
 module LaceHelper
   def chmod(mode, name)
-    in_current_dir do
+    cd(".") do
       raise "expected #{name} to be present" unless FileTest.exists?(name)
       if mode.kind_of? String
         FileUtils.chmod(mode.to_i(8),name)
@@ -11,7 +11,7 @@ module LaceHelper
   end
 
   def create_temp_repo(target_path)
-    expanded_target_path = File.expand_path(File.join(current_directory, target_path, "/"))
+    expanded_target_path = File.expand_path(File.join(expand_path("."), target_path, "/"))
     FileUtils.cp_r(File.expand_path("fixtures/git/working/") + '/.', expanded_target_path)
     Dir.chdir(expanded_target_path) do
       FileUtils.mv('dot_git', '.git')
@@ -19,7 +19,7 @@ module LaceHelper
   end
 
   def _mv from, to
-    in_current_dir do
+    cd(".") do
       FileUtils.mv from, to
     end
   end
