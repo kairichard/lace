@@ -17,6 +17,6 @@ Before do
   set_environment_variable('HOME', File.expand_path("tmp/aruba/HOME"))
   @aruba_timout_seconds = 5
 
-  Aruba::Platform.mkdir ENV["HOME"]
-  Aruba::Platform.mkdir ENV["LACE_FOLDER"]
+  _mkdir ENV["HOME"]
+  _mkdir ENV["LACE_FOLDER"]
 end

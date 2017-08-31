@@ -72,6 +72,5 @@ Feature: Installable comes with hooks
     When I run `lace fetch cassia/hooks`
     When I run `lace setup hooks` interactively
     When I type "TEST"
-    Then the exit status should be 0
     Then the output should contain "TEST"
 
