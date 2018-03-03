@@ -26,6 +26,36 @@ Lace comes as a gem, so given you have ruby installed simply do the following
 ```
 Usage
 -----------
+### Writing a .lace.yml
+Put a file named `.lace.yml` in the root of your dotfiles. This file describes how your dotfiles will be installed and what is included in them. Example:
+
+```yaml
+---
+homepage: https://somewhere
+version: 1.0
+
+osx: &osx            # using a name for a config
+  config_files:      # all files that should appear in $HOME 
+    - bash           # bash will become .bash can be directory or file
+    - config/**/*    # globbing is supported this will only link files that are not present in $HOME/config yet
+    - tmux.conf
+    - vimrc
+    
+  setup:             # this is run the first time the package is installed
+    - <%= @package_path/"bootstrap/osx/brew" %>
+    - <%= @package_path/"bootstrap/osx/defaults" %>
+    - <%= @package_path/"bootstrap/osx/fonts" %>
+
+  post:  
+    update:          # do this after `lace update`
+      - *vim_bundles
+
+flavors:             # manage multiple flavors of dotfiles
+  osx: *osx 
+  ubuntu-desktop: *ubuntu-desktop
+```
+For a full example visit https://github.com/kairichard/dotfiles/blob/master/.lace.yml
+
 ### Installing a Package
 Its possible to install a Package either locally via the files system or by specifying a remote git repo,
 local git repos also work.
