@@ -5,6 +5,7 @@
 Lace - dotfile management
 ========
 [![Build Status](https://travis-ci.org/kairichard/lace.png?branch=master)](https://travis-ci.org/kairichard/lace) [![Gem Version](https://badge.fury.io/rb/lace.png)](http://badge.fury.io/rb/lace) [![Dependency Status](https://gemnasium.com/kairichard/lace.svg)](https://gemnasium.com/kairichard/lace) [![Coverage Status](https://coveralls.io/repos/kairichard/lace/badge.png?branch=master)](https://coveralls.io/r/kairichard/lace?branch=master)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkairichard%2Flace.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkairichard%2Flace?ref=badge_shield)
 
 
 Logging in to different machines at work or at home I just wanted to have an elegant solution to install .dotfiles on them. Lace provides. Also I wanted something that makes it real easy to bootstrap a new maschine, even if they are differently flavored. Lace provides. Updating these should be a breeze. Lace provides. And I hoped for something that lets you share common .dotfiles with your teammates by just installing them next to your own dotfiles. Lace provides.
@@ -197,3 +198,7 @@ And if it did it would be in a worse state than it is today.
 Logo
 --------
 by Mark Beltran -> https://www.instagram.com/elhoncho/
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkairichard%2Flace.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkairichard%2Flace?ref=badge_large)
