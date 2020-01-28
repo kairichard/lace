@@ -177,15 +177,8 @@ end
 
 
 class DownloadStrategyDetector
-  def self.detect(uri, strategy=nil)
-    if strategy.nil?
+  def self.detect(uri)
       detect_from_uri(uri)
-    elsif Symbol === strategy
-      detect_from_symbol(strategy)
-    else
-      raise TypeError,
-        "Unknown download strategy specification #{strategy.inspect}"
-    end
   end
 
   def self.detect_from_uri(uri)
@@ -205,15 +198,6 @@ class DownloadStrategyDetector
       # else CurlDownloadStrategy
     else
       raise "Cannot determine download startegy from #{uri}"
-    end
-  end
-
-  def self.detect_from_symbol(symbol)
-    case symbol
-    when :git then GitDownloadStrategy
-    when :local_file then LocalFileStrategy
-    else
-      raise "Unknown download strategy #{strategy} was requested."
     end
   end
 end
