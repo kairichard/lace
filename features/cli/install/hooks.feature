@@ -62,13 +62,14 @@ Feature: Installable comes with hooks
 
   Scenario: Installing from a local directory with a post install hook that requires interaction
     When a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
-    """
-    #!/usr/bin/env python
-    import sys
-    if __name__ == '__main__':
+      """
+      #!/usr/bin/env python
+      from __future__ import print_function
+      import sys
+      if __name__ == '__main__':
         result = input("Please answer yes or no: ")
-        print result
-    """
+        print(result)
+      """
     When I run `lace fetch cassia/hooks`
     When I run `lace setup hooks` interactively
     When I type "TEST"

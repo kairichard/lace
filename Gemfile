@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'rake'
 
 group :development  do
   gem 'pry'
@@ -10,6 +11,5 @@ group :test do
   gem 'rspec'
   gem 'cucumber'
   gem 'aruba', '0.8.1'
-  gem 'rake'
   gem 'coveralls', :require => false
 end

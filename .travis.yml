@@ -1,6 +1,7 @@
 language: ruby
 rvm:
-  - "2.1.6"
-  - "2.2.2"
+  - "2.7.0"
+  - "2.6.5"
+  - "2.5.7"
 script: bundle exec rake test
 bundler_args: --without development
