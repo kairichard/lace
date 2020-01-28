@@ -21,8 +21,8 @@ class NonActiveFlavorError < RuntimeError
 end
 
 class PackageAlreadyInstalled < RuntimeError
-  def initialize
-    super "Package already installed"
+  def initialize location
+    super "Package already installed at #{location}"
   end
 end
 

@@ -5,7 +5,7 @@ class PackageUtils
   def self.fetch uri, desired_package_name=nil
     downloader_cls = DownloadStrategyDetector.detect(uri)
     downloader = downloader_cls.new(uri, desired_package_name)
-    raise PackageAlreadyInstalled.new if downloader.target_folder.exist?
+    raise PackageAlreadyInstalled.new(downloader.target_folder) if downloader.target_folder.exist?
     downloader.fetch
     return downloader.name, downloader.target_folder
   end
