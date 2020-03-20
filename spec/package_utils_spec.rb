@@ -7,7 +7,7 @@ describe 'PackageUtils' do
     expect_any_instance_of(AbbrevGitDownloadStrategy).to receive(:fetch){
       true
     }
-    PackageUtils.fetch("kairichard/somewhere", nil)
+    PackageUtils.fetch("uff/somewhere", nil)
   end
 end
 

@@ -6,20 +6,20 @@ Feature: Installable comes with hooks
 
   Background:
     Given a package named "cassia/hooks" with the following manifest:
-    """
-    ---
-    config_files:
+      """
+      ---
+      config_files:
       - bashrc
       - hooks
-    setup:
-        - ~/.hooks/post_install.sh
-    """
+      setup:
+      - ~/.hooks/post_install.sh
+      """
     And an empty file named "cassia/hooks/bashrc"
     And an empty file named "cassia/hooks/vimrc"
     And a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
-    """
-    echo "HELLO FROM POST INSTALL HOOK"
-    """
+      """
+      echo "HELLO FROM POST INSTALL HOOK"
+      """
 
   Scenario: Installing from a local directory with a post install hook
     When I run `lace fetch cassia/hooks`
@@ -27,11 +27,11 @@ Feature: Installable comes with hooks
     Then the output should contain "HELLO FROM POST INSTALL HOOK"
     And I run `lace ls`
     Then the output should contain:
-    """
-    [*] hooks
-    """
+      """
+      [*] hooks
+      """
     And the following files should exist:
-      | HOME/.bashrc |
+      | HOME/.bashrc                |
       | HOME/.hooks/post_install.sh |
 
   Scenario: Installing with --no-hooks flag
@@ -41,9 +41,9 @@ Feature: Installable comes with hooks
 
   Scenario: Installing sets environment variables accessible by the hook
     When a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
-    """
-    echo "ENV: $LACEPKG_PATH"
-    """
+      """
+      echo "ENV: $LACEPKG_PATH"
+      """
     When I run `lace fetch cassia/hooks`
     When I run `lace setup hooks`
     Then the output should contain "tmp/aruba/installed_cassias/hooks"
