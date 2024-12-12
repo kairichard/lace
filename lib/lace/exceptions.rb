@@ -58,6 +58,14 @@ class PackageFlavorDoesNotExist < FlavorError
   end
 end
 
+class WouldOverwriteError < RuntimeError
+  def initialize dest, src
+    super %Q(Refusing to overwrite #{dest} with #{src}
+Use glob pattern in .lace.yaml like #{src.basename}/**/* 
+or invoke lace with `--force` to create backup of #{dest})
+  end
+end
+
 class ManifestErbError < RuntimeError
   def initialize fact, exception
     super "#{exception.to_s}\nin #{fact.facts_file}"

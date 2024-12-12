@@ -13,6 +13,7 @@ Feature: Activating with folders as configs
     """
     And an empty file named "cassia/simple/bashrc"
     And an empty file named "cassia/simple/config/bar"
+    And an empty file named "cassia/simple/config/foo"
     And a file named "cassia/simple/config/foo" with:
     """
     Something something
@@ -40,20 +41,19 @@ Feature: Activating with folders as configs
 
 
   @wip @announce
-  Scenario: I activate with same folder in HOME using force twice
+  Scenario: I activate with same folder in HOME without using force
     Given an empty file named "HOME/.config/screen"
-    And an empty file named "HOME/.config/bar"
     When I run `lace fetch cassia/simple`
-    When I run `lace activate simple -f`
-    When I run `lace activate simple -f`
-    And the following files should exist:
-      | HOME/.bashrc                 |
-      | HOME/.config/foo             |
-      | HOME/.config/bar             |
-      | HOME/.config.lace.bak/screen |
-      | HOME/.config.lace.bak/bar    |
+    When I run `lace activate simple`
+    Then the following files should exist:
+      | HOME/.config/screen    |
     And the following files should not exist:
-      | HOME/.config/screen          |
+      | HOME/.config/foo       |
+      | HOME/.config/bar       |
+    And the output should contain:
+    """
+    Use glob pattern in .lace.yaml like config/**/*
+    """
 
 
   Scenario: I activate with same folder in HOME using force override existing file

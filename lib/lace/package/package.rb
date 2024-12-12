@@ -82,14 +82,15 @@ class Package
     # if ends in erb -> generate it
     src = file
     dest = src.as_dotfile(home_dir, @path)
-    if dest.exist? && dest.directory? && ARGV.force?
+    if dest.exist? && dest.directory?
+      raise WouldOverwriteError.new(dest, src) unless ARGV.force?
       FileUtils.mv dest, dest.as_backup
     end
     link_file_or_directory src, dest
   end
 
   def link_file_or_directory(src, dest)
-    if !dest.dirname.exist?
+    unless dest.dirname.exist?
       dest.dirname.mkpath
     end
     FileUtils.ln_s src, dest, :force => ARGV.force?
