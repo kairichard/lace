@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.summary     = "Manage your .dotfiles"
   s.description = "Lace lets you manage your dotfiles when using them on multiple machines"
   s.authors     = ["Kai Richard Koenig"]
-  s.email       = 'kai@kairichardkoenig.de'
+  s.email       = 'kai.richard.koenig@gmail.com'
   s.files       = Dir.glob("lib/**/*.rb")
   s.homepage    = 'https://github.com/kairichard/lace'
   s.bindir = 'bin'
   s.executables << "lace"
   s.license = 'MIT'
-  s.required_ruby_version = '>= 1.8.6'
+  s.required_ruby_version = '>= 3.0.0'
 end

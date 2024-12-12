@@ -1,7 +1,7 @@
 module LaceHelper
   def chmod(mode, name)
     cd(".") do
-      raise "expected #{name} to be present" unless FileTest.exists?(name)
+      raise "expected #{name} to be present" unless FileTest.exist?(name)
       if mode.kind_of? String
         FileUtils.chmod(mode.to_i(8),name)
       else

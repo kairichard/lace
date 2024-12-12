@@ -87,11 +87,11 @@ class PackageFacts
   protected
   def facts_file_to_hash
     begin
-      rendered_manifest = ERB.new(@facts_file.read, nil, '-').result(binding)
+      rendered_manifest = ERB.new(@facts_file.read, trim_mode: '-').result(binding)
     rescue Exception => e
       raise ManifestErbError.new(self, e)
     end
-    value = YAML.load rendered_manifest
+    value = YAML.load rendered_manifest, aliases: true
     if value.is_a?(String) && value == "---"
       return Hash.new
     else

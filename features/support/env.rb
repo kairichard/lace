@@ -1,5 +1,5 @@
 require 'aruba/cucumber'
-require 'aruba/platform'
+require 'aruba/api'
 
 require 'coveralls'
 Coveralls.wear!
@@ -18,6 +18,6 @@ Before do
   set_environment_variable('HOME', File.expand_path("tmp/aruba/HOME"))
   @aruba_timout_seconds = 5
 
-  Aruba::Platform.mkdir ENV["HOME"]
-  Aruba::Platform.mkdir ENV["LACE_FOLDER"]
+  Aruba.platform.mkdir ENV["HOME"]
+  Aruba.platform.mkdir ENV["LACE_FOLDER"]
 end
