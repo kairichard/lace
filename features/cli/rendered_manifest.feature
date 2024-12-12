@@ -31,7 +31,7 @@ Feature: The .lace.yml it's self is configurable
     Then the exit status should be 1
     And the output should contain:
     """
-    Error: undefined local variable or method `not_found' for #<Facts:cassia/simple>
+    Error: undefined local variable or method `not_found' for an instance of PackageFacts
     in cassia/simple/.lace.yml
     """
 

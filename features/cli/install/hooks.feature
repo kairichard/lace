@@ -63,7 +63,7 @@ Feature: Installable comes with hooks
   Scenario: Installing from a local directory with a post install hook that requires interaction
     When a file named "cassia/hooks/hooks/post_install.sh" with mode "775" and with:
       """
-      #!/usr/bin/env python
+      #!/usr/bin/env python3
       from __future__ import print_function
       import sys
       if __name__ == '__main__':

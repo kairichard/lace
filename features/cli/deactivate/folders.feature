@@ -1,4 +1,3 @@
-@wip @announce
 Feature: Deactivating with folders as configs
   As a user I want to deactivate a pkg
   that has overlapping config folders so I can

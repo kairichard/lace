@@ -43,7 +43,7 @@ class PackageFacts
   end
 
   def has_key? key
-    @unflavorable_facts && ( @unflavorable_facts.has_key?(key) or @facts.has_key?(key))
+    @unflavorable_facts && (@unflavorable_facts.has_key?(key) or @facts.has_key?(key))
   end
 
   def version

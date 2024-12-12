@@ -15,6 +15,7 @@ describe "DownloadStrategyDetector" do
     FileUtils::mkdir_p uri
     strategy = DownloadStrategyDetector.detect(uri)
     expect(strategy).to be LocalFileStrategy
+    FileUtils::rm_rf uri
   end
 
   it "detects a strategy for localfile if file actually exists without extension" do
@@ -22,6 +23,7 @@ describe "DownloadStrategyDetector" do
     FileUtils::mkdir_p uri
     strategy = DownloadStrategyDetector.detect(uri+".git")
     expect(strategy).to be AbbrevGitDownloadStrategy
+    FileUtils::rm_rf uri
   end
 end
 

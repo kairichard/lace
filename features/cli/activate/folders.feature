@@ -15,7 +15,7 @@ Feature: Activating with folders as configs
     And an empty file named "cassia/simple/config/bar"
     And a file named "cassia/simple/config/foo" with:
     """
-    Something somthing
+    Something something
     """
 
   Scenario: I activate
@@ -38,6 +38,24 @@ Feature: Activating with folders as configs
     And the following files should not exist:
       | HOME/.config/screen     |
 
+
+  @wip @announce
+  Scenario: I activate with same folder in HOME using force twice
+    Given an empty file named "HOME/.config/screen"
+    And an empty file named "HOME/.config/bar"
+    When I run `lace fetch cassia/simple`
+    When I run `lace activate simple -f`
+    When I run `lace activate simple -f`
+    And the following files should exist:
+      | HOME/.bashrc                 |
+      | HOME/.config/foo             |
+      | HOME/.config/bar             |
+      | HOME/.config.lace.bak/screen |
+      | HOME/.config.lace.bak/bar    |
+    And the following files should not exist:
+      | HOME/.config/screen          |
+
+
   Scenario: I activate with same folder in HOME using force override existing file
     Given an empty file named "HOME/.config/foo"
     When I run `lace fetch cassia/simple`
@@ -48,7 +66,7 @@ Feature: Activating with folders as configs
       | HOME/.config/bar    |
     And the file "HOME/.config/foo" should contain:
     """
-    Something somthing
+    Something something
     """
 
   Scenario: I activate with same folder in HOME merging folders
