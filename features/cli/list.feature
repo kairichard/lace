@@ -27,6 +27,7 @@ Feature: Listing installed and active pkgs
     [ ] mypkg_2
     [ ] mypkg_3
     """
+
   Scenario: Active Kits are marked with a star
     Given an active pkg named "mypkg"
     Given an installed pkg named "otherpkg"

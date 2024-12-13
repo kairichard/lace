@@ -7,10 +7,9 @@ class Package
   attr_reader :name, :facts, :path
 
   def initialize name, flavor=nil
-    require 'cmd/list'
-    raise PackageNotInstalled.new(name) unless Lace.installed_packages.include?(name)
     @name = name
     @path = Lace.pkgs_folder/name
+    raise PackageNotInstalled.new(name) unless @path.exist?
     @flavor = flavor
     read_facts!
   end
@@ -46,12 +45,15 @@ class Package
   end
 
   def is_active?
+    home_dir = ENV["HOME"]
     if @facts.has_flavors? && @flavor == false
       @facts.flavors.any?{|f| Package.new(@name, f).is_active?}
     else
-      linked_files = Set.new Lace.linked_files.map(&:to_s)
-      config_files = Set.new @facts.config_files.map(&:to_s)
-      config_files.subset? linked_files
+      config_files = Set.new @facts.config_files
+      config_files.all? do |p| 
+        dotfile = p.as_dotfile(home_dir, @path)
+        dotfile.exist? and dotfile.symlink? and dotfile.readlink.dirname.to_s.include?(@path)
+      end
     end
   end
 

@@ -40,7 +40,6 @@ Feature: Activating with folders as configs
       | HOME/.config/screen     |
 
 
-  @wip @announce
   Scenario: I activate with same folder in HOME without using force
     Given an empty file named "HOME/.config/screen"
     When I run `lace fetch cassia/simple`

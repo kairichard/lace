@@ -31,10 +31,17 @@ Feature: Deactivating
       | HOME/.bashrc |
 
   Scenario: Deactivating one from a list of two
+    Given a package named "cassia/other" with the following manifest:
+    """
+    ---
+    config_files:
+      - zsh
+    """
+    And an empty file named "cassia/other/zsh"
     Given I successfully run `lace deactivate simple`
     And I successfully run `lace remove simple`
     When I run `lace fetch cassia/simple --name=mypkg`
-    When I run `lace fetch cassia/simple --name=otherpkg`
+    When I run `lace fetch cassia/other --name=otherpkg`
     When I run `lace activate mypkg`
     And I run `lace ls`
     Then the output should contain:

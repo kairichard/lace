@@ -10,6 +10,13 @@ Feature: Activating
       - bashrc
     """
     And an empty file named "cassia/simple/bashrc"
+    Given a package named "cassia/other" with the following manifest:
+    """
+    ---
+    config_files:
+      - zsh
+    """
+    And an empty file named "cassia/other/zsh"
 
 
   Scenario: Activating by name
@@ -36,7 +43,7 @@ Feature: Activating
 
   Scenario: Activating one from a list of two
     When I run `lace fetch cassia/simple --name=mypkg`
-    When I run `lace fetch cassia/simple --name=otherpkg`
+    When I run `lace fetch cassia/other --name=otherpkg`
     When I run `lace activate mypkg`
     And I run `lace ls`
     Then the output should contain:
