@@ -184,16 +184,17 @@ class DownloadStrategyDetector
   def self.detect_from_uri(uri)
     is_git_dir = File.directory?(uri+"/.git")
     has_single_slash = uri.scan("/").count == 1
-    if File.directory?(uri) && !is_git_dir
+    via_ssh = uri.start_with?("git@")
+    if File.directory?(uri) and not is_git_dir and not via_ssh
       return LocalFileStrategy
     elsif is_git_dir
       return GitDownloadStrategy
-    elsif has_single_slash
+    elsif has_single_slash and not via_ssh
       return AbbrevGitDownloadStrategy
     end
 
     case uri
-    when %r[^git://] then GitDownloadStrategy
+    when %r[^git\@] then GitDownloadStrategy
     when %r[^https?://.+\.git$] then GitDownloadStrategy
       # else CurlDownloadStrategy
     else

@@ -24,6 +24,12 @@ describe "DownloadStrategyDetector" do
     strategy = DownloadStrategyDetector.detect(uri+".git")
     expect(strategy).to be AbbrevGitDownloadStrategy
     FileUtils::rm_rf uri
+  end  
+
+  it "detects a strategy for a git repo using the ssh syntax" do
+    uri = 'git@github.com:someuser/repo.git'
+    strategy = DownloadStrategyDetector.detect(uri)
+    expect(strategy).to be GitDownloadStrategy
   end
 end
 
@@ -39,5 +45,14 @@ describe "AbbrevGitDownloadStrategy" do
     uri = 'someuser/demorepository.git'
     strategy = AbbrevGitDownloadStrategy.new(uri)
     expect(strategy.uri).to eq "https://github.com/someuser/demorepository.git"
+  end
+end
+
+describe "GitDownloadStrategy" do
+
+  it "builds the url to github correctly without extension" do
+    uri = 'git@github.com:/some/repo.git'
+    strategy = GitDownloadStrategy.new(uri)
+    expect(strategy.uri).to eq "git@github.com:/some/repo.git"
   end
 end
