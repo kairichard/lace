@@ -31,6 +31,7 @@ Feature: Display a help message
       lace help
       lace info <pkg-name>
       lace validate <local-directory>
+      lace --version
 
     For further help visit:
       https://github.com/kairichard/lace
