@@ -1,5 +1,4 @@
 require 'set'
-
 require 'lace/download_strategy'
 
 class Package

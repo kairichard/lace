@@ -6,6 +6,7 @@ group :development  do
   gem 'pry-nav'
   gem 'pry-stack_explorer'
   gem "ruby-lsp", require: false
+  gem 'rubocop', require: false
 end
 
 group :test do

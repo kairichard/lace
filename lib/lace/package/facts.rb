@@ -34,6 +34,12 @@ class PackageFacts
     else [] end
   end
 
+  def globbed_folder
+    if has_config_files?
+      @facts["config_files"].flatten.select {|f| f.include? "*"}
+    else [] end
+  end
+
   def has_config_files?
     has_key? 'config_files'
   end

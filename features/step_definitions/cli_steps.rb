@@ -17,6 +17,10 @@ Given(/^an installed pkg with flavors named "(.*?)"$/) do |name|
   step "a file named \"#{target}/.lace.yml\" with:", FLAVORED_LACE
 end
 
+Given(/^I link "(.*?)" to "(.*?)"$/) do |source, destination|
+  FileUtils.ln_s(expand_path(source), expand_path(destination), force: true, verbose: true)
+end
+
 Given(/^an active pkg named "(.*?)"$/) do |pkg_name|
   step "an installed pkg named \"#{pkg_name}\""
   step "I run `lace activate #{pkg_name}`"
