@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require('lace/exceptions')
 
 Diff = Struct.new(:added, :removed) do
@@ -32,7 +34,7 @@ class PackageUtils
 
   def self.deactivate(package_name)
     package = Package.new(package_name, ARGV.first)
-    raise(NonActiveFlavorError) unless package.is_active? or ARGV.force?
+    raise(NonActiveFlavorError) unless package.is_active? || ARGV.force?
 
     ohai('Deactivating')
     package.deactivate!
@@ -61,7 +63,7 @@ class PackageUtils
   end
 
   def self.diff(package_name)
-    home_dir = ENV['HOME']
+    home_dir = Dir.home
     package = Package.new(package_name, ARGV.first)
     config_files = Set.new(package.facts.config_files)
     files_pointing_to_package = Set.new(symlinks_to_package(package).map { |f| Pathname.new(File.readlink(f)) })
@@ -72,7 +74,7 @@ class PackageUtils
   end
 
   def self.symlinks_to_package(package)
-    home_dir = ENV['HOME']
+    home_dir = Dir.home
     found_links = Set.new
     traverse_directory(home_dir, package) { |entry| (found_links << entry) }
     found_links
