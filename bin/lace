@@ -48,7 +48,7 @@ case ARGV.first when '-h', '--help', '--usage', '-?', 'help', nil
   require 'cmd/help'
   puts Lace.help_s
   exit ARGV.first ? 0 : 1
-when '--version'
+when '--version', '-v'
   puts Lace::VERSION
   exit 0
 end
