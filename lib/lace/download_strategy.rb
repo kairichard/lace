@@ -185,6 +185,7 @@ class DownloadStrategyDetector
     is_git_dir = File.directory?(uri+"/.git")
     has_single_slash = uri.scan("/").count == 1
     via_ssh = uri.start_with?("git@")
+
     if File.directory?(uri) and not is_git_dir and not via_ssh
       return LocalFileStrategy
     elsif is_git_dir

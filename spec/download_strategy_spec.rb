@@ -54,5 +54,6 @@ describe "GitDownloadStrategy" do
     uri = 'git@github.com:/some/repo.git'
     strategy = GitDownloadStrategy.new(uri)
     expect(strategy.uri).to eq "git@github.com:/some/repo.git"
+    expect(strategy.name).to eq "some"
   end
 end
