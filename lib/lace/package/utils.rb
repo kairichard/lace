@@ -1,4 +1,5 @@
 require('lace/exceptions')
+
 Diff = Struct.new(:added, :removed) do
 end
 
@@ -6,7 +7,7 @@ class PackageUtils
   def self.fetch(uri, desired_package_name = nil)
     downloader_cls = DownloadStrategyDetector.detect(uri)
     downloader = downloader_cls.new(uri, desired_package_name)
-    raise(PackageAlreadyInstalled.new(downloader.target_folder)) if downloader.target_folder.exist?
+    raise(PackageAlreadyInstalled, downloader.target_folder) if downloader.target_folder.exist?
 
     downloader.fetch
     [downloader.name, downloader.target_folder]
@@ -14,7 +15,7 @@ class PackageUtils
 
   def self.remove(package_name)
     package = Package.new(package_name, false)
-    raise(CannotRemoveActivePackage.new) if package.is_active?
+    raise(CannotRemoveActivePackage) if package.is_active?
 
     ohai('Removing')
     FileUtils.rm_rf(package.path)
@@ -31,7 +32,7 @@ class PackageUtils
 
   def self.deactivate(package_name)
     package = Package.new(package_name, ARGV.first)
-    raise(NonActiveFlavorError.new) unless package.is_active? or ARGV.force?
+    raise(NonActiveFlavorError) unless package.is_active? or ARGV.force?
 
     ohai('Deactivating')
     package.deactivate!
@@ -39,7 +40,7 @@ class PackageUtils
 
   def self.activate(package_name)
     package = Package.new(package_name, ARGV.first)
-    raise(AlreadyActiveError.new) if Package.new(package_name, false).is_active?
+    raise(AlreadyActiveError) if Package.new(package_name, false).is_active?
 
     ohai('Activating')
     package.activate!
@@ -47,7 +48,7 @@ class PackageUtils
 
   def self.update(package_name)
     package = Package.new(package_name, false)
-    raise(OnlyGitReposCanBeUpdatedError.new) unless package.is_git_repo?
+    raise(OnlyGitReposCanBeUpdatedError) unless package.is_git_repo?
 
     updater = GitUpdateStrategy.new(package_name)
     was_active_before_update = package.is_active?
@@ -78,16 +79,18 @@ class PackageUtils
   end
 end
 
+COMMON_CONFIG_FOLDERS = ['config'].freeze
+
 def traverse_directory(directory, package, &block)
   package_path = package.path
-  whitelisted_folders = package.facts.globbed_folder
+  whitelisted_folders = package.facts.globbed_folder + COMMON_CONFIG_FOLDERS
   Dir.foreach(directory) do |entry|
     next if ['.', '..'].include?(entry)
 
     entry_path = File.join(directory, entry)
-    if File.symlink?(entry_path) and File.readlink(entry_path).include?(package_path)
+    if File.symlink?(entry_path) && File.readlink(entry_path).include?(package_path)
       block.call(entry_path)
-    elsif File.directory?(entry_path) and whitelisted_folders.include?(entry_path)
+    elsif File.directory?(entry_path) && whitelisted_folders.any? { |f| entry_path.include?(f) }
       traverse_directory(entry_path, package, &block)
     end
   end

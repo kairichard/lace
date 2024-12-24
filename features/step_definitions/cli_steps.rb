@@ -18,7 +18,7 @@ Given(/^an installed pkg with flavors named "(.*?)"$/) do |name|
 end
 
 Given(/^I link "(.*?)" to "(.*?)"$/) do |source, destination|
-  FileUtils.ln_s(expand_path(source), expand_path(destination), force: true, verbose: true)
+  FileUtils.ln_s(expand_path(source), expand_path(destination), force: true)
 end
 
 Given(/^an active pkg named "(.*?)"$/) do |pkg_name|
@@ -31,8 +31,8 @@ Given(/^the file named "([^"]*)" has mode "([^"]*)"$/) do |file_name, file_mode|
 end
 
 Then(/^the folder "([^"]*)" should be empty$/) do |folder_name|
-  cd(".") do
-    expect(Dir.glob(File.join(folder_name, "**/*"))).to be_empty
+  cd('.') do
+    expect(Dir.glob(File.join(folder_name, '**/*'))).to be_empty
   end
 end
 
@@ -56,25 +56,25 @@ Given(/^a git-package named "(.*?)" with the following manifest:$/) do |name, ma
   step "a file named \"#{name}/.lace.yml\" with:", manifest
 end
 
-Then(/^I git\-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|
+Then(/^I git-commit "(.*?)" saying "(.*?)"$/) do |dir, commit_msg|
   step "I cd to \"#{dir}\""
-  step "a directory named \".git\" should exist"
-  step "I run `git add .`"
+  step 'a directory named ".git" should exist'
+  step 'I run `git add .`'
   step "I run `git commit -am \'#{commit_msg}\'`"
-  up_dir = dir.gsub(/\b\w+\b/, "..")
+  up_dir = dir.gsub(/\b\w+\b/, '..')
   step "I cd to \"#{up_dir}\""
 end
 
-SIMPLE_LACE = """
+SIMPLE_LACE = "
 ---
 config_files:
   - bashrc
-"""
+".freeze
 
-FLAVORED_LACE = """
+FLAVORED_LACE = "
 ---
 flavors:
   osx:
     config_files:
       - bashrc
-"""
+".freeze
