@@ -1,4 +1,3 @@
-@wip
 Feature: Diffing files 
   As a user I want to see which files have not yet been linked
   This serves more as a means to debug when developing new config files locally

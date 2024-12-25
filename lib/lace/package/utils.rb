@@ -66,7 +66,7 @@ class PackageUtils
     home_dir = Dir.home
     package = Package.new(package_name, ARGV.first)
     config_files = Set.new(package.facts.config_files)
-    files_pointing_to_package = Set.new(symlinks_to_package(package).map { |f| Pathname.new(File.readlink(f)) })
+    files_pointing_to_package = symlinks_to_package(package)
     files_from_manifest_not_in_home = Set.new(config_files.reject do |f|
       f.as_dotfile(home_dir, package.path).exist?
     end)
@@ -76,7 +76,7 @@ class PackageUtils
   def self.symlinks_to_package(package)
     home_dir = Dir.home
     found_links = Set.new
-    traverse_directory(home_dir, package) { |entry| (found_links << entry) }
+    traverse_directory(home_dir, package) { |entry| (found_links << Pathname.new(File.readlink(entry))) }
     found_links
   end
 end
