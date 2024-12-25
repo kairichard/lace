@@ -27,9 +27,9 @@ class PackageUtils
     package = Package.new(package_name, ARGV.first)
     package.activate!
     package.setup
-  rescue FlavorError => e
+  rescue StandardError => e
     onoe(e.message)
-    onoe('Package remains installed but was not activated')
+    odie('Package remains installed but was not activated')
   end
 
   def self.deactivate(package_name)
