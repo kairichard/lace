@@ -170,6 +170,7 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
+  * use the new `diff` to determine if a package is "active?" 
   * add mothership communication which notifies you about changes in the different environments
   * description in lace ls
   * provide name in package it's self
