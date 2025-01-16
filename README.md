@@ -98,6 +98,9 @@ Example usage:
   lace setup <pkg-uri>
   lace setup <pkg-uri> <flavor>
 
+  lace diff <pkg-uri>
+  lace diff <pkg-uri> <flavor>
+
   lace activate <pkg-name>
   lace activate <pkg-name> <flavor>
 
@@ -170,22 +173,23 @@ Once you have tried the above, create a GitHub pull request to notify me of your
 changes.
 
 ## TODO
-  * use the new `diff` to determine if a package is "active?" 
-  * add mothership communication which notifies you about changes in the different environments
-  * description in lace ls
-  * provide name in package it's self
-  * Update without having to deactivate
-    * figure out which is the active flavor
-      * the one with smallest delta of matching to non matching config_files
-    * build the diff between the old and new config
-    * only link the diff
-  * Track events with PStore ?
-  * define a pkg.lace where i can define multiple pkgs to be fetched and setup
-  * Refactor
-    * move hooks away from the package itself into the Utils
-    * hook invocation
-    * validate.rb
-    * facts key access
+
+- [ ] Determine if a package is "active" or partially active using the new `diff`.
+- [ ] Use `diff` to apply/activate changes.
+- [ ] Add mothership communication to notify about changes in different environments.
+- [ ] Add description in `lace ls`.
+- [ ] Provide a name in the package itself.
+- [ ] Allow updates without having to deactivate:
+  - [ ] Determine the active flavor by finding the one with the smallest delta of matching to non-matching config files.
+  - [x] Build the diff between the old and new config.
+  - [ ] Only link the diff.
+- [ ] ---Decide whether to track events with PStore.---
+- [ ] Define a `pkg.lace` to allow multiple packages to be fetched and set up.
+- [ ] Refactor:
+  - [ ] Move hooks away from the package itself into Utils.
+  - [ ] Revise hook invocation.
+  - [ ] Refactor `validate.rb`.
+  - [ ] Refactor facts key access.
 
 License
 --------
